@@ -1,0 +1,12 @@
+{
+  "scope": "Public source only; dependencies, caches, builds and .validation excluded.",
+  "public_files": 738,
+  "high_confidence_findings": [],
+  "machine_path_references": 88,
+  "limitations": [
+    "Pattern matching cannot establish absence of unknown credentials.",
+    "Synthetic test passwords/tokens are intentionally retained.",
+    "Generated index files omit their own hashes to avoid circular checksums.",
+    "private-backups and original private configuration were not inspected."
+  ]
+}

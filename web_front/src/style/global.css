@@ -1,0 +1,155 @@
+:root {
+  /* Main colours */
+  --color-bg: #d7e8f6;
+  --color-card: #ffffff;
+  --color-text: #1e2a44;
+  --color-text-muted: #6b7c99;
+
+  /* Brand colours */
+  --color-primary: #3f7fc1;
+  --color-primary-dark: #2f5f95;
+  --color-primary-soft: #d6e5f7;
+
+  /* Sidebar */
+  --color-sidebar: #1b2740;
+  --color-sidebar-text: #e7eefa;
+
+  /* Status colours */
+  --color-success: #2f9e6b;
+  --color-success-soft: #e2f5ec;
+  --color-warning: #d99a2b;
+  --color-warning-soft: #fdf1dc;
+  --color-danger: #e0503f;
+  --color-danger-soft: #fdeae7;
+
+  --color-border: #dbe6f2;
+  --color-overlay: rgba(15, 23, 42, 0.5);
+
+  /* Shape and shadow */
+  --radius-sm: 10px;
+  --radius: 16px;
+  --radius-lg: 22px;
+  --shadow-card: 0 6px 20px rgba(27, 39, 64, 0.08);
+
+  /* Typography */
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* Layout */
+  --sidebar-width: 260px;
+}
+
+/* Basic reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  width: 100%;
+  min-height: 100%;
+}
+
+body {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  font-family: var(--font-sans);
+  background: var(--color-bg);
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+/* Reusable grids */
+.grid {
+  display: grid;
+  gap: 18px;
+}
+
+.grid-4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.grid-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+/* Shared Welcome, Login and session-screen layout */
+.cg-auth-page {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: 36px 20px;
+  background:
+    radial-gradient(
+      circle at 15% 15%,
+      var(--color-primary-soft),
+      transparent 45%
+    ),
+    var(--color-bg);
+}
+
+.cg-session-message {
+  text-align: center;
+  color: var(--color-text-muted);
+  line-height: 1.7;
+}
+
+/* Responsive styles */
+@media (max-width: 1024px) {
+  .grid-4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 620px) {
+  .grid-4 {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .cg-auth-page {
+    padding: 20px 14px;
+  }
+}

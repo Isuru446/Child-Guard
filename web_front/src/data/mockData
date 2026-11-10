@@ -1,0 +1,698 @@
+// Synthetic demonstration records only; no real child or contact data.
+/* ======================================================
+   Date helpers
+====================================================== */
+
+export function getTodayDate() {
+  const parts = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'Asia/Colombo',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).formatToParts(new Date());
+
+  const part = (type) =>
+    parts.find((item) => item.type === type)?.value;
+
+  return `${part('year')}-${part('month')}-${part('day')}`;
+}
+
+export function addDays(dateKey, amount) {
+  const date = new Date(`${dateKey}T12:00:00Z`);
+  date.setUTCDate(date.getUTCDate() + amount);
+  return date.toISOString().slice(0, 10);
+}
+
+export const STORAGE_KEYS = {
+  children: 'childguard.children',
+  teachers: 'childguard.teachers',
+  devices: 'childguard.devices',
+  buses: 'childguard.buses',
+  alerts: 'childguard.alerts',
+  geofences: 'childguard.geofences',
+  beacons: 'childguard.beacons',
+  requests: 'childguard.requests',
+  attendance: 'childguard.attendance',
+};
+
+const today = getTodayDate();
+
+/* ======================================================
+   Children
+====================================================== */
+
+const childSeeds = [
+  {
+    id: 'STU-001',
+    name: 'Demo Child 1',
+    gradeClass: 'Class A',
+    guardianName: 'Demo Guardian 1',
+    phone: '+1 202 555 0100',
+    address: 'Synthetic campus address',
+    wearableId: 'DEV-101',
+    busId: 'BUS-01',
+    wearableStatus: 'Active',
+    attendanceStatus: 'Present',
+    lat: 6.9271,
+    lng: 79.8612,
+  },
+  {
+    id: 'STU-002',
+    name: 'Demo Child 2',
+    gradeClass: 'Class B',
+    guardianName: 'Demo Guardian 2',
+    phone: '+1 202 555 0100',
+    address: 'Synthetic campus address',
+    wearableId: 'DEV-102',
+    busId: 'BUS-02',
+    wearableStatus: 'Active',
+    attendanceStatus: 'Present',
+    lat: 7.2906,
+    lng: 80.6337,
+  },
+  {
+    id: 'STU-003',
+    name: 'Demo Child 3',
+    gradeClass: 'Class C',
+    guardianName: 'Demo Guardian 3',
+    phone: '+1 202 555 0100',
+    address: 'Synthetic campus address',
+    wearableId: 'DEV-103',
+    busId: 'BUS-01',
+    wearableStatus: 'Inactive',
+    attendanceStatus: 'Present',
+    lat: 6.9147,
+    lng: 79.8777,
+  },
+  {
+    id: 'STU-004',
+    name: 'Demo Child 4',
+    gradeClass: 'Class A',
+    guardianName: 'Demo Guardian 4',
+    phone: '+1 202 555 0100',
+    address: 'Synthetic campus address',
+    wearableId: '',
+    busId: 'BUS-02',
+    wearableStatus: 'Inactive',
+    attendanceStatus: 'Absent',
+    lat: 6.8649,
+    lng: 79.8997,
+  },
+  {
+    id: 'STU-005',
+    name: 'Demo Child 5',
+    gradeClass: 'Class B',
+    guardianName: 'Demo Guardian 5',
+    phone: '+1 202 555 0100',
+    address: 'Synthetic campus address',
+    wearableId: '',
+    busId: 'BUS-03',
+    wearableStatus: 'Inactive',
+    attendanceStatus: 'Present',
+    lat: 6.8511,
+    lng: 79.8651,
+  },
+];
+
+export const initialStudents = childSeeds.map(
+  (child, childIndex) => ({
+    ...child,
+    profilePic: '',
+
+    attendanceWeekly: [
+      'Mon', 'Tue', 'Wed', 'Thu', 'Fri',
+    ].map((label, index) => ({
+      label,
+      percentage: 80 + ((childIndex + index) % 5) * 5,
+    })),
+
+    attendanceMonthly: [
+      'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+    ].map((label, index) => ({
+      label,
+      percentage: 80 + ((childIndex + index) % 5) * 4,
+    })),
+
+    activityPast7Days: [
+      'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun',
+    ].map((day, index) => ({
+      day,
+      activityPct: 60 + ((childIndex + index) % 5) * 7,
+    })),
+  })
+);
+
+/* ======================================================
+   Teachers
+====================================================== */
+
+export const initialTeachers = [
+  {
+    teacherId: 'TCH-001',
+    name: 'Demo Teacher 1',
+    className: 'Class A',
+    phone: '+1 202 555 0100',
+    email: 'demo@example.invalid',
+    address: 'Synthetic campus address',
+    profilePic: '',
+  },
+  {
+    teacherId: 'TCH-002',
+    name: 'Demo Teacher 2',
+    className: 'Class B',
+    phone: '+1 202 555 0100',
+    email: 'demo@example.invalid',
+    address: 'Synthetic campus address',
+    profilePic: '',
+  },
+  {
+    teacherId: 'TCH-003',
+    name: 'Demo Teacher 3',
+    className: 'Class C',
+    phone: '+1 202 555 0100',
+    email: 'demo@example.invalid',
+    address: 'Synthetic campus address',
+    profilePic: '',
+  },
+  {
+    teacherId: 'TCH-004',
+    name: 'Demo Teacher 4',
+    className: 'Nursery Class',
+    phone: '+1 202 555 0100',
+    email: 'demo@example.invalid',
+    address: 'Synthetic campus address',
+    profilePic: '',
+  },
+  {
+    teacherId: 'TCH-005',
+    name: 'Demo Teacher 5',
+    className: 'Kindergarten Class',
+    phone: '+1 202 555 0100',
+    email: 'demo@example.invalid',
+    address: 'Synthetic campus address',
+    profilePic: '',
+  },
+];
+
+/* ======================================================
+   Devices
+====================================================== */
+
+export const initialDevices = initialStudents
+  .slice(0, 3)
+  .map((child, index) => ({
+    id: `DEV-${101 + index}`,
+    childId: child.id,
+    childName: child.name,
+    grade: child.gradeClass,
+    parentName: child.guardianName,
+    parentContact: child.phone,
+    battery: ['85%', '18%', '0%'][index],
+    status: index === 2 ? 'Offline' : 'Connected',
+    tamperStatus: index === 1 ? 'Broken' : 'Intact',
+    lastSync: index === 2 ? '3 hours ago' : '2 mins ago',
+    location: child.address,
+    photo: child.profilePic,
+  }));
+
+/* ======================================================
+   Transport
+====================================================== */
+
+export const initialBuses = [
+  {
+    id: 'BUS-01',
+    routeName: 'Route A - Colombo Fort via Galle Road',
+    driverName: 'Demo Driver 1',
+    driverPhone: '+1 202 555 0100',
+    vehicleNo: 'NC-4521',
+    totalStudents: initialStudents.filter(
+      (child) => child.busId === 'BUS-01'
+    ).length,
+    status: 'Active',
+    currentLocation: 'Bambalapitiya Junction',
+    lat: 6.892,
+    lng: 79.856,
+    operatingDates: [today],
+  },
+  {
+    id: 'BUS-02',
+    routeName: 'Route B - Kandy City Circular',
+    driverName: 'Demo Driver 2',
+    driverPhone: '+1 202 555 0100',
+    vehicleNo: 'WP-KA-8899',
+    totalStudents: initialStudents.filter(
+      (child) => child.busId === 'BUS-02'
+    ).length,
+    status: 'Active',
+    currentLocation: 'Peradeniya Road',
+    lat: 7.2906,
+    lng: 80.6337,
+    operatingDates: [today],
+  },
+  {
+    id: 'BUS-03',
+    routeName: 'Route C - Mount Lavinia Express',
+    driverName: 'Demo Driver 3',
+    driverPhone: '+1 202 555 0100',
+    vehicleNo: 'SP-HG-1122',
+    totalStudents: initialStudents.filter(
+      (child) => child.busId === 'BUS-03'
+    ).length,
+    status: 'Delayed',
+    currentLocation: 'Dehiwala Clock Tower',
+    lat: 6.8511,
+    lng: 79.8657,
+    operatingDates: [today],
+  },
+];
+
+export const transportBuses = initialBuses;
+
+/* ======================================================
+   BLE beacons
+====================================================== */
+
+export const initialBeacons = [
+  {
+    id: 'BCN-01',
+    beaconName: 'Main School Gate',
+    zoneArea: 'Entrance Perimeter',
+    status: 'Active',
+    location: 'Gate 1',
+    lat: 6.9271,
+    lng: 79.8612,
+  },
+  {
+    id: 'BCN-02',
+    beaconName: 'Primary Playground',
+    zoneArea: 'Sports Zone',
+    status: 'Active',
+    location: 'Near Assembly Hall',
+    lat: 6.929,
+    lng: 79.863,
+  },
+  {
+    id: 'BCN-03',
+    beaconName: 'Science Laboratory',
+    zoneArea: 'Indoor Block B',
+    status: 'Inactive',
+    location: 'Floor 2, Science Wing',
+    lat: 6.9255,
+    lng: 79.859,
+  },
+  {
+    id: 'BCN-04',
+    beaconName: 'Library & Study Hall',
+    zoneArea: 'Academic Block A',
+    status: 'Active',
+    location: 'Ground Floor',
+    lat: 6.9265,
+    lng: 79.8605,
+  },
+];
+
+/* ======================================================
+   Geofences
+====================================================== */
+
+export const initialGeofences = [
+  {
+    id: 'GF-01',
+    zoneName: 'Main Campus',
+    zoneType: 'Safe Perimeter',
+    radius: '500 meters',
+    centerCoordinates: '6.9271° N, 79.8612° E',
+    alertOn: 'Exit & Entry',
+    status: 'Active',
+  },
+  {
+    id: 'GF-02',
+    zoneName: 'Playground & Sports Complex',
+    zoneType: 'Restricted Zone',
+    radius: '150 meters',
+    centerCoordinates: '6.9290° N, 79.8630° E',
+    alertOn: 'Exit Only',
+    status: 'Active',
+  },
+  {
+    id: 'GF-03',
+    zoneName: 'Main Highway Buffer',
+    zoneType: 'Danger / Hazard Zone',
+    radius: '300 meters',
+    centerCoordinates: '6.9240° N, 79.8580° E',
+    alertOn: 'Proximity Breach',
+    status: 'Inactive',
+  },
+];
+
+/* ======================================================
+   Alerts
+====================================================== */
+
+const alertSeeds = [
+  {
+    id: 'ALT-501',
+    childIndex: 0,
+    title: 'SOS Emergency Button Pressed',
+    description: 'The wearable emergency button was pressed.',
+    severity: 'high',
+    category: 'SOS',
+    time: '10 mins ago',
+  },
+  {
+    id: 'ALT-502',
+    childIndex: 1,
+    title: 'Geofence Boundary Violation',
+    description:
+      'The child moved outside the designated safe zone.',
+    severity: 'medium',
+    category: 'Geofence',
+    time: '25 mins ago',
+  },
+  {
+    id: 'ALT-503',
+    childIndex: 1,
+    title: 'Low Battery Warning',
+    description: 'The wearable battery is running low.',
+    severity: 'low',
+    category: 'Battery',
+    time: '1 hour ago',
+  },
+  {
+    id: 'ALT-504',
+    childIndex: 4,
+    title: 'Bus Transport Route Delay',
+    description: 'BUS-03 is delayed due to traffic.',
+    severity: 'medium',
+    category: 'Transport',
+    time: '2 hours ago',
+  },
+  {
+    id: 'ALT-505',
+    childIndex: 2,
+    title: 'Safe Zone Entry Confirmed',
+    description: 'The child entered the campus safe zone.',
+    severity: 'low',
+    category: 'SafeZone',
+    time: '3 hours ago',
+  },
+];
+
+export const initialAlerts = alertSeeds.map(
+  ({ childIndex, ...alert }) => {
+    const child = initialStudents[childIndex];
+
+    return {
+      ...alert,
+      studentName: child.name,
+      studentId: child.id,
+      gradeClass: child.gradeClass,
+      busId: child.busId,
+      location: 'Campus',
+      lat: child.lat,
+      lng: child.lng,
+      profilePic: child.profilePic,
+    };
+  }
+);
+
+/* ======================================================
+   Registration requests
+====================================================== */
+
+export const registrationRequests = [
+  {
+    id: 1,
+    name: 'Demo Applicant 1',
+    role: 'Child',
+    details: 'Class A',
+    parentName: 'Demo Guardian 6',
+    parentContact: '+1 202 555 0100',
+    wearableNo: '',
+    requestedDate: '13 Sep 2026',
+    status: 'Pending',
+    rejectReason: '',
+  },
+  {
+    id: 2,
+    name: 'Demo Applicant 2',
+    role: 'Teacher',
+    details: 'Class C',
+    parentName: 'N/A (Teacher)',
+    parentContact: '+1 202 555 0100',
+    wearableNo: 'N/A',
+    requestedDate: '12 Sep 2026',
+    status: 'Pending',
+    rejectReason: '',
+  },
+  {
+    id: 3,
+    name: 'Demo Applicant 3',
+    role: 'Child',
+    details: 'Class A',
+    parentName: 'Demo Guardian 7',
+    parentContact: '+1 202 555 0100',
+    wearableNo: '',
+    requestedDate: '12 Sep 2026',
+    status: 'Pending',
+    rejectReason: '',
+  },
+  {
+    id: 4,
+    name: 'Demo Applicant 4',
+    role: 'Teacher',
+    details: 'Class B',
+    parentName: 'N/A (Teacher)',
+    parentContact: '+1 202 555 0100',
+    wearableNo: 'N/A',
+    requestedDate: '11 Sep 2026',
+    status: 'Pending',
+    rejectReason: '',
+  },
+];
+
+/* ======================================================
+   Authorized pickups
+
+   Fixed demo codes — not real verified OTPs.
+====================================================== */
+
+const pickupDemoCodes = [
+  '482913',
+  '731864',
+  '596207',
+];
+
+const pickupDemoTimes = [
+  '13:30',
+  '13:45',
+  '14:00',
+];
+
+export const initialPickups = initialStudents
+  .slice(0, 3)
+  .map((child, index) => ({
+    id: `PK-${101 + index}`,
+
+    pickupCode: pickupDemoCodes[index],
+    pickupDate: today,
+    pickupTime: pickupDemoTimes[index],
+
+    pickupPersonName: child.guardianName,
+    pickupPersonId:
+      `DEMO-G-${String(index + 1).padStart(3, '0')}`,
+    pickupPersonPhone: child.phone,
+    pickupPersonPhoto: '',
+
+    childId: child.id,
+    childName: child.name,
+    childPhoto: child.profilePic || '',
+
+    guardianName: child.guardianName,
+    guardianPhone: child.phone,
+    address: child.address,
+    wearableId: child.wearableId || '',
+    busId: child.busId || '',
+
+    status: 'Approved',
+    teacherId: initialTeachers[index].teacherId,
+    teacherName: initialTeachers[index].name,
+
+    // Compatibility fields for older imports.
+    className: child.gradeClass,
+    guardianNIC: '',
+    guardianContact: child.phone,
+    photo: '',
+  }));
+
+/* ======================================================
+   Attendance — last 180 days including today
+
+   Every date is an attendance day in this demo.
+====================================================== */
+
+export const initialAttendanceRecords = Array.from(
+  { length: 180 },
+  (_, dayIndex) => {
+    const date = addDays(today, dayIndex - 179);
+
+    return initialStudents.map((child, childIndex) => ({
+      id: `${date}-${child.id}`,
+      date,
+      childId: child.id,
+      status:
+        date === today
+          ? child.attendanceStatus
+          : (dayIndex + childIndex * 2) % 7 === 0
+            ? 'Absent'
+            : 'Present',
+    }));
+  }
+).flat();
+
+/* ======================================================
+   Derived exports used by existing pages
+====================================================== */
+
+export const wearableDeviceSummary = {
+  totalDevices: initialDevices.length,
+
+  onlineDevices: initialDevices.filter(
+    (device) => device.status === 'Connected'
+  ).length,
+
+  offlineDevices: initialDevices.filter(
+    (device) => device.status === 'Offline'
+  ).length,
+
+  needCharging: initialDevices.filter(
+    (device) => Number.parseInt(device.battery, 10) < 20
+  ).length,
+
+  tamperIntact: initialDevices.filter(
+    (device) => device.tamperStatus === 'Intact'
+  ).length,
+
+  tamperBroken: initialDevices.filter(
+    (device) => device.tamperStatus === 'Broken'
+  ).length,
+};
+
+export const dashboardStats = {
+  studentsEnrolled: initialStudents.length,
+  totalTeachers: initialTeachers.length,
+  activeAlerts: initialAlerts.length,
+
+  pendingRequestsCount: registrationRequests.filter(
+    (request) => request.status === 'Pending'
+  ).length,
+
+  wearablesOnline: wearableDeviceSummary.onlineDevices,
+  wearablesOffline: wearableDeviceSummary.offlineDevices,
+  wearablesCharging: wearableDeviceSummary.needCharging,
+  tamperIntact: wearableDeviceSummary.tamperIntact,
+  tamperBroken: wearableDeviceSummary.tamperBroken,
+
+  totalGeofences: initialGeofences.length,
+  totalBeacons: initialBeacons.length,
+
+  activeBeacons: initialBeacons.filter(
+    (beacon) => beacon.status === 'Active'
+  ).length,
+
+  inactiveBeacons: initialBeacons.filter(
+    (beacon) => beacon.status === 'Inactive'
+  ).length,
+};
+
+export const dailyAttendance = Array.from(
+  { length: 7 },
+  (_, index) => {
+    const date = addDays(today, index - 6);
+
+    return {
+      day: date.slice(5),
+      count: initialAttendanceRecords.filter(
+        (record) =>
+          record.date === date &&
+          record.status === 'Present'
+      ).length,
+    };
+  }
+);
+
+export const monthlyAttendance = [
+  ...new Set(
+    initialAttendanceRecords.map(
+      (record) => record.date.slice(0, 7)
+    )
+  ),
+].map((month) => {
+  const records = initialAttendanceRecords.filter(
+    (record) => record.date.startsWith(month)
+  );
+
+  const recordedDays = new Set(
+    records.map((record) => record.date)
+  ).size;
+
+  return {
+    month,
+    count: recordedDays
+      ? Math.round(
+          records.filter(
+            (record) => record.status === 'Present'
+          ).length / recordedDays
+        )
+      : 0,
+  };
+});
+
+const categoryColors = {
+  SOS: '#ef4444',
+  Geofence: '#f59e0b',
+  Battery: '#8b5cf6',
+  Transport: '#0284c7',
+  SafeZone: '#10b981',
+};
+
+export const alertStatistics = {
+  daily: Object.entries(categoryColors).map(
+    ([category, color]) => ({
+      category,
+      color,
+      count: initialAlerts.filter(
+        (alert) => alert.category === category
+      ).length,
+    })
+  ),
+  weekly: [],
+  monthly: [],
+};
+
+export const deviceConnectionData = [
+  {
+    name: 'Online',
+    value: wearableDeviceSummary.onlineDevices,
+    color: '#10b981',
+  },
+  {
+    name: 'Offline',
+    value: wearableDeviceSummary.offlineDevices,
+    color: '#ef4444',
+  },
+];
+
+export const tamperLoopData = [
+  {
+    name: 'Healthy',
+    value: wearableDeviceSummary.tamperIntact,
+    color: '#0284c7',
+  },
+  {
+    name: 'Broken',
+    value: wearableDeviceSummary.tamperBroken,
+    color: '#f97316',
+  },
+];

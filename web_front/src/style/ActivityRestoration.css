@@ -1,0 +1,37 @@
+/* Original attendance chart language for the additional real MAD monitoring page. */
+.activity-page > .ao-panel-header { margin-bottom:0; }
+.activity-page h1 { margin:0; font-size:24px; font-weight:600; }
+.activity-page h2 { font-size:16px; font-weight:600; }
+.activity-page p { color:#64748b; font-size:12px; line-height:1.8; }
+.activity-page .activity-settings { grid-template-columns:repeat(2,minmax(0,1fr)); }
+.activity-page .activity-settings > :is(p,button,label:has(textarea),label:has([type=checkbox])) { grid-column:1/-1; }
+.activity-page .activity-chart { padding:16px 0; background:#fff; border-radius:10px; }
+.activity-page .activity-chart text { font-size:11px; }
+.activity-page .activity-child { font-weight:600; }
+@media(max-width:768px) { .activity-page .activity-settings { grid-template-columns:minmax(0,1fr); } }
+
+.activity-advisory{padding:12px;border:1px solid #edd29b;background:#fff7e5;color:#805500;border-radius:10px}
+.activity-daily h2,.activity-daily-status h3{display:flex;align-items:center;gap:8px}
+.activity-source{display:inline-block;font-size:11px;color:#52677e;background:#edf4fb;padding:4px 9px;border-radius:12px}
+.activity-daily-status{margin:16px 0;padding:14px 16px;background:#eef6fb;border-left:3px solid #1683c7;border-radius:12px}
+.activity-daily-status h3{font-size:18px;margin:0;color:#175887}
+.activity-daily-status.is-lower{background:#fff3f3;border-color:#d84343}
+.activity-daily-status.is-lower h3{color:#b73535}
+.activity-daily-summary{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:16px 0}
+.activity-daily-summary>div{display:flex;flex-direction:column;gap:7px;padding:16px;border:1px solid #e5edf6;border-radius:14px;box-shadow:0 3px 12px #123b7508}
+.activity-daily-summary span,.activity-daily-summary small{font-size:12px;color:#62758a}
+.activity-daily-summary strong{font-size:25px;color:#175887}
+.activity-periods{display:flex;gap:8px;flex-wrap:wrap}
+.activity-periods button{border:1px solid #dce7f3;border-radius:9px;background:#fff;color:#175887;padding:9px 14px;cursor:pointer}
+.activity-periods button[aria-pressed=true]{background:#e6f1fc;border-color:#1683c7;font-weight:600}
+.activity-chart-legend{display:flex;flex-wrap:wrap;gap:12px;font-size:11px;color:#52677e}
+.activity-chart-legend span{display:flex;align-items:center;gap:5px}
+.activity-chart-legend i{width:10px;height:10px;border-radius:3px}
+.activity-key-normal{background:#1683c7}.activity-key-low{background:#d84343}
+.activity-reading-tooltip{background:#fff;border:1px solid #e5edf6;border-radius:10px;padding:10px;font-size:12px}
+.activity-day-list{display:grid;gap:4px;margin-top:10px}
+.activity-day-list button{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;background:transparent;border:1px solid #e5edf6;border-radius:8px;padding:8px;color:inherit;cursor:pointer}
+@media(max-width:480px){.activity-daily-summary{gap:8px}.activity-daily-summary>div{padding:12px}.activity-daily-summary strong{font-size:22px}}
+.activity-daily>[role=group],.activity-daily>.activity-source{margin-bottom:12px}
+.activity-daily [role=alert]{border:1px solid #edd29b;background:#fff7e5;padding:12px;border-radius:10px;margin:12px 0}
+.activity-daily [role=alert] button{border:1px solid #c7d9ed;background:#fff;border-radius:8px;padding:8px 12px;color:#175887;cursor:pointer}

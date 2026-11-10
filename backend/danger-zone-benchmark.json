@@ -1,0 +1,9 @@
+{
+  "fixture": "memory-only policy-qualified ordinary zone entries; HTTP supertest; commit resolution to in-process hub callback; not device/radio/browser/Flutter",
+  "clock": "Node performance.now monotonic",
+  "trials": 20,
+  "minMs": 0.03,
+  "medianMs": 0.037,
+  "p95Ms": 0.048,
+  "maxMs": 0.051
+}

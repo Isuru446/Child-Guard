@@ -1,0 +1,340 @@
+.teacher-page {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 0;
+  min-height: 100vh;
+  background: var(--color-bg, #d7e8f6);
+  color: var(--color-text, #1e2a44);
+  font-family: var(--font-sans, Inter, sans-serif);
+}
+
+.teacher-content {
+  flex: 1;
+  min-width: 0;
+  padding: 24px;
+}
+
+/* Shared StatCard and SearchBar layout */
+
+.teacher-summary-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 20px;
+}
+
+.teacher-summary-card {
+  width: 320px;
+  max-width: 100%;
+  flex-shrink: 0;
+}
+
+.teacher-search-wrapper {
+  flex: 1;
+  min-width: 0;
+  max-width: 500px;
+  margin-left: auto;
+}
+
+/* Table cell content */
+
+.teacher-name {
+  color: var(--color-text, #1e2a44);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+.teacher-avatar {
+  display: block;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border: 2px solid var(--color-primary-soft, #d6e5f7);
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.teacher-avatar--fallback {
+  display: grid;
+  place-items: center;
+  background: var(--color-primary-soft, #d6e5f7);
+  color: var(--color-primary-dark, #2f5f95);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.teacher-contact {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--color-text-muted, #64748b);
+  font-size: 12px;
+}
+
+.teacher-contact svg {
+  flex-shrink: 0;
+  color: var(--color-text-muted, #64748b);
+}
+
+.teacher-contact a {
+  color: var(--color-text, #1e2a44);
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+
+.teacher-contact a:hover {
+  color: var(--color-primary-dark, #2f5f95);
+  text-decoration: underline;
+}
+
+.teacher-contact a:focus-visible {
+  outline: 2px solid var(--color-primary, #3f7fc1);
+  outline-offset: 4px;
+  border-radius: 3px;
+}
+
+/* Modal */
+
+.teacher-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(15, 23, 42, 0.55);
+}
+
+.teacher-modal {
+  width: 100%;
+  max-width: 480px;
+  max-height: calc(100dvh - 40px);
+  overflow-y: auto;
+  padding: 24px;
+  border: 1px solid var(--color-border, #dbe6f2);
+  border-radius: var(--radius, 16px);
+  background: var(--color-card, #ffffff);
+  box-shadow: 0 16px 45px rgba(15, 23, 42, 0.2);
+}
+
+.teacher-modal:focus {
+  outline: none;
+}
+
+.teacher-modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.teacher-modal__header h3 {
+  margin: 0;
+  color: var(--color-text, #1e2a44);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.teacher-modal__close {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  padding: 0;
+  border: none;
+  border-radius: 8px;
+  background: #f1f5f9;
+  color: var(--color-text-muted, #64748b);
+  cursor: pointer;
+}
+
+.teacher-modal__close:hover {
+  background: var(--color-primary-soft, #d6e5f7);
+  color: var(--color-primary-dark, #2f5f95);
+}
+
+/* Edit form */
+
+.teacher-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.teacher-form label {
+  display: block;
+  color: var(--color-text, #1e2a44);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+.teacher-form input {
+  width: 100%;
+  min-height: 42px;
+  margin-top: 7px;
+  padding: 10px 12px;
+  border: 1px solid var(--color-border, #dbe6f2);
+  border-radius: 8px;
+  background: var(--color-card, #ffffff);
+  color: var(--color-text, #1e2a44);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.teacher-form input:focus {
+  border-color: var(--color-primary, #3f7fc1);
+}
+
+.teacher-form-error {
+  margin: 0;
+  padding: 11px 13px;
+  border-radius: 8px;
+  background: var(--color-danger-soft, #fdeae7);
+  color: #b9382c;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+/* Shared modal buttons layout */
+
+.teacher-modal__actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+/* Delete confirmation */
+
+.teacher-delete-modal {
+  max-width: 420px;
+}
+
+.teacher-delete-modal__icon {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  margin: 0 auto 16px;
+  border-radius: 50%;
+  background: var(--color-danger-soft, #fdeae7);
+  color: #dc2626;
+}
+
+.teacher-delete-modal__description {
+  margin: 0 0 20px;
+  color: var(--color-text-muted, #64748b);
+  font-size: 13px;
+  line-height: 1.8;
+  text-align: center;
+}
+
+.teacher-delete-modal__description strong {
+  color: var(--color-text, #1e2a44);
+  font-weight: 600;
+}
+
+.teacher-delete-modal__teacher {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding: 12px;
+  border-radius: 9px;
+  background: #f8fafc;
+}
+
+.teacher-delete-modal__teacher > div {
+  min-width: 0;
+}
+
+.teacher-delete-modal__teacher strong {
+  display: block;
+  color: var(--color-text, #1e2a44);
+  font-size: 13px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.teacher-delete-modal__teacher div > span {
+  display: block;
+  margin-top: 4px;
+  color: var(--color-text-muted, #64748b);
+  font-size: 11px;
+}
+
+/* Keyboard focus */
+
+.teacher-modal button:focus-visible,
+.teacher-form input:focus-visible {
+  outline: 2px solid var(--color-primary, #3f7fc1);
+  outline-offset: 3px;
+}
+
+/* Responsive */
+
+@media (max-width: 900px) {
+  .teacher-summary-card {
+    width: 280px;
+  }
+
+  .teacher-summary-row {
+    gap: 16px;
+  }
+}
+
+@media (max-width: 700px) {
+  .teacher-content {
+    padding: 16px;
+  }
+
+  .teacher-summary-row {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .teacher-summary-card,
+  .teacher-search-wrapper {
+    width: 100%;
+    max-width: none;
+  }
+
+  .teacher-search-wrapper {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .teacher-content {
+    padding: 14px;
+  }
+
+  .teacher-modal-overlay {
+    padding: 14px;
+  }
+
+  .teacher-modal {
+    max-height: calc(100dvh - 28px);
+    padding: 20px;
+  }
+
+  .teacher-modal__actions {
+    align-items: stretch;
+    flex-direction: column-reverse;
+  }
+
+  .teacher-modal__actions > button {
+    width: 100%;
+  }
+}

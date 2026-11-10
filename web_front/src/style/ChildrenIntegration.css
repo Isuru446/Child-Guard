@@ -1,0 +1,22 @@
+/* Reconnect the real child-management workflow to the team's Children.css layout. */
+.cm-container > :is(p,details,.cg-children-panel) { margin-bottom:20px; }
+.cm-container > p { color:#64748b; font-size:12px; line-height:1.8; }
+.cg-children-panel > p { font-size:12px; color:#64748b; line-height:1.8; }
+.cm-toolbar label { flex:1 1 160px; }
+.cm-toolbar label:first-child { flex:2 1 260px; }
+.cm-profile-dialog.registration-modal { max-width:1120px; width:100%; }
+.cg-child-dialog .cm-profile-grid { margin-bottom:20px; }
+.cg-child-dialog .cm-profile-name-row h2 { margin:0; }
+.cm-management-details > h3:not(:first-child) { margin-top:24px; padding-top:18px; border-top:1px solid #e8eef5; }
+.cm-management-details > label { display:grid; gap:7px; margin:14px 0; font-size:12px; }
+.cm-management-details :is(input,select) { width:100%; min-height:40px; padding:9px 12px; border:1px solid #dbe6f2; border-radius:8px; background:white; font:inherit; }
+.cm-management-details > button { margin:6px 8px 6px 0; }
+.cm-management-details li { margin:8px 0; }
+.cm-calendar-day--pending { border-color:#f1d8a6; background:#fff7e6; color:#925f12; }
+.recorded-calendar { margin-top:18px; min-width:0; }
+.recorded-calendar .cm-calendar-day { min-width:0; font-family:inherit; }
+.recorded-calendar button.cm-calendar-day { cursor:pointer; }
+.recorded-calendar small { overflow-wrap:anywhere; text-align:center; }
+.restored-child-chart { min-width:0; margin-top:12px; }
+.cm-attendance-summary > div:nth-child(2) strong { color:#b58124; }
+@media(max-width:768px) { .cm-profile-grid { grid-template-columns:minmax(0,1fr); } .cm-profile-card { align-items:flex-start; gap:14px; } }

@@ -1,0 +1,29 @@
+/* Keep each original safety page's own composition and modal vocabulary. */
+.gf-container > h1,.al-container > h1 { margin:0; font-size:24px; font-weight:600; }
+.gf-container > p,.al-container > p { margin:0; font-size:12px; line-height:1.8; color:#64748b; }
+.gf-configuration-layout { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:20px; align-items:start; }
+.gf-configuration-layout h2,.gf-container .cg-panel h2 { margin:0 0 16px; font-size:16px; font-weight:600; }
+.gf-configuration-layout p,.gf-container .cg-panel p { font-size:12px; color:#64748b; line-height:1.8; }
+.gf-editor fieldset { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
+.gf-editor fieldset > :is(p,button,label:has([type=checkbox])) { grid-column:1/-1; }
+.recorded-location-preview { min-width:0; margin:14px 0; padding:16px; border-radius:10px; background:#eaf2fb; }
+.recorded-location-caption { display:flex; align-items:center; flex-wrap:wrap; gap:10px; color:#2f5f95; font-size:12px; }
+.recorded-location-preview .cg-location-map { margin-top:14px; }
+.al-capabilities { padding:16px 20px; border:1px solid #dbe6f2; border-radius:10px; background:#f8fafc; }
+.al-capabilities summary { cursor:pointer; font-size:12px; font-weight:600; color:#2f5f95; }
+.al-capabilities p { font-size:12px; line-height:1.8; color:#64748b; }
+.al-container .registration-tools { display:flex; flex-wrap:wrap; gap:14px; align-items:flex-end; }
+.al-container .registration-tools label { flex:1 1 160px; }
+.al-container .al-alert-content { min-width:0; overflow-wrap:anywhere; }
+.al-container .al-alert-row { grid-template-columns:auto minmax(0,1fr) auto; }
+.al-container .al-alert-row[data-category=BLE_DANGER],.al-container .al-alert-row[data-category=GEOFENCE] { border-left-color:#e76b5d; }
+.al-container .al-alert-row[data-category=ACTIVITY] { border-left-color:#d99a2b; }
+.al-container .al-alert-time { white-space:normal; max-width:160px; }
+.al-container .al-details-grid { min-width:0; }
+.sz-container .sz-form-group :is(input,select,textarea) { max-width:100%; }
+.sz-container td { overflow-wrap:anywhere; }
+@media(max-width:1024px) { .gf-configuration-layout { grid-template-columns:minmax(0,1fr); } }
+@media(max-width:600px) { .gf-editor fieldset { grid-template-columns:minmax(0,1fr); } .al-container .al-alert-time { grid-column:2; max-width:none; } }
+
+
+.sz-container .sz-form-group select { width:100%; min-height:42px; padding:10px 12px; border:1px solid #cbd5e1; border-radius:8px; background:white; font:inherit; }

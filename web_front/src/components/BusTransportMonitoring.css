@@ -1,0 +1,13 @@
+.bus-monitor{background:#fff;border:1px solid #dce7f0;border-radius:16px;padding:22px;margin:0 0 24px;color:#183e63;min-width:0}
+.bus-monitor__heading,.bus-monitor__session{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.bus-monitor__heading>div:nth-child(2),.bus-monitor__session>div{flex:1;min-width:190px}
+.bus-monitor__heading h2,.bus-monitor__session h3{margin:0 0 6px;font-size:1.15rem}
+.bus-monitor p{font-size:.9rem;line-height:1.5;margin:5px 0;color:#52677c;overflow-wrap:anywhere}
+.bus-monitor__icon{display:grid;place-items:center;background:#eaf4ff;color:#2271b3;width:46px;height:46px;border-radius:12px;flex-shrink:0}
+.bus-monitor__session{margin:18px 0;padding:16px;background:#f6faff;border-radius:12px;border:1px solid #e2ecf6}
+.bus-monitor__table{overflow-x:auto;max-width:100%;margin-top:16px}
+.bus-monitor table{width:100%;border-collapse:collapse;font-size:.88rem;min-width:760px}
+.bus-monitor th,.bus-monitor td{text-align:left;vertical-align:top;padding:12px;border-bottom:1px solid #e2ecf6;line-height:1.7;overflow-wrap:anywhere}
+.bus-monitor th{background:#f1f7fc;color:#173f67}
+.bus-monitor__badge{display:inline-block;border-radius:8px;padding:2px 8px;background:#edf4fc;color:#215e98;font-weight:700}
+@media(max-width:600px){.bus-monitor{padding:16px}.bus-monitor__heading>button,.bus-monitor__session>button{width:100%}}

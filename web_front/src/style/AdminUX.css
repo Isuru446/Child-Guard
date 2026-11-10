@@ -1,0 +1,63 @@
+/* ChildGuard usability refinements. Existing page layouts and brand colors remain authoritative. */
+:root { --cg-ux-focus:#236bb3; --cg-ux-danger:#b42332; --cg-ux-gap:16px; }
+.cg-modal-close { display:inline-flex!important; align-items:center; justify-content:center; flex:0 0 44px; width:44px; height:44px; min-height:44px; padding:0!important; border:1px solid transparent!important; border-radius:10px; background:transparent!important; color:var(--cg-ux-danger)!important; cursor:pointer; box-shadow:none!important; transition:background .15s,border-color .15s; }
+.cg-modal-close:hover:not(:disabled) { background:#fff0f1!important; border-color:#f6cbd1!important; }
+.cg-modal-close:disabled { opacity:.45; cursor:wait; }
+.cg-modal-close:focus-visible,button:focus-visible,summary:focus-visible,a:focus-visible { outline:3px solid var(--cg-ux-focus); outline-offset:3px; }
+.cg-technical { margin-block:16px; padding:0 16px; border:1px solid #dce6f0; border-radius:10px; background:#f8fafc; min-width:0; }
+.cg-technical__body { padding:4px 0 16px; font-size:13px; line-height:1.65; overflow-wrap:anywhere; }
+.cg-dialog-section { border-top:1px solid #e2e8f0; padding-block:20px; min-width:0; }
+.cg-dialog-section h3 { color:#233a58; font-size:17px; margin:0 0 10px; }
+.cg-dialog-section>p { margin:8px 0 14px; color:#475569; line-height:1.6; }
+.cg-dialog-actions { display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top:14px; }
+.cg-important-note { border-left:3px solid #ca8a04; background:#fffbeb; padding:12px 14px; border-radius:6px; color:#754b13; line-height:1.6; }
+[role=dialog] { max-height:min(88dvh,calc(100dvh - 32px)); overflow-y:auto; overscroll-behavior:contain; overflow-wrap:anywhere; }
+[role=dialog] :is(.registration-modal__header,.al-modal-header,.sz-modal-header,.dv-modal-header,.tr-modal-header,.ap-modal-header,.cg-dialog-header) { display:flex; justify-content:space-between; align-items:center; gap:16px; position:sticky; top:-1px; z-index:3; background:white; padding-block:12px; }
+[role=dialog] :is(h2,h3) { line-height:1.35; }
+[role=dialog] :is(input:not([type=checkbox]):not([type=radio]),select,textarea) { min-width:0; max-width:100%; width:100%; min-height:42px; border:1px solid #cbd5e1; background:#fff; color:#24364d; border-radius:8px; padding:10px 12px; font:inherit; }
+[role=dialog] label { display:grid; gap:7px; margin-bottom:14px; font-size:14px; color:#334155; }
+[role=dialog] input[type=checkbox],[role=dialog] input[type=radio] { width:18px; height:18px; accent-color:#2866a2; }
+[role=dialog] :is(input,select,textarea):focus-visible { outline:2px solid var(--cg-ux-focus); outline-offset:2px; }
+[role=dialog] :is(input,select,textarea):disabled { background:#f1f5f9; color:#64748b; cursor:not-allowed; }
+[role=dialog] dl { display:grid; grid-template-columns:minmax(125px,1fr) minmax(0,2fr); gap:10px 18px; margin:14px 0; }
+[role=dialog] dl>div { display:contents; }
+[role=dialog] dt { font-weight:600; color:#475569; }
+[role=dialog] dd { margin:0; min-width:0; overflow-wrap:anywhere; }
+[role=dialog] .cg-form-grid>label { margin:0; }
+.cg-field-help { display:block; color:#526276; font-size:13px; line-height:1.55; margin:4px 0 12px; }
+.cg-data-table__scroll { max-width:100%; overscroll-behavior-x:contain; }
+.cg-data-table__table td { overflow-wrap:break-word; line-height:1.55; }
+.cg-data-table__table th { white-space:nowrap; }
+.cg-page-heading h1 { line-height:1.3; }
+.cg-status { font-size:12px; line-height:1.4; }
+.cg-admin-content,[role=dialog] { min-width:0; }
+.cg-admin-content fieldset { min-width:0; border:1px solid #dce6f0; border-radius:10px; padding:16px; }
+.cg-admin-content legend { padding:0 6px; font-weight:600; }
+.cg-admin-content :is(.registration-tools,.restored-filterbar,.cm-toolbar) { gap:12px; align-items:end; }
+.cg-admin-content .registration-tools>label { min-width:min(170px,100%); flex:1 1 170px; }
+@media(max-width:768px) { [role=dialog] { max-height:calc(100dvh - 20px); padding:18px; } .cg-dialog-actions>* { max-width:100%; } }
+@media(max-width:480px) { [role=dialog] dl { grid-template-columns:1fr; gap:4px; } [role=dialog] dd { margin-bottom:12px; } .cg-form-grid { grid-template-columns:minmax(0,1fr); } .cg-page-actions,.cg-dialog-actions { align-items:stretch; } .cg-admin-content :is(.registration-tools,.restored-filterbar,.cm-toolbar)>* { min-width:0; max-width:100%; } .cg-action-button { white-space:normal; } }
+@media(prefers-reduced-motion:reduce) { .cg-modal-close { transition:none; } }
+
+.dv-badge--near { background:#e8f2fc; color:#205b95; }
+.cg-admin-content :is(.registration-tools,.restored-filterbar,.cm-toolbar,.activity-settings) label { font-size:13px; }
+[role=dialog] summary { min-height:44px; padding-block:12px; cursor:pointer; font-weight:600; }
+@media(max-width:480px) { .cg-admin-content .cg-action-button,[role=dialog] .cg-action-button { min-height:44px; } .cg-technical { padding-inline:12px; } }
+
+.cg-skip-link { position:fixed; top:8px; left:8px; z-index:10000; padding:12px 18px; color:white; background:#174777; border-radius:8px; transform:translateY(-150%); }
+.cg-skip-link:focus { transform:none; }
+.cg-admin-content :is(.registration-tools,.restored-filterbar,.cm-toolbar) select { min-height:42px; }
+
+:is([role=dialog],.cg-admin-content) label:has(>input[type=checkbox]),:is([role=dialog],.cg-admin-content) label:has(>input[type=radio]) { display:flex; align-items:flex-start; gap:10px; }
+
+/* Explicit task sizes replace the old viewport-wide max-width override. */
+[role=dialog][data-dialog-size] { --cg-dialog-width:700px; width:min(var(--cg-dialog-width),calc(100vw - 32px)); max-width:min(var(--cg-dialog-width),calc(100vw - 32px)); max-height:min(88dvh,calc(100dvh - 32px)); flex:none; }
+[role=dialog][data-dialog-size=small] { --cg-dialog-width:460px; }
+[role=dialog][data-dialog-size=large] { --cg-dialog-width:800px; }
+[role=dialog][data-dialog-size=wide] { --cg-dialog-width:900px; }
+@media(max-width:768px) { [role=dialog][data-dialog-size] { width:min(var(--cg-dialog-width),calc(100vw - 24px)); max-width:min(var(--cg-dialog-width),calc(100vw - 24px)); max-height:calc(100dvh - 24px); } }
+
+.cg-technical summary { cursor:pointer; font-weight:600; color:#285a8c; padding:9px 0; min-height:36px; }
+.al-stats-grid:has(> :only-child) { grid-template-columns:minmax(0,320px); }
+.ao-status-key { color:#475569; font-size:13px; }
+.ao-status-key summary { cursor:pointer; padding:8px 0; }

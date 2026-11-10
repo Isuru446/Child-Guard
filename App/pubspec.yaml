@@ -1,0 +1,28 @@
+name: final_project
+description: ChildGuard child pickup safety demo.
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.13.2
+
+dependencies:
+  flutter_map: 8.3.2
+  latlong2: 0.10.1
+  image_picker: 1.1.2
+  http: ^1.6.0
+  flutter_secure_storage: ^10.0.0
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/logo/child_guard_logo.png

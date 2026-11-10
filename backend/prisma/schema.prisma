@@ -1,0 +1,629 @@
+generator client {
+  provider = "prisma-client-js"
+}
+datasource db {
+  provider = "postgresql"
+  url = env("DATABASE_URL")
+}
+enum Role {
+ ADMIN
+ TEACHER
+ PARENT
+ TRANSPORT
+}
+enum AttendanceStatus {
+ NOT_CHECKED_IN
+ CHECKIN_PENDING
+ PRESENT
+ CHECKED_OUT
+  ABSENT
+}
+model Center {
+ rfidReaders RfidReader[]
+ rfidCards RfidCard[]
+ rfidEnrollments RfidEnrollment[]
+ rfidScans RfidScan[]
+ pickupPeople AuthorizedPickupPerson[]
+ pickupPhotos PickupPhoto[]
+ pickupRequests PickupRequest[]
+ authSessions AuthSession[]
+ registrations RegistrationApplication[]
+ invitations CenterInvitation[]
+ enrollmentRequests EnrollmentRequest[]
+ wearableRequests WearableRequest[]
+ id String @id @default(uuid())
+ name String
+ users User[]
+ children Child[]
+ devices Device[]
+ beacons Beacon[]
+ activityPolicy ActivityPolicy?
+ activitySummaries ActivitySummary[]
+ activityIntervals ActivityInterval[]
+ activityDays ActivityDaily[]
+}
+model User {
+ rfidReaders RfidReader[]
+ rfidCards RfidCard[]
+ rfidEnrollments RfidEnrollment[]
+ pickupPeople AuthorizedPickupPerson[]
+ pickupPhotos PickupPhoto[]
+ requestedPickups PickupRequest[] @relation("PickupRequester")
+ verifiedPickups PickupRequest[] @relation("PickupVerifier")
+ reviewedPickups PickupRequest[] @relation("PickupReviewer")
+ authVersion Int @default(0)
+ authSessions AuthSession[]
+ registrationDecisions RegistrationDecision[] @relation("RegistrationDecisionReviewer")
+ profile UserProfile?
+ approvedRegistration RegistrationApplication? @relation("ApprovedAccount")
+ reviewedRegistrations RegistrationApplication[] @relation("RegistrationReviewer")
+ requestedEnrollments EnrollmentRequest[] @relation("EnrollmentOwner")
+ reviewedEnrollments EnrollmentRequest[] @relation("EnrollmentReviewer")
+ requestedWearables WearableRequest[] @relation("WearableOwner")
+ reviewedWearables WearableRequest[] @relation("WearableReviewer")
+ id String @id @default(uuid())
+ username String @unique
+ passwordHash String
+ role Role
+ active Boolean @default(true)
+ centerId String
+ center Center @relation(fields:[centerId], references:[id])
+ guardians Guardian[]
+ confirmations Confirmation[]
+ audits AuditLog[]
+ registeredBeacons Beacon[] @relation("BeaconCreator")
+ updatedBeacons Beacon[] @relation("BeaconEditor")
+}
+// WP02-A ADMIN-only foundation. Mobile session/refresh models are not enabled.
+model AuthSession {
+ id String @id @default(uuid())
+ userId String
+ user User @relation(fields:[userId], references:[id], onDelete:Restrict, onUpdate:Restrict)
+ centerId String
+ center Center @relation(fields:[centerId], references:[id], onDelete:Restrict, onUpdate:Restrict)
+ clientKind String @default("ADMIN_WEB")
+ roleAtLogin Role @default(ADMIN)
+ authVersion Int
+ credentialHash String @unique @db.Char(64)
+ csrfHash String @db.Char(64)
+ createdAt DateTime @default(now()) @db.Timestamptz(3)
+ absoluteExpiresAt DateTime @db.Timestamptz(3)
+ lastActivityAt DateTime @db.Timestamptz(3)
+ idleExpiresAt DateTime @db.Timestamptz(3)
+ revokedAt DateTime? @db.Timestamptz(3)
+ revokeReason String?
+ lastInteractionId String?
+ revision Int @default(0)
+ @@index([userId,revokedAt])
+ @@index([absoluteExpiresAt])
+ @@index([idleExpiresAt])
+ @@index([centerId])
+}
+model Child {
+ rfidCards RfidCard[]
+ rfidEnrollments RfidEnrollment[]
+ pickupPeople AuthorizedPickupPerson[]
+ pickupPhotos PickupPhoto[]
+ pickupRequests PickupRequest[]
+ dateOfBirth DateTime? @db.Date
+ groupName String?
+ enrollmentRequests EnrollmentRequest[]
+ wearableRequests WearableRequest[]
+ id String @id @default(uuid())
+ name String
+ centerId String
+ center Center @relation(fields:[centerId], references:[id])
+ guardians Guardian[]
+ assignments Assignment[]
+ events DeviceEvent[]
+ attendance Attendance[]
+ activitySummaries ActivitySummary[]
+ activityIntervals ActivityInterval[]
+ activityDays ActivityDaily[]
+}
+model Guardian {
+ userId String
+ childId String
+ user User @relation(fields:[userId], references:[id])
+ child Child @relation(fields:[childId], references:[id])
+ @@id([userId,childId])
+}
+model Device {
+ claimCodes DeviceClaimCode[]
+ id String @id @default(uuid())
+ hardwareId String @unique
+ tokenHash String
+ active Boolean @default(true)
+ centerId String
+ center Center @relation(fields:[centerId], references:[id])
+ lastSeen DateTime? @db.Timestamptz(3)
+ assignments Assignment[]
+ events DeviceEvent[]
+ activityBoots ActivityBoot[]
+ activitySummaries ActivitySummary[]
+}
+model Assignment {
+ id String @id @default(uuid())
+ deviceId String
+ childId String
+ device Device @relation(fields:[deviceId], references:[id])
+ child Child @relation(fields:[childId], references:[id])
+ startedAt DateTime @default(now()) @db.Timestamptz(3)
+ endedAt DateTime? @db.Timestamptz(3)
+ @@index([deviceId,endedAt])
+}
+model Beacon {
+ id String @id @default(uuid())
+ hardwareId String @unique
+ centerId String
+ kind String @default("GATE")
+ serviceUuid String? @unique
+ name String @default("")
+ location String @default("")
+ description String @default("")
+ active Boolean @default(true)
+ entryRssi Float @default(-63)
+ exitRssi Float @default(-69)
+ attendanceRssi Float? @default(-55)
+ createdAt DateTime @default(now()) @db.Timestamptz(3)
+ updatedAt DateTime @default(now()) @updatedAt @db.Timestamptz(3)
+ createdById String?
+ updatedById String?
+ createdBy User? @relation("BeaconCreator", fields:[createdById], references:[id])
+ updatedBy User? @relation("BeaconEditor", fields:[updatedById], references:[id])
+ center Center @relation(fields:[centerId], references:[id])
+ events DeviceEvent[]
+ @@index([centerId,active])
+}
+model DeviceEvent {
+ id String @id @default(uuid())
+ eventId String @unique
+ eventType String
+ deviceId String
+ childId String?
+ beaconId String?
+ device Device @relation(fields:[deviceId], references:[id])
+ child Child? @relation(fields:[childId], references:[id])
+ beacon Beacon? @relation(fields:[beaconId], references:[id])
+ receivedAt DateTime @default(now()) @db.Timestamptz(3)
+ deviceUptimeMs BigInt
+ observedAt DateTime? @db.Timestamptz(3)
+ payload Json
+ observations Observation[]
+ alerts Alert[]
+ activitySummary ActivitySummary?
+ @@index([deviceId,receivedAt])
+ @@index([deviceId,eventType,receivedAt])
+ @@index([deviceId,beaconId,eventType,observedAt])
+ @@index([beaconId,eventType,observedAt])
+}
+model Attendance {
+ rfidScans RfidScan[]
+ id String @id @default(uuid())
+ childId String
+ child Child @relation(fields:[childId], references:[id])
+ day String
+ status AttendanceStatus @default(NOT_CHECKED_IN)
+ gatePassAuthorized Boolean @default(false)
+ observations Observation[]
+ confirmations Confirmation[]
+ activitySessions ActivityAttendanceSession[]
+ @@unique([childId,day])
+}
+model Observation {
+ id String @id @default(uuid())
+ attendanceId String
+ eventId String @unique
+ attendance Attendance @relation(fields:[attendanceId], references:[id])
+ event DeviceEvent @relation(fields:[eventId], references:[id])
+}
+model Confirmation {
+ id String @id @default(uuid())
+ attendanceId String @unique
+ userId String?
+ method String @default("TEACHER")
+ readerId String?
+ reader RfidReader? @relation(fields:[readerId],references:[id],onDelete:Restrict)
+ rfidCardId String?
+ rfidCard RfidCard? @relation(fields:[rfidCardId],references:[id],onDelete:Restrict)
+ rfidScanId String? @unique
+ rfidScan RfidScan? @relation(fields:[rfidScanId],references:[id],onDelete:Restrict)
+ attendance Attendance @relation(fields:[attendanceId], references:[id])
+ user User? @relation(fields:[userId], references:[id])
+ confirmedAt DateTime @default(now()) @db.Timestamptz(3)
+}
+model Alert {
+ id String @id @default(uuid())
+ eventId String
+ event DeviceEvent @relation(fields:[eventId], references:[id])
+ kind String
+ activityDedupKey String? @unique
+ details Json?
+ createdAt DateTime @default(now()) @db.Timestamptz(3)
+}
+model AuditLog {
+ id String @id @default(uuid())
+ userId String
+ user User @relation(fields:[userId], references:[id])
+ action String
+ resourceId String
+ createdAt DateTime @default(now()) @db.Timestamptz(3)
+}
+
+model ActivityPolicy {
+ centerId String @id
+ center Center @relation(fields:[centerId],references:[id])
+ settings Json
+ updatedAt DateTime @default(now()) @updatedAt @db.Timestamptz(3)
+}
+model ActivityAttendanceSession {
+ id String @id @default(uuid())
+ attendanceId String
+ attendance Attendance @relation(fields:[attendanceId],references:[id])
+ startedAt DateTime @db.Timestamptz(3)
+ endedAt DateTime? @db.Timestamptz(3)
+ lastObservedAt DateTime? @db.Timestamptz(3)
+ summaries ActivitySummary[]
+ @@unique([attendanceId,startedAt])
+ @@index([attendanceId,endedAt])
+}
+model ActivityBoot {
+ id String @id @default(uuid())
+ deviceId String
+ device Device @relation(fields:[deviceId],references:[id])
+ sessionId String
+ anchorUptimeMs BigInt
+ anchorAt DateTime @db.Timestamptz(3)
+ createdAt DateTime @default(now()) @db.Timestamptz(3)
+ @@unique([deviceId,sessionId])
+}
+model ActivitySummary {
+ id String @id @default(uuid())
+ eventId String @unique
+ event DeviceEvent @relation(fields:[eventId],references:[id])
+ childId String
+ child Child @relation(fields:[childId],references:[id])
+ deviceId String
+ device Device @relation(fields:[deviceId],references:[id])
+ centerId String
+ center Center @relation(fields:[centerId],references:[id])
+ attendanceSessionId String?
+ attendanceSession ActivityAttendanceSession? @relation(fields:[attendanceSessionId],references:[id])
+ sessionId String
+ sequence Int
+ measurementVersion String
+ timezone String
+ day String
+ startAt DateTime @db.Timestamptz(3)
+ endAt DateTime @db.Timestamptz(3)
+ movementIntensity Float?
+ validSampleCount Int
+ expectedSampleCount Int
+ validDurationSeconds Float
+ sensorStatus String
+ eligible Boolean
+ createdAt DateTime @default(now()) @db.Timestamptz(3)
+ @@unique([deviceId,sessionId,sequence])
+ @@index([childId,startAt])
+ @@index([centerId,day])
+ @@index([deviceId,endAt])
+}
+model ActivityInterval {
+ childId String
+ child Child @relation(fields:[childId],references:[id])
+ centerId String
+ center Center @relation(fields:[centerId],references:[id])
+ day String
+ startMinute Int
+ timezone String
+ measurementVersion String
+ utcStart DateTime @db.Timestamptz(3)
+ clockAmbiguous Boolean @default(false)
+ movementIntegral Float @default(0)
+ validSeconds Float @default(0)
+ observedSeconds Float @default(0)
+ createdAt DateTime @default(now()) @db.Timestamptz(3)
+ updatedAt DateTime @default(now()) @updatedAt @db.Timestamptz(3)
+ @@id([childId,day,startMinute,timezone,measurementVersion])
+ @@index([centerId,day])
+}
+model ActivityDaily {
+ childId String
+ child Child @relation(fields:[childId],references:[id])
+ centerId String
+ center Center @relation(fields:[centerId],references:[id])
+ day String
+ timezone String
+ measurementVersion String
+ movementIntegral Float @default(0)
+ validSeconds Float @default(0)
+ observedSeconds Float @default(0)
+ createdAt DateTime @default(now()) @db.Timestamptz(3)
+ updatedAt DateTime @default(now()) @updatedAt @db.Timestamptz(3)
+ @@id([childId,day,timezone,measurementVersion])
+ @@index([centerId,day])
+}
+
+
+enum ReviewStatus {
+ PENDING
+ APPROVED
+ REJECTED
+}
+model UserProfile {
+ userId String @id
+ user User @relation(fields:[userId],references:[id])
+ fullName String
+ email String @unique
+ phone String
+ emergencyContacts Json @default("[]")
+ photo PrivatePhoto?
+ updatedAt DateTime @default(now()) @updatedAt @db.Timestamptz(3)
+}
+model CenterInvitation {
+ id String @id @default(uuid())
+ centerId String
+ center Center @relation(fields:[centerId],references:[id])
+ codeHash String @unique
+ expiresAt DateTime @db.Timestamptz(3)
+ createdAt DateTime @default(now()) @db.Timestamptz(3)
+}
+model RegistrationApplication {
+ id String @id @default(uuid())
+ receiptHash String @unique
+ payloadHash String
+ username String @unique
+ email String @unique
+ fullName String
+ phone String
+ passwordHash String?
+ role Role
+ centerId String
+ center Center @relation(fields:[centerId],references:[id])
+ status ReviewStatus @default(PENDING)
+ termsVersion String
+ createdAt DateTime @default(now()) @db.Timestamptz(3)
+ updatedAt DateTime @default(now()) @updatedAt @db.Timestamptz(3)
+ reviewedAt DateTime? @db.Timestamptz(3)
+ reviewerId String?
+ reviewer User? @relation("RegistrationReviewer",fields:[reviewerId],references:[id])
+ reason String?
+ userId String? @unique
+ user User? @relation("ApprovedAccount",fields:[userId],references:[id])
+ children EnrollmentRequest[]
+ photo PrivatePhoto?
+ decisions RegistrationDecision[]
+ @@index([centerId,status,createdAt])
+}
+model RegistrationDecision {
+ id String @id @default(uuid())
+ applicationId String
+ application RegistrationApplication @relation(fields:[applicationId],references:[id])
+ status ReviewStatus
+ reviewerId String
+ reviewer User @relation("RegistrationDecisionReviewer",fields:[reviewerId],references:[id])
+ reason String?
+ createdAt DateTime @default(now()) @db.Timestamptz(3)
+}
+model EnrollmentRequest {
+ id String @id @default(uuid())
+ applicationId String?
+ application RegistrationApplication? @relation(fields:[applicationId],references:[id])
+ userId String?
+ user User? @relation("EnrollmentOwner",fields:[userId],references:[id])
+ centerId String
+ center Center @relation(fields:[centerId],references:[id])
+ existingChildId String?
+ fullName String?
+ dateOfBirth DateTime? @db.Date
+ groupName String?
+ relationship String
+ childId String?
+ child Child? @relation(fields:[childId],references:[id])
+ status ReviewStatus @default(PENDING)
+ reviewerId String?
+ reviewer User? @relation("EnrollmentReviewer",fields:[reviewerId],references:[id])
+ reviewedAt DateTime? @db.Timestamptz(3)
+ reason String?
+ createdAt DateTime @default(now()) @db.Timestamptz(3)
+ wearable WearableRequest?
+ @@index([centerId,status])
+}
+model DeviceClaimCode {
+ id String @id @default(uuid())
+ deviceId String
+ device Device @relation(fields:[deviceId],references:[id])
+ codeHash String @unique
+ expiresAt DateTime @db.Timestamptz(3)
+ consumedAt DateTime? @db.Timestamptz(3)
+ createdAt DateTime @default(now()) @db.Timestamptz(3)
+}
+model WearableRequest {
+ id String @id @default(uuid())
+ enrollmentId String? @unique
+ enrollment EnrollmentRequest? @relation(fields:[enrollmentId],references:[id])
+ userId String?
+ user User? @relation("WearableOwner",fields:[userId],references:[id])
+ childId String?
+ child Child? @relation(fields:[childId],references:[id])
+ centerId String
+ center Center @relation(fields:[centerId],references:[id])
+ hardwareId String
+ claimHash String
+ status ReviewStatus @default(PENDING)
+ reviewerId String?
+ reviewer User? @relation("WearableReviewer",fields:[reviewerId],references:[id])
+ reviewedAt DateTime? @db.Timestamptz(3)
+ reason String?
+ createdAt DateTime @default(now()) @db.Timestamptz(3)
+ @@index([centerId,status])
+}
+model PrivatePhoto {
+ id String @id @default(uuid())
+ applicationId String? @unique
+ application RegistrationApplication? @relation(fields:[applicationId],references:[id])
+ userId String? @unique
+ profile UserProfile? @relation(fields:[userId],references:[userId])
+ mime String
+ storageKey String @unique
+ size Int
+ createdAt DateTime @default(now()) @db.Timestamptz(3)
+}
+
+// Separate from Guardian: a pickup person never receives app access.
+model PickupPhoto {
+ id String @id @default(uuid())
+ childId String
+ child Child @relation(fields:[childId],references:[id],onDelete:Restrict)
+ centerId String
+ center Center @relation(fields:[centerId],references:[id],onDelete:Restrict)
+ uploadedById String
+ uploadedBy User @relation(fields:[uploadedById],references:[id],onDelete:Restrict)
+ mime String
+ bytes Bytes
+ createdAt DateTime @default(now()) @db.Timestamptz(3)
+ people AuthorizedPickupPerson[]
+ requests PickupRequest[]
+ @@index([childId])
+}
+model AuthorizedPickupPerson {
+ id String @id @default(uuid())
+ childId String
+ child Child @relation(fields:[childId],references:[id],onDelete:Restrict)
+ centerId String
+ center Center @relation(fields:[centerId],references:[id],onDelete:Restrict)
+ createdById String
+ createdBy User @relation(fields:[createdById],references:[id],onDelete:Restrict)
+ fullName String
+ address String
+ phone String
+ relationship String?
+ photoId String
+ photo PickupPhoto @relation(fields:[photoId],references:[id],onDelete:Restrict)
+ active Boolean @default(true)
+ createdAt DateTime @default(now()) @db.Timestamptz(3)
+ updatedAt DateTime @default(now()) @updatedAt @db.Timestamptz(3)
+ requests PickupRequest[]
+ @@index([childId,active])
+}
+model PickupRequest {
+ id String @id @default(uuid())
+ childId String
+ child Child @relation(fields:[childId],references:[id],onDelete:Restrict)
+ centerId String
+ center Center @relation(fields:[centerId],references:[id],onDelete:Restrict)
+ personId String
+ person AuthorizedPickupPerson @relation(fields:[personId],references:[id],onDelete:Restrict)
+ requestedById String
+ requestedBy User @relation("PickupRequester",fields:[requestedById],references:[id],onDelete:Restrict)
+ photoId String
+ photo PickupPhoto @relation(fields:[photoId],references:[id],onDelete:Restrict)
+ snapshot Json
+ day String
+ windowStart DateTime @db.Timestamptz(3)
+ windowEnd DateTime @db.Timestamptz(3)
+ expiresAt DateTime @db.Timestamptz(3)
+ status String @default("PENDING")
+ codeHash String? @db.Char(64)
+ codeSalt String?
+ attempts Int @default(0)
+ codeIssues Int @default(1)
+ verifiedById String?
+ verifiedBy User? @relation("PickupVerifier",fields:[verifiedById],references:[id],onDelete:Restrict)
+ verifiedAt DateTime? @db.Timestamptz(3)
+ handoverHash String? @db.Char(64)
+ handoverExpiresAt DateTime? @db.Timestamptz(3)
+ reviewedById String?
+ reviewedBy User? @relation("PickupReviewer",fields:[reviewedById],references:[id],onDelete:Restrict)
+ completedAt DateTime? @db.Timestamptz(3)
+ reason String?
+ createdAt DateTime @default(now()) @db.Timestamptz(3)
+ @@index([centerId,createdAt])
+ @@index([childId,day])
+}
+
+// Supervised UID-only attendance credentials, separate from child wearables.
+model RfidReader {
+ id String @id @default(uuid())
+ hardwareId String @unique
+ tokenHash String @unique @db.Char(64)
+ centerId String
+ center Center @relation(fields:[centerId],references:[id],onDelete:Restrict)
+ active Boolean @default(true)
+ modeVersion Int @default(0)
+ startMinute Int
+ endMinute Int
+ lastSeen DateTime? @db.Timestamptz(3)
+ createdById String
+ createdBy User @relation(fields:[createdById],references:[id],onDelete:Restrict)
+ createdAt DateTime @default(now()) @db.Timestamptz(3)
+ enrollments RfidEnrollment[]
+ cards RfidCard[]
+ scans RfidScan[]
+ confirmations Confirmation[]
+ @@index([centerId,active])
+}
+model RfidCard {
+ scans RfidScan[]
+ id String @id @default(uuid())
+ uidHash String @db.Char(64)
+ uidLength Int
+ maskedUid String
+ childId String
+ child Child @relation(fields:[childId],references:[id],onDelete:Restrict)
+ centerId String
+ center Center @relation(fields:[centerId],references:[id],onDelete:Restrict)
+ status String @default("ACTIVE")
+ issuedById String
+ issuedBy User @relation(fields:[issuedById],references:[id],onDelete:Restrict)
+ readerId String
+ reader RfidReader @relation(fields:[readerId],references:[id],onDelete:Restrict)
+ issuedAt DateTime @default(now()) @db.Timestamptz(3)
+ revokedAt DateTime? @db.Timestamptz(3)
+ reason String?
+ confirmations Confirmation[]
+ @@index([childId,issuedAt])
+ @@index([uidHash])
+ // ACTIVE child/UID partial unique indexes are in the staged SQL migration.
+}
+model RfidEnrollment {
+ id String @id @default(uuid())
+ readerId String
+ reader RfidReader @relation(fields:[readerId],references:[id],onDelete:Restrict)
+ childId String
+ child Child @relation(fields:[childId],references:[id],onDelete:Restrict)
+ centerId String
+ center Center @relation(fields:[centerId],references:[id],onDelete:Restrict)
+ issuedById String
+ issuedBy User @relation(fields:[issuedById],references:[id],onDelete:Restrict)
+ expectedCardId String?
+ status String @default("PENDING")
+ expiresAt DateTime @db.Timestamptz(3)
+ createdAt DateTime @default(now()) @db.Timestamptz(3)
+ resultCardId String?
+ @@index([childId,createdAt])
+}
+model RfidScan {
+ id String @id @default(uuid())
+ eventId String @unique
+ actorType String @default("AUTHENTICATED_RFID_READER")
+ readerId String
+ reader RfidReader @relation(fields:[readerId],references:[id],onDelete:Restrict)
+ centerId String
+ center Center @relation(fields:[centerId],references:[id],onDelete:Restrict)
+ readerBootId String
+ scanSequence Int
+ modeVersion Int
+ uidHash String @db.Char(64)
+ enrollmentId String?
+ attendanceId String?
+ attendance Attendance? @relation(fields:[attendanceId],references:[id],onDelete:Restrict)
+ cardId String?
+ card RfidCard? @relation(fields:[cardId],references:[id],onDelete:Restrict)
+ result String
+ changed Boolean @default(false)
+ receivedAt DateTime @default(now()) @db.Timestamptz(3)
+ confirmation Confirmation?
+ @@unique([readerId,readerBootId,scanSequence])
+ @@index([centerId,receivedAt])
+}

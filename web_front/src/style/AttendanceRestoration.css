@@ -1,0 +1,27 @@
+/* Original AttendanceOverview panels, adapted to truthful V2 states. */
+.attendance-content .ao-scope { margin:0; color:#203c60; font-size:17px; line-height:1.4; }
+.restored-attendance-charts .cg-chart-canvas { height:300px; min-width:0; width:100%; }
+.restored-attendance-charts .ao-pie-panel .cg-chart-canvas { height:200px; }
+.cg-chart-legend { display:flex; flex-wrap:wrap; gap:8px 16px; padding:12px 0; list-style:none; font-size:11px; }
+.restored-attendance-charts .ao-pie-panel .cg-chart-legend { display:grid; }
+.cg-chart-legend li { display:flex; align-items:center; gap:7px; }
+.cg-chart-dot { width:9px; height:9px; flex:none; border-radius:3px; background:var(--chart-color); }
+.cg-chart-tooltip { padding:12px; background:white; border:1px solid #dbe6f2; border-radius:9px; box-shadow:var(--shadow-card); font-size:12px; }
+.cg-chart-empty { min-height:180px; display:grid; place-items:center; color:#64748b; font-size:12px; text-align:center; }
+.attendance-content > :is(.cg-panel,.ao-panel) .cg-chart-canvas { min-height:260px; }
+.attendance-content .cg-panel h2 { margin:0; font-size:16px; font-weight:600; }
+.attendance-content .ao-panel-header h3 { display:flex; align-items:center; gap:8px; }
+.restored-attendance-children { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; max-height:430px; overflow-y:auto; margin-top:18px; }
+.restored-attendance-children .ao-child { text-align:left; }
+.attendance-content .ao-report { display:block; }
+.attendance-content .ao-report .ao-panel-header { margin-bottom:8px; }
+.attendance-content > h1,.activity-page h1 { margin:0; font-size:24px; font-weight:600; }
+.attendance-content > p { margin:0; font-size:12px; line-height:1.8; color:#64748b; }
+@media(max-width:1100px) { .restored-attendance-children { grid-template-columns:minmax(0,1fr); } }
+@media(max-width:768px) { .attendance-content .registration-tools { align-items:stretch; } .attendance-content .registration-tools label { width:100%; } }
+@media(max-width:480px) { .attendance-content .ao-stats { grid-template-columns:minmax(0,1fr); } .attendance-content .ao-stats > * { grid-column:auto; } }
+
+.attendance-content .cg-chart-canvas { height:280px; min-width:0; }
+
+.cm-calendar-day--absent { background: #fff1f1; border-color: #f5cccc; color: #a63232; }
+.cm-calendar-day--checked-out { background: #edf4ff; border-color: #cddff4; color: #244c80; }

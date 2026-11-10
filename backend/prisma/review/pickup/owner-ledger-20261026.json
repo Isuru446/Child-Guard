@@ -1,0 +1,11 @@
+[
+  {"migration_name":"202610190001_phase1","checksum":"558509edb058d17c39d59eb25b00e8d494986c8f48bbb792e7c29b707af5990f","finished":true,"rolled_back":false,"applied_steps_count":1},
+  {"migration_name":"202610190002_constraints","checksum":"ec07e4d242b912c03712c5f7f67081da1c938d2d7d1658c15c5be7932f90cd07","finished":true,"rolled_back":false,"applied_steps_count":1},
+  {"migration_name":"202610210001_ble_proximity","checksum":"78b9537d308fb1e919f0446d97f3571c53182f181bce6659657a0af0d33ec3f4","finished":true,"rolled_back":false,"applied_steps_count":1},
+  {"migration_name":"202610220001_multi_beacon","checksum":"524aa22cfac44a7434ac900feeac2ae9262230505e96ce10d6cd125cd1d102c7","finished":true,"rolled_back":false,"applied_steps_count":1},
+  {"migration_name":"202610230001_personal_activity","checksum":"6bd9b95f2c5b707ca6a6c83b4c4fbe5b4eeeb0db5c6dfb13278283297bc0c527","finished":true,"rolled_back":false,"applied_steps_count":1},
+  {"migration_name":"202610240001_registration_review","checksum":"ffc15c752473e5e7ac064a3c4429eb29b3b9b87cc30f3ec18de9884f2ea8fed4","finished":true,"rolled_back":false,"applied_steps_count":1},
+  {"migration_name":"202610240002_registration_invariants","checksum":"d7aad501eff8c74c82842a0042bb32bb57d9ff54435cebe020c949990ef517a0","finished":true,"rolled_back":false,"applied_steps_count":1},
+  {"migration_name":"202610250001_admin_session_foundation","checksum":"d282437ba93dc8491c067e9c02a2202d161693a5a9601e0e127c35d45f94d2e7","finished":true,"rolled_back":false,"applied_steps_count":1},
+  {"migration_name":"202610250002_prototype_geofence","checksum":"976129bbd79152a9a8ee059bc61d228a9630ac23c1d3bc814c3a5fe1c9bfedae","finished":true,"rolled_back":false,"applied_steps_count":1}
+]

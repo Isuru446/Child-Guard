@@ -1,0 +1,243 @@
+.admin-sidebar {
+  --sidebar-background: rgb(6, 16, 48);
+  --sidebar-hover: rgba(255, 255, 255, 0.12);
+  --sidebar-active: var(--color-primary-dark);
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  width: var(--sidebar-width, 260px);
+  height: 100vh;
+  height: 100dvh;
+  padding: 24px 12px 16px;
+
+  background: var(--sidebar-background);
+  color: #ffffff;
+  font-family: var(--font-sans);
+  box-shadow: 4px 0 18px rgba(27, 39, 64, 0.12);
+
+  transform: translateX(0);
+  transition: transform 0.3s ease;
+}
+
+.admin-sidebar__top {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+/* Logo and brand */
+
+.admin-sidebar__header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+
+  padding: 0 8px 22px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.admin-sidebar__logo {
+  display: block;
+  width: 70px;
+  height: 70px;
+  flex-shrink: 0;
+  padding: 3px;
+
+  
+}
+
+.admin-sidebar__brand {
+  min-width: 0;
+}
+
+.admin-sidebar__title {
+  margin: 0;
+  color: #ffffff;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.7px;
+  white-space: nowrap;
+}
+
+.admin-sidebar__title span {
+  color: #ffffff;
+}
+
+.admin-sidebar__tagline {
+  margin: 6px 0 0;
+  color: #ffffff;
+  font-size: 9px;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+.admin-sidebar__admin-label {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 3px 8px;
+
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+
+  font-size: 9px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+/* Navigation */
+
+.admin-sidebar__nav {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex: 1;
+  min-height: 0;
+
+  margin-top: 20px;
+  padding-right: 3px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+
+  scrollbar-width: thin;
+  scrollbar-color:
+    rgba(255, 255, 255, 0.35)
+    transparent;
+}
+
+.admin-sidebar__link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+
+  min-height: 46px;
+  padding: 12px 14px;
+
+  border-radius: 9px;
+  background: transparent;
+  color: #ffffff;
+  text-decoration: none;
+
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.5;
+
+  transition:
+    background-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.admin-sidebar__link:hover {
+  background: var(--sidebar-hover);
+}
+
+.admin-sidebar__link--active {
+  background: var(--sidebar-active);
+  color: #ffffff;
+  font-weight: 600;
+  box-shadow: 0 3px 10px rgba(27, 39, 64, 0.12);
+}
+
+.admin-sidebar__link--active:hover {
+  background: var(--sidebar-active);
+}
+
+.admin-sidebar__link:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: -2px;
+}
+
+.admin-sidebar__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  flex-shrink: 0;
+}
+
+
+/* Scrollbar */
+
+.admin-sidebar__nav::-webkit-scrollbar {
+  width: 4px;
+}
+
+.admin-sidebar__nav::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.admin-sidebar__nav::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.35);
+}
+
+/* Logout */
+
+.admin-sidebar__logout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-shrink: 0;
+
+  width: 100%;
+  min-height: 44px;
+  padding: 12px 16px;
+
+  border: none;
+  border-radius: 9px;
+  background: #a52525;
+  color: #ffffff;
+
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.admin-sidebar__logout:hover {
+  background: #b91c1c;
+}
+
+.admin-sidebar__logout:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .admin-sidebar__logout {
+    transition: none;
+  }
+}
+
+/* Mobile sidebar */
+
+@media (max-width: 1024px) {
+  .admin-sidebar {
+    transform: translateX(-100%);
+    box-shadow: 6px 0 20px rgba(27, 39, 64, 0.2);
+  }
+
+  .admin-sidebar.admin-sidebar--open {
+    transform: translateX(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .admin-sidebar,
+  .admin-sidebar__link {
+    transition: none;
+  }
+}

@@ -1,0 +1,42 @@
+/* RFID reader body only; disclosure card/header styles are shared. */
+.rfid-readers__body { min-width:0; padding:20px; border-top:1px solid var(--color-border,#dce5ef); display:grid; gap:20px; }
+.rfid-readers__body h3 { display:flex; gap:8px; align-items:center; margin:0 0 12px; font-size:14px; font-weight:600; line-height:1.5; }
+.rfid-readers__body h3 svg { flex-shrink:0; color:var(--color-primary,#2878c3); }
+.rfid-readers__registered,.rfid-readers__list { display:grid; gap:12px; }
+.rfid-reader-card { display:flex; align-items:center; justify-content:space-between; gap:20px; padding:16px; border:1px solid var(--color-border,#dce5ef); border-radius:10px; background:var(--color-card,#fff); min-width:0; }
+.rfid-reader-card__details { flex:1; min-width:0; display:grid; gap:9px; }
+.rfid-reader-card h4 { margin:0; font-size:14px; font-weight:600; line-height:1.5; overflow-wrap:anywhere; }
+.rfid-reader-card__badges { display:flex; flex-wrap:wrap; align-items:center; gap:6px; }
+.rfid-reader-card__time { display:flex; align-items:flex-start; gap:7px; margin:10px 0 0; font-size:12px; line-height:1.6; color:var(--color-muted,#64748b); overflow-wrap:anywhere; }
+.rfid-reader-card__time svg { flex-shrink:0; margin-top:2px; }
+.rfid-reader-card__action { flex:0 0 auto; }
+.rfid-readers__body .rfid-readers__registration { display:grid; gap:16px; padding:20px; background:#f8fafc; border:1px solid var(--color-border,#dce5ef); border-radius:10px; min-width:0; }
+.rfid-readers__body .rfid-readers__muted,.rfid-readers__empty { margin:0 0 16px; font-size:12px; line-height:1.7; color:var(--color-muted,#64748b); }
+.rfid-readers__empty { margin:0; padding:16px; border:1px dashed var(--color-border,#dce5ef); border-radius:10px; }
+.rfid-readers__form { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; min-width:0; }
+.rfid-readers__field { display:flex; flex-direction:column; gap:7px; min-width:0; }
+.rfid-readers__body .rfid-readers__field label { display:block; margin:0; font-size:12px; line-height:1.5; font-weight:600; }
+.rfid-readers__body .rfid-readers__field input { display:block; box-sizing:border-box; min-width:0; width:100%; max-width:100%; min-height:44px; margin:0; padding:10px 12px; border:1px solid #cbd5e1; border-radius:8px; background:var(--color-card,#fff); color:var(--color-text,#1e2a44); font:inherit; font-size:13px; }
+.rfid-readers__body .rfid-readers__field input:focus-visible { outline:2px solid var(--color-primary,#2878c3); outline-offset:2px; }
+.rfid-readers__body .rfid-readers__field input[aria-invalid="true"] { border-color:#b42318; }
+.rfid-readers__body .rfid-readers__field input:disabled { background:#edf2f7; color:#64748b; }
+.rfid-readers__field--wide,.rfid-readers__form-actions { grid-column:1/-1; }
+.rfid-readers__form-actions { display:flex; justify-content:flex-end; }
+.rfid-readers__body .rfid-readers__field-error { margin:0; font-size:12px; line-height:1.5; color:#b42318; }
+.rfid-readers__feedback { display:flex; align-items:center; flex-wrap:wrap; gap:10px; margin:0; padding:12px 14px; border-radius:8px; background:#f1f5f9; font-size:12px; line-height:1.6; overflow-wrap:anywhere; }
+.rfid-readers__feedback--success { background:#eef8f1; color:#23623b; }
+.rfid-readers__feedback--error { background:#fff1f0; color:#a12824; }
+.rfid-readers__provisioning { display:grid; gap:14px; padding:20px; min-width:0; border:1px solid #c7dbef; border-radius:10px; background:#f4f8fd; }
+.rfid-readers__provisioning h3,.rfid-readers__provisioning p { margin:0; }
+.rfid-readers__provisioning p { font-size:12px; line-height:1.7; }
+.rfid-readers__credential-actions { display:flex; flex-wrap:wrap; gap:10px; }
+.rfid-readers__body .cg-action-button { max-width:100%; white-space:normal; }
+@media(max-width:600px) {
+ .rfid-readers__body { padding:16px; gap:16px; }
+ .rfid-reader-card { flex-direction:column; align-items:stretch; gap:14px; }
+ .rfid-reader-card__action .cg-action-button { width:100%; }
+ .rfid-readers__body .rfid-readers__registration,.rfid-readers__provisioning { padding:16px; }
+ .rfid-readers__form { grid-template-columns:minmax(0,1fr); gap:16px; }
+ .rfid-readers__form-actions .cg-action-button { width:100%; }
+ .rfid-readers__credential-actions { flex-direction:column; align-items:stretch; }
+}

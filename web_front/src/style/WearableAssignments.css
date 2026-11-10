@@ -1,0 +1,13 @@
+.wa-panel > summary { font-weight:600; color:#203c60; cursor:pointer; padding:8px 0; }
+.wa-panel[open] > summary { margin-bottom:12px; }
+.wa-heading { display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:18px; }
+.wa-heading > p { margin:0; color:#526276; font-size:13px; }
+.wa-actions { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+.wa-form { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px 20px; margin:22px 0; padding:20px; border:1px solid #d7e4f2; border-radius:10px; background:#f6faff; }
+.wa-form label { display:grid; gap:7px; min-width:0; color:#334155; font-size:13px; }
+.wa-form select { width:100%; min-width:0; min-height:44px; padding:9px 12px; border:1px solid #cbd5e1; border-radius:8px; background:white; color:#24364d; font:inherit; }
+.wa-form > :is(p,.wa-actions) { grid-column:1/-1; margin:0; }
+.wa-panel :is(p,strong,dd,td) { overflow-wrap:anywhere; }
+.wa-confirm .wa-actions { margin-top:18px; }
+@media(max-width:768px) { .wa-form { grid-template-columns:minmax(0,1fr); padding:16px; } .wa-heading { align-items:flex-start; } }
+@media(max-width:480px) { .wa-form { padding:12px; } .wa-actions > button { max-width:100%; white-space:normal; } }

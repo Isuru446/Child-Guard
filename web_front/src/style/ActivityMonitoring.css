@@ -1,0 +1,6 @@
+.activity-page { display: flex; flex-direction: column; gap: 20px; }
+.activity-chart { min-width: 0; width: 100%; margin-top: 16px; }
+.activity-child { color: #0284c7; border: 0; background: transparent; cursor: pointer; text-align: left; font: inherit; }
+.activity-settings { display: grid; gap: 14px; margin-top: 16px; }
+.activity-settings label { display: grid; gap: 6px; max-width: 600px; }
+.activity-settings input:not([type=checkbox]), .activity-settings textarea, .activity-page select { padding: 9px; border: 1px solid var(--color-border); border-radius: 6px; background: var(--color-card); color: var(--color-text); }

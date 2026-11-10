@@ -1,0 +1,126 @@
+.cg-action-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 42px;
+  padding: 10px 15px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.5;
+  text-align: center;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.cg-action-button > svg {
+  flex-shrink: 0;
+}
+
+/* Add */
+
+.cg-action-button--add {
+  background: var(--color-primary-soft);
+  color: var(--color-primary-dark);
+}
+
+.cg-action-button--add:hover:not(:disabled) {
+  background: #c4dcf2;
+}
+
+/* Edit */
+
+.cg-action-button--edit {
+  background: #fef3c7;
+  color: #a16207;
+}
+
+.cg-action-button--edit:hover:not(:disabled) {
+  background: #fde68a;
+}
+
+/* Delete */
+
+.cg-action-button--delete {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.cg-action-button--delete:hover:not(:disabled) {
+  background: #fecaca;
+}
+
+/* Location */
+
+.cg-action-button--location {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+
+.cg-action-button--location:hover:not(:disabled) {
+  background: #bae6fd;
+}
+
+/* View all */
+
+.cg-action-button--viewAll {
+  background: #4d74cf;
+  color: #ffffff;
+}
+
+.cg-action-button--viewAll:hover:not(:disabled) {
+  background: #3c60b5;
+}
+
+/* Save / confirm */
+
+.cg-action-button--primary {
+  background: var(--color-primary);
+  color: #ffffff;
+}
+
+.cg-action-button--primary:hover:not(:disabled) {
+  background: var(--color-primary-dark);
+}
+
+/* Cancel / reset */
+
+.cg-action-button--secondary {
+  background: #e2e8f0;
+  color: #334155;
+}
+
+.cg-action-button--secondary:hover:not(:disabled) {
+  background: #cbd5e1;
+}
+
+/* Compact table buttons */
+
+.cg-action-button--small {
+  gap: 5px;
+  min-height: 34px;
+  padding: 7px 10px;
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.cg-action-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.cg-action-button:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cg-action-button {
+    transition: none;
+  }
+}

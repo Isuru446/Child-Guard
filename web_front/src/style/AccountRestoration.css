@@ -1,0 +1,20 @@
+/* Original teacher page structure, shared with Parent accounts. */
+.teacher-content > :is(h1,p,.cg-pagination) { margin-bottom:20px; }
+.teacher-content > h1 { margin-top:0; font-size:24px; font-weight:600; }
+.teacher-content > p { font-size:12px; color:#64748b; line-height:1.8; }
+.teacher-summary-row { align-items:flex-end; }
+.teacher-search-wrapper.restored-filterbar { display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:flex-end; gap:12px; max-width:none; }
+.teacher-search-wrapper > label { flex:1 1 160px; }
+.teacher-content .cg-table-actions button { padding:7px 10px; min-height:34px; font-size:11px; }
+.teacher-content .cm-child-cell { display:flex; align-items:center; gap:10px; }
+.teacher-content .cm-child-cell > span:last-child { min-width:0; overflow-wrap:anywhere; }
+.teacher-content .teacher-contact { display:block; overflow-wrap:anywhere; }
+.teacher-content .parent-linked-children { display:grid; gap:4px; line-height:1.45; overflow-wrap:anywhere; }
+.teacher-content .teacher-modal { width:100%; max-width:600px; }
+.teacher-content .teacher-modal form > :is(h3,ul) { grid-column:1/-1; }
+@media(max-width:1100px) { .teacher-summary-row { align-items:stretch; flex-wrap:wrap; } .teacher-search-wrapper.restored-filterbar { flex-basis:100%; margin-left:0; } }
+@media(max-width:600px) { .teacher-search-wrapper.restored-filterbar { justify-content:flex-start; } .teacher-summary-card { width:100%; } }
+
+.teacher-profile-card { grid-column:1/-1; display:flex; gap:14px; align-items:center; border-radius:10px; padding:16px; background:#f0f7fd; }
+.teacher-profile-card strong { font-size:16px; font-weight:600; color:#1e2a44; }
+.teacher-profile-card p { margin:5px 0 0; color:#64748b; font-size:12px; }

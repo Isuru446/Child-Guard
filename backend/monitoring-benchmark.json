@@ -1,0 +1,8 @@
+{
+  "fixture": "one genuine policy-created alert; memory DB; Node loopback; no browser paint",
+  "commitToSseMs": 1.374,
+  "apiRequests": 10,
+  "apiMedianMs": 3.625,
+  "apiMaxMs": 13.27,
+  "alertResponseBytes": 2047
+}

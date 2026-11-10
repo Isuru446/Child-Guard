@@ -1,0 +1,54 @@
+import {beforeEach,it,expect,vi} from 'vitest';
+import request from 'supertest';
+import jwt from 'jsonwebtoken';
+import {randomUUID} from 'node:crypto';
+import {createApp,tokenHash} from '../src/app.js';
+import {attendanceDay} from '../src/events.js';
+import {latestReset} from '../src/attendance-reset.js';
+import {createMonitoringHub} from '../src/monitoring-events.js';
+import {verifiedDeparture} from '../src/zone-monitoring.js';
+import {sessionFixture} from './helpers/admin-session-memory.js';
+import {attendanceMemory,instrumentAttendanceMemory} from './helpers/attendance-memory.js';
+const secret='synthetic-absence-fixture-secret-32-characters';
+let f,m,app,a,notices;
+const auth=u=>'Bearer '+jwt.sign({},secret,{subject:u.id,issuer:'childguard',audience:'childguard-app',expiresIn:'1h'});
+const body=extra=>({childId:m.child.id,day:a.day,attendanceId:a.id,expectedStatus:'NOT_CHECKED_IN',confirmed:true,...extra});
+const post=(extra={},actor=m.teacher)=>request(app).post('/api/v1/attendance/absence').set('Authorization',auth(actor)).send(body(extra));
+const correct=(extra={},actor=m.teacher)=>request(app).post(`/api/v1/attendance/${a.id}/absence/correct`).set('Authorization',auth(actor)).send({day:a.day,absenceId:m.data().auditLog.find(l=>l.action.startsWith('ATTENDANCE_ABSENT:'))?.id,confirmed:true,...extra});
+beforeEach(()=>{
+ instrumentAttendanceMemory(vi.fn);f=sessionFixture();m=attendanceMemory(f,{hash:'synthetic',tokenHash:tokenHash('synthetic')});
+ a={id:randomUUID(),childId:m.child.id,day:attendanceDay(new Date(f.clock)),status:'NOT_CHECKED_IN',gatePassAuthorized:false};m.data().attendance.push(a);
+ m.db._runtimeDataModel={enums:{AttendanceStatus:{values:[{name:'ABSENT'}]}}};
+ const raw=m.db.$queryRaw;m.db.$queryRaw=vi.fn(async(strings,...values)=>strings.join('').includes('pg_enum')?[{enumlabel:'ABSENT'}]:raw(strings,...values));
+ m.db.activityAttendanceSession.updateMany=vi.fn(async()=>({count:0}));m.db.pickupRequest={findFirst:vi.fn(async()=>null),findMany:vi.fn(async()=>[])};
+ const hub=createMonitoringHub();notices=[];hub.subscribe(m.device.centerId,event=>{expect(m.data().auditLog.length).toBeGreaterThan(0);notices.push(event);});
+ app=createApp({monitoringHub:hub,db:m.db,jwtSecret:secret,registrationEnabled:false,logger:{error:vi.fn()}});
+});
+it('saves absence with actor, timestamp and optional bounded reason',async()=>{const r=await post({reason:'Parent informed the school'});expect(r.status).toBe(200);expect(r.body.data.status).toBe('ABSENT');expect(m.data().auditLog[0]).toMatchObject({userId:m.teacher.id,resourceId:a.id,createdAt:new Date(f.clock)});});
+it('creates one record for NO_RECORD',async()=>{m.data().attendance.length=0;expect((await post({attendanceId:null,expectedStatus:'NO_RECORD'})).status).toBe(200);expect(m.data().attendance).toHaveLength(1);});
+it('serializes concurrent duplicate requests without duplicate audit',async()=>{const r=await Promise.all([post(),post()]);expect(r.map(x=>x.status).sort()).toEqual([200,409]);expect(m.data().auditLog).toHaveLength(1);});
+it.each(['PRESENT','CHECKIN_PENDING','CHECKED_OUT','ABSENT'])('cannot overwrite %s',async status=>{m.data().attendance[0].status=status;expect((await post()).status).toBe(409);expect(m.data().auditLog).toHaveLength(0);});
+it('denies Parent, Admin and foreign Teacher',async()=>{expect((await post({},m.parent)).status).toBe(403);expect((await post({},f.state.user)).status).toBe(403);expect((await post({},m.otherTeacher)).status).toBe(404);});
+it('denies unauthenticated and inactive staff',async()=>{expect((await request(app).post('/api/v1/attendance/absence').send(body())).status).toBe(401);m.data().user.find(u=>u.id===m.teacher.id).active=false;expect((await post()).status).toBe(401);});
+it('validates date, explicit confirmation, reason and injected authority',async()=>{for(const extra of [{confirmed:false},{day:'invalid'},{reason:'x'.repeat(201)},{role:'ADMIN'},{centerId:'foreign'}])expect((await post(extra)).status).toBe(422);expect((await post({day:'2026-10-24'})).status).toBe(409);});
+it('correction preserves audit, requires the latest absence ID, and creates a fresh epoch',async()=>{await post();expect((await correct({absenceId:randomUUID()})).status).toBe(409);expect((await correct()).status).toBe(200);expect(m.data().attendance[0].status).toBe('NOT_CHECKED_IN');const epoch=await latestReset(m.db,a.id);expect(epoch.action).toBe('ATTENDANCE_ABSENCE_CORRECTED');expect(m.data().auditLog).toHaveLength(2);expect((await correct()).status).toBe(409);expect((await post()).status).toBe(409);expect((await post({attendanceEpoch:epoch.id})).status).toBe(200);});
+it('correction denies Parent, foreign center and historical day',async()=>{await post();expect((await correct({},m.parent)).status).toBe(403);expect((await correct({},m.otherTeacher)).status).toBe(404);f.tick(86400000);expect((await correct()).status).toBe(409);});
+it('fails closed before client/database activation and for pending Pickup',async()=>{m.db.pickupRequest.findFirst.mockResolvedValue({status:'PENDING'});expect((await post()).body.error.code).toBe('PICKUP_PENDING');m.db.pickupRequest.findFirst.mockResolvedValue(null);m.db._runtimeDataModel.enums.AttendanceStatus.values=[];expect((await post()).status).toBe(503);expect(m.data().auditLog).toHaveLength(0);});
+it('rolls back failed audit writes',async()=>{m.db.auditLog.create.mockRejectedValue(Error('synthetic failure'));expect((await post()).status).toBe(503);expect(m.data().attendance[0].status).toBe('NOT_CHECKED_IN');});
+it('serves complete scoped Teacher roster and Parent read-only absence history',async()=>{await post();const roster=await request(app).get('/api/v1/attendance/roster').set('Authorization',auth(m.teacher));expect(roster.status).toBe(200);expect(roster.body.data.find(r=>r.child.id===m.child.id).canCorrectAbsence).toBe(true);expect(roster.body.data.find(r=>r.child.id===m.unrecorded.id).canMarkAbsent).toBe(true);expect(roster.body.data.some(r=>r.child.id===m.foreignChild.id)).toBe(false);const r=await request(app).get(`/api/v1/mobile/children/${m.child.id}/attendance`).set('Authorization',auth(m.parent));expect(r.status).toBe(200);expect(r.body.data[0].absenceHistory[0].by.id).toBe(m.teacher.id);});
+it('cannot arm ordinary-zone monitoring from absence',async()=>{await post();expect(await verifiedDeparture(m.db,{device:m.device,assignment:m.data().assignment[0],attendance:m.data().attendance[0],confirmation:null,boot:'same-boot'})).toBeNull();});
+
+it('publishes committed absence and correction through the existing center attendance stream',async()=>{await post();await correct();expect(notices).toHaveLength(2);expect(notices.every(n=>n.topics.includes('attendance'))).toBe(true);});
+it('requires correction, fresh Gate FAR and a real Teacher confirmation for a late arrival',async()=>{
+ const event=extra=>({eventId:randomUUID(),deviceId:m.device.hardwareId,gateId:m.gate.hardwareId,eventType:'CHILD_NEAR_GATE',deviceBootId:'absence-boot',deviceUptimeMs:1000,gpsStatus:'GPS_NO_FIX',rssi:-40,...extra});
+ const send=payload=>request(app).post('/api/events').set('X-Device-Token','synthetic').send(payload);
+ await post();expect((await send(event())).status).toBe(201);expect(m.data().attendance[0].status).toBe('ABSENT');
+ await correct();const epoch=await latestReset(m.db,a.id);expect((await send(event())).status).toBe(409);
+ f.tick(100);expect((await send(event({eventType:'BLE_PROXIMITY',proximity:'FAR',queueAgeMs:0,rssi:-90,attendanceEpoch:epoch.id}))).status).toBe(201);
+ f.tick(100);expect((await send(event({attendanceEpoch:epoch.id,deviceUptimeMs:1100}))).status).toBe(201);expect(m.data().attendance[0].status).toBe('CHECKIN_PENDING');
+ const r=await request(app).post(`/api/v1/attendance/${a.id}/confirm`).set('Authorization',auth(m.teacher)).send({attendanceEpoch:epoch.id});expect(r.status).toBe(200);expect(r.body.data.status).toBe('PRESENT');expect(m.data().confirmation[0].userId).toBe(m.teacher.id);expect(m.data().auditLog.some(l=>l.action.startsWith('ATTENDANCE_ABSENT:'))).toBe(true);
+});
+it('does not reuse an earlier absence ID after a second marking in the corrected epoch',async()=>{await post();const old=m.data().auditLog[0].id;await correct();const epoch=await latestReset(m.db,a.id);await post({attendanceEpoch:epoch.id});expect((await correct({absenceId:old})).status).toBe(409);const row=await request(app).get('/api/v1/attendance/roster').set('Authorization',auth(m.teacher));const current=row.body.data.find(r=>r.child.id===m.child.id);expect(current.absenceId).not.toBe(old);expect((await correct({absenceId:current.absenceId})).status).toBe(200);});
+
+it('reports ABSENT safely through the authenticated Gate-state protocol',async()=>{await post();const r=await request(app).get('/api/gate/state').query({deviceId:m.device.hardwareId,gateId:m.gate.hardwareId,deviceBootId:'absence-boot'}).set('X-Device-Token','synthetic');expect(r.status).toBe(200);expect(r.body).toMatchObject({attendanceStatus:'ABSENT',gatePassAuthorized:false,zoneMonitoringArmed:false});});
+it('keeps correction epochs strictly ordered even with an unchanged millisecond clock',async()=>{let epoch;for(let i=0;i<3;i++){expect((await post(epoch?{attendanceEpoch:epoch.id}:{})).status).toBe(200);const roster=await request(app).get('/api/v1/attendance/roster').set('Authorization',auth(m.teacher));const row=roster.body.data.find(r=>r.child.id===m.child.id);expect((await correct({absenceId:row.absenceId})).status).toBe(200);const next=await latestReset(m.db,a.id);if(epoch)expect(+next.createdAt).toBeGreaterThan(+epoch.createdAt);epoch=next;}});

@@ -1,0 +1,126 @@
+/* Dashboard-derived refinements. The dashboard/auth routes are deliberately excluded. */
+.app-main-content[data-admin-page="management"] {
+  --cg-field-height: 42px;
+  --cg-panel-radius: 12px;
+}
+.app-main-content[data-admin-page="management"] > div { background: var(--color-bg); }
+.app-main-content[data-admin-page="management"] .cg-admin-content {
+  display: flex; flex-direction: column; gap: 22px;
+  min-width: 0; padding: 24px; font-size: 13px; line-height: 1.65;
+}
+.app-main-content[data-admin-page="management"] .cg-admin-content :is(h1,h2,h3,p) { margin: 0; }
+.app-main-content[data-admin-page="management"] .cg-admin-content h1 { font-size: 26px; font-weight: 700; line-height: 1.3; letter-spacing: -.5px; color: var(--color-text); }
+.app-main-content[data-admin-page="management"] :is(.cg-admin-content,[role="dialog"]) h2 { font-size: 17px; font-weight: 600; line-height: 1.5; }
+.app-main-content[data-admin-page="management"] :is(.cg-admin-content,[role="dialog"]) h3 { font-size: 15px; font-weight: 600; line-height: 1.5; }
+.app-main-content[data-admin-page="management"] .cg-admin-content > p { color: var(--color-text-muted); max-width: 110ch; }
+.app-main-content[data-admin-page="management"] .cg-admin-content a:not([class]) { color: var(--color-primary-dark); text-underline-offset: 3px; }
+.app-main-content[data-admin-page="management"] .cg-admin-content a:not([class]):hover { text-decoration: underline; }
+.app-main-content[data-admin-page="management"] :is(.cg-page-heading,.cg-panel-heading) { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; }
+.app-main-content[data-admin-page="management"] :is(.cg-page-heading,.cg-panel-heading) > div { min-width: 0; }
+.app-main-content[data-admin-page="management"] :is(.cg-page-heading,.cg-panel-heading) p { margin-top: 6px; max-width: 95ch; color: var(--color-text-muted); font-size: 13px; }
+.app-main-content[data-admin-page="management"] .cg-panel-heading { margin-bottom: 18px; }
+.app-main-content[data-admin-page="management"] :is(.cg-panel,.ao-panel,.al-list-card,.dv-beacon-details) { min-width: 0; border: 1px solid var(--color-border); border-radius: var(--cg-panel-radius); padding: 22px; background: var(--color-card); box-shadow: var(--shadow-card); }
+.app-main-content[data-admin-page="management"] :is(.cg-panel,.ao-panel) > :is(p,dl,ul,form,details) { margin-top: 12px; }
+.app-main-content[data-admin-page="management"] :is(.cg-panel,.ao-panel) > :is(h2,h3):not(:first-child) { margin-top: 20px; }
+.app-main-content[data-admin-page="management"] :is(.cg-page-actions,.cg-pagination) { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.app-main-content[data-admin-page="management"] .cg-pagination { justify-content: flex-end; padding: 14px 0 0; }
+.app-main-content[data-admin-page="management"] .cg-status { display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px; border-radius: 7px; font-size: 12px; font-weight: 600; line-height: 1.5; background: var(--color-primary-soft); color: var(--color-primary-dark); }
+.app-main-content[data-admin-page="management"] .cg-status--success { background: var(--color-success-soft); color: #237a52; }
+.app-main-content[data-admin-page="management"] .cg-status--warning { background: var(--color-warning-soft); color: #8a5707; }
+.app-main-content[data-admin-page="management"] .cg-status--muted { background: #eef2f6; color: #64748b; }
+.app-main-content[data-admin-page="management"] .cg-status--danger { background: var(--color-danger-soft); color: #b9362b; }
+.app-main-content[data-admin-page="management"] .cg-cell-title { display: block; font-weight: 600; color: var(--color-text); }
+.app-main-content[data-admin-page="management"] .cg-cell-note { display: block; font-size: 12px; color: var(--color-text-muted); overflow-wrap: anywhere; }
+.app-main-content[data-admin-page="management"] :is(.registration-stats,.ao-stats,.dv-stats-grid,.al-stats-grid,.sz-stats-grid,.ap-stats-grid,.tr-stats-grid) { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,195px),1fr)); gap: 16px; margin: 0; }
+.app-main-content[data-admin-page="management"] :is(.registration-tools,.cm-toolbar,.sz-toolbar,.al-filters) { min-width: 0; display: flex; align-items: flex-end; justify-content: flex-start; flex-wrap: wrap; gap: 14px; padding: 18px; margin: 0; border: 1px solid var(--color-border); border-radius: var(--cg-panel-radius); background: #f8fafc; }
+.app-main-content[data-admin-page="management"] .registration-tools > label { flex: 1 1 180px; }
+.app-main-content[data-admin-page="management"] .registration-tools > :is(p,h2,h3,form,section,table,.cg-table-scroll) { flex-basis: 100%; }
+.app-main-content[data-admin-page="management"] section.registration-tools:has(>h2) { align-items: start; }
+.app-main-content[data-admin-page="management"] :is(.cg-admin-content,[role="dialog"]) label { display: grid; gap: 7px; min-width: 0; color: #475569; font-size: 12px; font-weight: 600; }
+.app-main-content[data-admin-page="management"] :is(.cg-admin-content,[role="dialog"]) :is(input:where(:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"])),select,textarea) { width: 100%; min-width: 0; min-height: var(--cg-field-height); border: 1px solid #cbd8e6; border-radius: 8px; padding: 10px 12px; background: #fff; color: var(--color-text); font-family: inherit; font-size: 13px; font-weight: 400; line-height: 1.5; transition: border-color .18s ease, box-shadow .18s ease, background-color .18s ease; }
+.app-main-content[data-admin-page="management"] :is(.cg-admin-content,[role="dialog"]) textarea { min-height: 105px; resize: vertical; }
+.app-main-content[data-admin-page="management"] :is(.cg-admin-content,[role="dialog"]) input::placeholder,
+.app-main-content[data-admin-page="management"] :is(.cg-admin-content,[role="dialog"]) textarea::placeholder { color: #7c8ca4; opacity: 1; }
+.app-main-content[data-admin-page="management"] :is(.cg-admin-content,[role="dialog"]) :is(input,select,textarea):focus-visible { border-color: var(--color-primary); outline: 2px solid var(--color-primary); outline-offset: 2px; box-shadow: 0 0 0 4px #3f7fc114; }
+.app-main-content[data-admin-page="management"] :is(.cg-admin-content,[role="dialog"]) :is(input,select,textarea):disabled { color: #65758b; background: #eef3f8; cursor: not-allowed; opacity: .8; }
+.app-main-content[data-admin-page="management"] :is(.cg-admin-content,[role="dialog"]) :is(input[type="checkbox"],input[type="radio"]) { flex: none; width: 17px; height: 17px; margin: 0; accent-color: var(--color-primary); }
+.app-main-content[data-admin-page="management"] :is(.cg-admin-content,[role="dialog"]) label:has(>input:is([type="checkbox"],[type="radio"])) { display: flex; flex-wrap: wrap; align-items: center; gap: 9px; font-weight: 500; }
+.app-main-content[data-admin-page="management"] :is(.cg-admin-content,[role="dialog"]) fieldset { min-width: 0; border: 1px solid var(--color-border); border-radius: 10px; padding: 18px; display: grid; gap: 14px; }
+.app-main-content[data-admin-page="management"] :is(.cg-admin-content,[role="dialog"]) legend { padding: 0 6px; font-weight: 600; color: var(--color-text); }
+.app-main-content[data-admin-page="management"] [role="dialog"] form > label { margin-bottom: 14px; }
+.app-main-content[data-admin-page="management"] .cg-form-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 16px; }
+.app-main-content[data-admin-page="management"] .cg-form-grid > :is(p,fieldset,.registration-modal__actions,.cg-page-actions) { grid-column: 1 / -1; }
+.app-main-content[data-admin-page="management"] :is(.cg-admin-content,[role="dialog"]) .cg-action-button { flex: 0 0 auto; min-height: 42px; max-width: 100%; border-radius: 8px; padding: 10px 15px; font-size: 12px; transition: background-color .18s ease, border-color .18s ease, box-shadow .18s ease; }
+.app-main-content[data-admin-page="management"] :is(.cg-admin-content,[role="dialog"]) .cg-action-button:active:not(:disabled) { box-shadow: inset 0 2px 4px #1b274020; }
+.app-main-content[data-admin-page="management"] .cg-data-table { margin-top: 0; border-radius: 10px; box-shadow: none; }
+.app-main-content[data-admin-page="management"] .cg-data-table__table th { padding: 13px 16px; font-size: 12px; letter-spacing: .015em; background: #f7f9fc; }
+.app-main-content[data-admin-page="management"] .cg-data-table__table td { padding: 12px 16px; font-size: 13px; line-height: 1.55; overflow-wrap: anywhere; }
+.app-main-content[data-admin-page="management"] .cg-data-table__table td .cg-action-button { min-height: 32px; padding: 6px 10px; font-size: 12px; }
+.app-main-content[data-admin-page="management"] .cg-data-table__table td > .cg-action-button + .cg-action-button { margin-inline-start: 6px; }
+.app-main-content[data-admin-page="management"] .cg-data-table__scroll { overscroll-behavior-inline: contain; scrollbar-width: thin; }
+.app-main-content[data-admin-page="management"] .cg-table-scroll { min-width: 0; width: 100%; overflow-x: auto; }
+.app-main-content[data-admin-page="management"] .cg-table-scroll table { width: 100%; border-collapse: collapse; min-width: 620px; }
+.app-main-content[data-admin-page="management"] .cg-table-scroll :is(th,td) { padding: 12px; border-bottom: 1px solid var(--color-border); text-align: left; }
+.app-main-content[data-admin-page="management"] :is([role="alert"],.registration-error) { padding: 12px 16px; border: 1px solid #f3cac5; border-radius: 8px; background: var(--color-danger-soft); color: #a72f26; }
+.app-main-content[data-admin-page="management"] .cg-demo-notice { margin: 18px 24px 0; padding: 14px 18px; border: 1px solid #f1d8a6; border-radius: 10px; background: var(--color-warning-soft); color: #81530d; font-size: 13px; line-height: 1.7; }
+.app-main-content[data-admin-page="management"] :is(.registration-modal,.ao-modal,.dv-modal-content,.sz-modal-content,.al-modal-content,.ap-modal-content,.tr-modal-content,.tr-modal) { max-width: min(760px,100%); max-height: calc(100dvh - 40px); padding: 26px; border-radius: 14px; border: 1px solid var(--color-border); box-shadow: 0 18px 50px #1b274033; overflow-y: auto; overflow-wrap: anywhere; }
+.app-main-content[data-admin-page="management"] [role="dialog"] :is(h2,h3) { margin-bottom: 12px; }
+.app-main-content[data-admin-page="management"] [role="dialog"] p { margin: 10px 0; font-size: 13px; line-height: 1.7; color: #64748b; }
+.app-main-content[data-admin-page="management"] [role="dialog"] h3:not(:first-child) { padding-top: 16px; margin-top: 16px; border-top: 1px solid var(--color-border); }
+.app-main-content[data-admin-page="management"] [role="dialog"] :is(dl,ul) { margin: 14px 0; }
+.app-main-content[data-admin-page="management"] [role="dialog"] dl { display: grid; grid-template-columns: minmax(100px,160px) minmax(0,1fr); gap: 10px 18px; padding: 16px; border-radius: 10px; background: #f8fafc; }
+.app-main-content[data-admin-page="management"] [role="dialog"] dl > div { display: contents; }
+.app-main-content[data-admin-page="management"] [role="dialog"] dt { color: #64748b; font-size: 12px; font-weight: 500; }
+.app-main-content[data-admin-page="management"] [role="dialog"] dd { min-width: 0; margin: 0; font-size: 13px; font-weight: 500; overflow-wrap: anywhere; }
+.app-main-content[data-admin-page="management"] [role="dialog"] form > .cg-action-button + .cg-action-button { margin-left: 8px; }
+.app-main-content[data-admin-page="management"] [role="dialog"] > .registration-modal__header { position: sticky; top: -26px; padding: 8px 0 14px; background: #fff; z-index: 1; }
+.app-main-content[data-admin-page="management"] details > summary { cursor: pointer; font-size: 14px; font-weight: 600; color: var(--color-text); padding: 6px 0; }
+.app-main-content[data-admin-page="management"] details[open] > summary { margin-bottom: 14px; }
+.app-main-content[data-admin-page="management"] .activity-settings { grid-template-columns: repeat(2,minmax(0,1fr)); }
+.app-main-content[data-admin-page="management"] .activity-settings > p { grid-column: 1 / -1; }
+.app-main-content[data-admin-page="management"] .al-alert-row { grid-template-columns: auto minmax(0,1fr) auto; max-width: 100%; border-left: 3px solid var(--color-primary); }
+.app-main-content[data-admin-page="management"] .al-alert-content { min-width: 0; overflow-wrap: anywhere; }
+.app-main-content[data-admin-page="management"] .al-alert-row[data-category="BLE_DANGER"],
+.app-main-content[data-admin-page="management"] .al-alert-row[data-category="GEOFENCE"] { border-left-color: var(--color-danger); }
+.app-main-content[data-admin-page="management"] .al-alert-row[data-category="ACTIVITY"] { border-left-color: var(--color-warning); }
+.app-main-content[data-admin-page="management"] .al-alert-time { white-space: normal; max-width: 180px; }
+.app-main-content[data-admin-page="management"] .cg-attendance-charts { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 20px; }
+.app-main-content[data-admin-page="management"] .cg-chart-canvas { width: 100%; min-width: 0; height: 280px; }
+.app-main-content[data-admin-page="management"] .cg-chart-legend { display: flex; flex-wrap: wrap; gap: 8px 18px; padding: 12px 0; list-style: none; font-size: 12px; }
+.app-main-content[data-admin-page="management"] .cg-chart-legend li { display: flex; align-items: center; gap: 6px; }
+.app-main-content[data-admin-page="management"] .cg-chart-dot { width: 9px; height: 9px; flex: none; border-radius: 3px; background: var(--chart-color); }
+.app-main-content[data-admin-page="management"] .cg-chart-tooltip { padding: 12px 14px; border-radius: 10px; border: 1px solid var(--color-border); background: #fff; box-shadow: var(--shadow-card); font-size: 12px; }
+.app-main-content[data-admin-page="management"] .cg-chart-empty { display: grid; place-items: center; min-height: 220px; text-align: center; color: var(--color-text-muted); }
+@media(max-width:1100px) {
+  .app-main-content[data-admin-page="management"] .cg-attendance-charts { grid-template-columns: minmax(0,1fr); }
+}
+@media(max-width:768px) {
+  .app-main-content[data-admin-page="management"] .cg-admin-content { padding: 20px 16px; gap: 18px; }
+  .app-main-content[data-admin-page="management"] .cg-admin-content h1 { font-size: 23px; }
+  .app-main-content[data-admin-page="management"] :is(.cg-panel,.ao-panel,.al-list-card,.dv-beacon-details) { padding: 18px; }
+  .app-main-content[data-admin-page="management"] .registration-tools { flex-direction: row; }
+  .app-main-content[data-admin-page="management"] .registration-tools > label { flex: 1 1 100%; }
+  .app-main-content[data-admin-page="management"] :is(.cg-form-grid,.activity-settings) { grid-template-columns: minmax(0,1fr); }
+  .app-main-content[data-admin-page="management"] .al-alert-time { grid-column: 2; max-width: none; }
+  .app-main-content[data-admin-page="management"] .cg-demo-notice { margin-inline: 16px; }
+}
+@media(max-width:480px) {
+  .app-main-content[data-admin-page="management"] .cg-admin-content { padding: 16px 12px; }
+  .app-main-content[data-admin-page="management"] :is(.registration-modal,.ao-modal,.dv-modal-content,.sz-modal-content,.al-modal-content,.ap-modal-content,.tr-modal-content,.tr-modal) { padding: 18px; max-height: calc(100dvh - 28px); }
+  .app-main-content[data-admin-page="management"] [role="dialog"] dl { grid-template-columns: minmax(0,1fr); gap: 5px; padding: 12px; }
+  .app-main-content[data-admin-page="management"] [role="dialog"] dd { margin-bottom: 8px; }
+  .app-main-content[data-admin-page="management"] .cg-pagination { justify-content: flex-start; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .app-main-content[data-admin-page="management"] *,
+  .app-main-content[data-admin-page="management"] *::before,
+  .app-main-content[data-admin-page="management"] *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+
+.app-main-content[data-admin-page="management"] .cg-admin-content .cg-search { min-height: var(--cg-field-height); padding: 8px 12px; }
+.app-main-content[data-admin-page="management"] .cg-admin-content .cg-search input.cg-search__input { min-height: 0; padding: 0; border: 0; border-radius: 0; background: transparent; outline: none; box-shadow: none; }
+.app-main-content[data-admin-page="management"] .cg-admin-content .cg-demo-notice { margin: 0; max-width: none; }
+.app-main-content[data-admin-page="management"] :is(.dv-badge--success,.sz-badge--active,.request-status--approved) { background: var(--color-success-soft); color: #237a52; }
+.app-main-content[data-admin-page="management"] :is(.dv-badge--danger,.request-status--rejected) { background: var(--color-danger-soft); color: #b9362b; }
+.app-main-content[data-admin-page="management"] :is(.dv-badge--unknown,.sz-badge--inactive) { background: #eef2f6; color: #64748b; }
+.app-main-content[data-admin-page="management"] .request-status--pending { background: var(--color-warning-soft); color: #8a5707; }

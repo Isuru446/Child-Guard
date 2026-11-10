@@ -1,0 +1,5 @@
+{
+  "fixture": "jsdom; simulated SSE invalidation; immediate in-memory API; React DOM assertion, not browser paint",
+  "notificationToDomMs": 67.426,
+  "apiCalls": 2
+}

@@ -1,0 +1,24 @@
+import { afterEach, expect, it, vi } from 'vitest';
+import { act, cleanup, render, screen } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
+import { writeFileSync } from 'node:fs';
+import { resolve } from 'node:path';
+import process from 'node:process';
+import Alerts from '../pages/Alerts';
+import { api } from '../lib/api';
+import { monitoringEvents } from '../lib/monitoring-events';
+vi.mock('../lib/api',()=>({api:vi.fn()}));
+vi.mock('./Topbar',()=>({default:()=>null}));
+vi.mock('./Footer',()=>({default:()=>null}));
+afterEach(()=>{cleanup();vi.restoreAllMocks();});
+it('renders a newly stored alert after an invalidation with no manual refresh or unrelated requests',async()=>{
+ let notify;vi.spyOn(monitoringEvents,'subscribe').mockImplementation(fn=>{notify=fn;fn({live:true});return()=>{};});
+ let rows=[];api.mockImplementation(async()=>({rows,total:rows.length,hasMore:false}));
+ render(<MemoryRouter><Alerts/></MemoryRouter>);await screen.findByText(/No recorded alerts match/);
+ rows=[{id:'persisted-alert',kind:'GEOFENCE_OUTSIDE',category:'GEOFENCE',state:'RECORDED',createdAt:new Date().toISOString(),event:{observedAt:new Date().toISOString(),receivedAt:new Date().toISOString(),recordedChild:{name:'Authorized recorded child'},device:{hardwareId:'CG-REAL-CONTRACT'}}}];
+ const start=performance.now();act(()=>notify({id:'committed-notification',topics:['alerts'],alertIds:['persisted-alert'],live:true}));
+ await screen.findByText('Child outside safe area');const elapsed=performance.now()-start;
+ expect(elapsed).toBeLessThan(1000);expect(api).toHaveBeenCalledTimes(2);
+ expect(api.mock.calls.every(([path,options])=>path.startsWith('/api/v1/alerts?')&&!options.method)).toBe(true);
+ writeFileSync(resolve(process.cwd(),'monitoring-render-benchmark.json'),JSON.stringify({fixture:'jsdom; simulated SSE invalidation; immediate in-memory API; React DOM assertion, not browser paint',notificationToDomMs:Number(elapsed.toFixed(3)),apiCalls:api.mock.calls.length},null,2)+'\n');
+});

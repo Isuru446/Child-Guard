@@ -1,0 +1,272 @@
+diff --git a/web_front/src/main.jsx b/web_front/src/main.jsx
+--- a/web_front/src/main.jsx
++++ b/web_front/src/main.jsx
+@@ -3,12 +3,17 @@ import { createRoot } from 'react-dom/client'
+ import {BrowserRouter} from "react-router-dom";
+ import "./style/global.css"
+ import App from './App.jsx'
++import { createAdminSessionController } from './lib/admin-session-controller'
++import { CookieAdminSessionProvider } from './components/CookieAdminSession'
++import { configureAdminCookieClient } from './lib/api'
++const adminClient=createAdminSessionController()
++configureAdminCookieClient(adminClient)
+ 
+ 
+ createRoot(document.getElementById('root')).render(
+   <StrictMode>
+     <BrowserRouter>
+-      <App />
++      <CookieAdminSessionProvider client={adminClient}><App /></CookieAdminSessionProvider>
+     </BrowserRouter>
+   </StrictMode>,
+ )
+diff --git a/web_front/vite.config.js b/web_front/vite.config.js
+--- a/web_front/vite.config.js
++++ b/web_front/vite.config.js
+@@ -1,8 +1,10 @@
+ import { defineConfig } from 'vite'
+ import react from '@vitejs/plugin-react'
++import { adminSessionDevelopmentServer } from './admin-session-proxy'
+ 
+ // https://vite.dev/config/
+ export default defineConfig({
+   plugins: [react()],
++  server: adminSessionDevelopmentServer,
+   
+ })
+diff --git a/web_front/src/lib/api.js b/web_front/src/lib/api.js
+--- a/web_front/src/lib/api.js
++++ b/web_front/src/lib/api.js
+@@ -1,7 +1,13 @@
++let cookieClient=null;
++export function configureAdminCookieClient(client) {
++ if (!client || (cookieClient && cookieClient!==client)) throw new Error('Cookie session configuration refused');
++ cookieClient=client;
++}
+ const base = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000';
+-export function setToken(token) { sessionStorage.setItem('childguardToken', token); }
+-export function hasToken() { return Boolean(sessionStorage.getItem('childguardToken')); }
++export function setToken(token) { if(cookieClient)throw new Error('Bearer storage disabled'); sessionStorage.setItem('childguardToken', token); }
++export function hasToken() { if(cookieClient)return cookieClient.getSnapshot().status==='ready'; return Boolean(sessionStorage.getItem('childguardToken')); }
+ export function clearSession(message = '') {
++ if(cookieClient)throw new Error('Use asynchronous server logout');
+  sessionStorage.removeItem('childguardToken');
+  sessionStorage.removeItem('childguardAdminName');
+  window.dispatchEvent(new CustomEvent('childguard:session-ended', {detail:{message}}));
+@@ -12,6 +18,7 @@ export class ApiError extends Error {
+  }
+ }
+ export async function api(path, options = {}) {
++ if(cookieClient)return cookieClient.request(path,options);
+  const token = sessionStorage.getItem('childguardToken');
+  let response;
+  try {
+@@ -35,6 +42,7 @@ export async function api(path, options = {}) {
+ }
+ 
+ export async function privatePhoto(id) {
++ if(cookieClient)return cookieClient.privatePhoto(id);
+  const token=sessionStorage.getItem('childguardToken');
+  const response=await fetch(`${base}/api/v1/account/photos/${encodeURIComponent(id)}`,{headers:{Authorization:`Bearer ${token}`}});
+  if(!response.ok)throw new Error('Photo unavailable');
+diff --git a/web_front/src/pages/AdminLogin.jsx b/web_front/src/pages/AdminLogin.jsx
+--- a/web_front/src/pages/AdminLogin.jsx
++++ b/web_front/src/pages/AdminLogin.jsx
+@@ -1,4 +1,5 @@
+-import { useRef, useState } from 'react';
++import { useContext, useRef, useState } from 'react';
++import { CookieAdminSessionContext } from '../lib/admin-session-context';
+ import { api, clearSession, setToken } from '../lib/api';
+ import { Link, useLocation, useNavigate } from 'react-router-dom';
+ import {
+@@ -81,6 +82,7 @@ function SocialLink({ href, label, children }) {
+ 
+ export default function AdminLogin() {
+   const navigate = useNavigate();
++  const session = useContext(CookieAdminSessionContext);
+   const location = useLocation();
+   const submitting = useRef(false);
+   const [loading, setLoading] = useState(false);
+@@ -103,6 +105,11 @@ export default function AdminLogin() {
+     submitting.current = true;
+     setLoading(true);
+     try {
++      if(session) {
++        await session.login(username.trim(),password);
++        navigate('/devices',{replace:true});
++        return;
++      }
+       clearSession();
+       const result = await api('/api/v1/auth/login', { method: 'POST', body: JSON.stringify({ username: username.trim(), password }) });
+       if (result?.user?.role !== 'ADMIN') throw new Error('An administrator account is required for this dashboard.');
+diff --git a/web_front/src/components/AdminSessionGate.jsx b/web_front/src/components/AdminSessionGate.jsx
+--- a/web_front/src/components/AdminSessionGate.jsx
++++ b/web_front/src/components/AdminSessionGate.jsx
+@@ -1,8 +1,14 @@
+-import { useEffect, useState } from 'react';
++import { useContext, useEffect, useState } from 'react';
++import { CookieAdminSessionContext } from '../lib/admin-session-context';
++import { CookieAdminSessionGate } from './CookieAdminSession';
+ import { Navigate } from 'react-router-dom';
+ import { api, clearSession, hasToken } from '../lib/api';
+ 
+-export default function AdminSessionGate({ children }) {
++export default function AdminSessionGate({children}) {
++ const session=useContext(CookieAdminSessionContext);
++ return session?<CookieAdminSessionGate>{children}</CookieAdminSessionGate>:<LegacyAdminSessionGate>{children}</LegacyAdminSessionGate>;
++}
++function LegacyAdminSessionGate({ children }) {
+  const [state,setState]=useState(()=>({status:hasToken()?'loading':'signed-out'}));
+  const [attempt,setAttempt]=useState(0);
+  useEffect(()=>{
+diff --git a/web_front/src/App.jsx b/web_front/src/App.jsx
+--- a/web_front/src/App.jsx
++++ b/web_front/src/App.jsx
+@@ -28,7 +28,6 @@ import Geofence from './pages/Geofence';
+ import Beacons from './pages/Beacons';
+ 
+ import './App.css';
+-import { hasToken } from './lib/api';
+ import AdminSessionGate from './components/AdminSessionGate';
+ 
+ function AdminLayout() {
+@@ -39,7 +38,6 @@ function AdminLayout() {
+   const isSidebarOpen = sidebar.path === location.pathname && sidebar.open;
+   const closeSidebar = () => setSidebar({ path: location.pathname, open: false });
+ 
+-  if (!hasToken()) return <Navigate to="/login" replace />;
+ 
+   return (
+     <AdminSessionGate><div className="app-layout">
+diff --git a/web_front/src/components/AdminSidebar.jsx b/web_front/src/components/AdminSidebar.jsx
+--- a/web_front/src/components/AdminSidebar.jsx
++++ b/web_front/src/components/AdminSidebar.jsx
+@@ -1,3 +1,5 @@
++import { useContext } from 'react';
++import { CookieAdminSessionContext } from '../lib/admin-session-context';
+ import {
+   NavLink,
+   useNavigate,
+@@ -86,11 +88,16 @@ export default function AdminSidebar({
+   onClose,
+ }) {
+   const navigate = useNavigate();
++  const session=useContext(CookieAdminSessionContext);
+ 
+-  const handleLogout = () => {
+-    clearSession();
++  const handleLogout = async () => {
++    let sessionMessage;
++    if(session) {
++      try { await session.logout(); }
++      catch { sessionMessage='Signed out on this device. Server sign-out is not yet confirmed.'; }
++    } else clearSession();
+     onClose?.();
+-    navigate('/login', { replace: true });
++    navigate('/login', { replace: true, state:{sessionMessage} });
+   };
+ 
+   return (
+diff --git a/web_front/src/components/Topbar.jsx b/web_front/src/components/Topbar.jsx
+--- a/web_front/src/components/Topbar.jsx
++++ b/web_front/src/components/Topbar.jsx
+@@ -1,4 +1,5 @@
+-import { useState } from 'react';
++import { useContext, useState } from 'react';
++import { CookieAdminSessionContext } from '../lib/admin-session-context';
+ import { useNavigate, useLocation } from 'react-router-dom';
+ import { Bell, LogOut, AlertTriangle, X } from 'lucide-react';
+ import './Topbar.css';
+@@ -9,6 +10,7 @@ import { clearSession } from '../lib/api';
+ 
+ export default function Topbar() {
+   const navigate = useNavigate();
++  const session=useContext(CookieAdminSessionContext);
+   const location = useLocation();
+   const [showLogoutModal, setShowLogoutModal] = useState(false);
+ 
+@@ -69,10 +71,14 @@ export default function Topbar() {
+     navigate(pending.data?.count ? '/attendance#pending-attendance' : '/alerts');
+   };
+ 
+-  const handleLogoutConfirm = () => {
++  const handleLogoutConfirm = async () => {
+     setShowLogoutModal(false);
+-    clearSession();
+-    navigate('/login', { replace: true });
++    let sessionMessage;
++    if(session) {
++      try { await session.logout(); }
++      catch { sessionMessage='Signed out on this device. Server sign-out is not yet confirmed.'; }
++    } else clearSession();
++    navigate('/login', { replace: true, state:{sessionMessage} });
+ 
+    
+   };
+@@ -108,7 +114,7 @@ export default function Topbar() {
+               {/* Admin profile */}
+               <div className="topbar__profile">
+                 <div className="topbar__avatar">TA</div>
+-                <span className="topbar__admin-name">{sessionStorage.getItem('childguardAdminName') || 'Admin'}</span>
++                <span className="topbar__admin-name">{session ? session.getSnapshot().user?.username || 'Admin' : sessionStorage.getItem('childguardAdminName') || 'Admin'}</span>
+               </div>
+ 
+               
+diff --git a/backend/src/app.js b/backend/src/app.js
+--- a/backend/src/app.js
++++ b/backend/src/app.js
+@@ -18,7 +18,7 @@ export const tokenHash = token => createHash('sha256').update(token).digest('hex
+ const userView = u => ({id:u.id,username:u.username,role:u.role,centerId:u.centerId});
+ const asyncRoute = fn => (req,res,next)=>Promise.resolve(fn(req,res,next)).catch(next);
+ const jsonEvent = e => e ? {...e,...(e.beacon && e.payload.beaconMetadata ? {beacon:{...e.beacon,...e.payload.beaconMetadata}} : {}),deviceUptimeMs:Number(e.deviceUptimeMs)} : null;
+-export function createApp({db,jwtSecret,corsOrigins=[],logger=console,environment=process.env.NODE_ENV,enableDevAttendanceReset=process.env.ENABLE_DEV_ATTENDANCE_RESET,registrationEnabled=process.env.ENABLE_REGISTRATION==='true',publicRegistrationCenterIds=(process.env.PUBLIC_REGISTRATION_CENTER_IDS||'').split(',').map(v=>v.trim()).filter(Boolean),mediaRoot}) {
++export function createApp({db,jwtSecret,adminAuthRouter=null,corsOrigins=[],logger=console,environment=process.env.NODE_ENV,enableDevAttendanceReset=process.env.ENABLE_DEV_ATTENDANCE_RESET,registrationEnabled=process.env.ENABLE_REGISTRATION==='true',publicRegistrationCenterIds=(process.env.PUBLIC_REGISTRATION_CENTER_IDS||'').split(',').map(v=>v.trim()).filter(Boolean),mediaRoot}) {
+  if(!jwtSecret || jwtSecret.length<32 || jwtSecret.startsWith('REPLACE_')) throw new Error('Configure a random JWT_SECRET of at least 32 characters');
+  const devResetEnabled=resetEnabled(environment,enableDevAttendanceReset);
+  const app=express();
+@@ -64,6 +64,8 @@ export function createApp({db,jwtSecret,corsOrigins=[],logger=console,environmen
+   res.json({...(reset ? {attendanceEpoch:reset.id} : {}),attendanceStatus:state?.status||'NOT_CHECKED_IN',gatePassAuthorized:state?.gatePassAuthorized||false,attendanceDay:day});
+  }));
+  const dummyHash=bcrypt.hashSync('invalid-credential-placeholder',12);
++ if(adminAuthRouter) app.use(adminAuthRouter);
++ else {
+  app.post('/api/v1/auth/login',rateLimit({windowMs:60000,limit:10,standardHeaders:'draft-7',legacyHeaders:false,message:{error:{code:'RATE_LIMITED',message:'Try again later'}}}),asyncRoute(async(req,res)=>{
+   const body=z.object({username:z.string().trim().min(1).max(100),password:z.string().min(1).max(200)}).strict().parse(req.body);
+   const user=await db.user.findUnique({where:{username:body.username}});
+@@ -79,6 +81,7 @@ export function createApp({db,jwtSecret,corsOrigins=[],logger=console,environmen
+   if(!user?.active) throw fail(401,'UNAUTHENTICATED','Sign in required');
+   req.user=user; next();
+  }));
++ } // No legacy Admin JWT fallback when cookie router is selected.
+  app.get('/api/v1/auth/me',(req,res)=>res.json({data:{...userView(req.user),devAttendanceResetEnabled:devResetEnabled && req.user.role==='ADMIN'}}));
+  mountMobileRoutes(app,{db,asyncRoute,registrationEnabled});
+  mountAccountRoutes(app,{db,asyncRoute,registrationEnabled});
+diff --git a/backend/src/server.js b/backend/src/server.js
+--- a/backend/src/server.js
++++ b/backend/src/server.js
+@@ -1,3 +1,9 @@
++import { createHmac } from 'node:crypto';
++import { SessionService } from './admin-session-service.js';
++import { adminSessionRepository } from './admin-session-repository.js';
++import { adminCookieTransport } from './admin-session-http.js';
++import { prepareAdminSessionCutover } from './admin-session-cutover.js';
++import { resetEnabled } from './attendance-reset.js';
+ import { PrismaClient } from '@prisma/client';
+ import { createServer } from 'node:http';
+ import { createApp } from './app.js';
+@@ -13,7 +19,14 @@ try {
+  await withDatabaseAdmission(db, environment.DATABASE_URL, 'development', environment, () => {
+   // Existing modules use optional process settings; apply only after admission.
+   for (const [name,value] of Object.entries(environment)) process.env[name] = value;
+-  server = createServer(createApp({db,jwtSecret:environment.JWT_SECRET,
++  // PENDING OWNER DECISION. Applying this draft alone must fail closed.
++  const absoluteAdminPolicy = undefined;
++  const csrfKey=createHmac('sha256',environment.JWT_SECRET).update('childguard-admin-csrf-key-v1').digest();
++  const service=new SessionService({repository:adminSessionRepository(db),csrfKey});
++  const prepared=prepareAdminSessionCutover({db,service,jwtSecret:environment.JWT_SECRET,
++   transport:adminCookieTransport({mode:'local-development',environment:environment.NODE_ENV,origin:'http://localhost:5174'}),
++   devAttendanceResetEnabled:resetEnabled(environment.NODE_ENV,environment.ENABLE_DEV_ATTENDANCE_RESET),absoluteAdminPolicy});
++  server = createServer(createApp({db:prepared.database,adminAuthRouter:prepared.router,jwtSecret:environment.JWT_SECRET,
+    corsOrigins:(environment.CORS_ORIGINS || 'http://localhost:5174').split(',')}));
+   server.on('error', async () => {
+    console.error('V2 API listener failed; details withheld');

@@ -1,0 +1,485 @@
+generator client {
+  provider = "prisma-client-js"
+}
+datasource db {
+  provider = "postgresql"
+  url = env("DATABASE_URL")
+}
+// REVIEW ONLY: this complete schema is not a deployment/generation input.
+model GeofenceState {
+ zoneId String
+ zone SafeZone @relation(fields:[zoneId],references:[id],onDelete:Restrict,onUpdate:Restrict)
+ deviceId String
+ device Device @relation(fields:[deviceId],references:[id],onDelete:Restrict,onUpdate:Restrict)
+ checkpoint Json
+ updatedAt DateTime @default(now()) @db.Timestamptz(3)
+ @@id([zoneId,deviceId])
+}
+model GeofenceReading {
+ eventId String @id
+ event DeviceEvent @relation(fields:[eventId],references:[id],onDelete:Restrict,onUpdate:Restrict)
+ zoneId String
+ zone SafeZone @relation(fields:[zoneId],references:[id],onDelete:Restrict,onUpdate:Restrict)
+ zoneRevision Int
+ state String
+ reason String
+ distanceM Float?
+ observedAt DateTime? @db.Timestamptz(3)
+ createdAt DateTime @default(now()) @db.Timestamptz(3)
+ @@index([zoneId,createdAt])
+}
+model SafeZone {
+ prototypeStates GeofenceState[]
+ prototypeReadings GeofenceReading[]
+ effectiveAt DateTime @default(now()) @db.Timestamptz(3)
+ id String @id @default(uuid())
+ centerId String @unique
+ center Center @relation(fields:[centerId], references:[id], onDelete:Restrict, onUpdate:Restrict)
+ name String @db.VarChar(100)
+ latitude Float
+ longitude Float
+ radiusM Float
+ active Boolean @default(false)
+ revision Int @default(0)
+ createdAt DateTime @default(now()) @db.Timestamptz(3)
+ updatedAt DateTime @default(now()) @updatedAt @db.Timestamptz(3)
+
+}
+enum Role {
+ ADMIN
+ TEACHER
+ PARENT
+ TRANSPORT
+}
+enum AttendanceStatus {
+ NOT_CHECKED_IN
+ CHECKIN_PENDING
+ PRESENT
+ CHECKED_OUT
+}
+model Center {
+ safeZone SafeZone?
+ authSessions AuthSession[]
+ registrations RegistrationApplication[]
+ invitations CenterInvitation[]
+ enrollmentRequests EnrollmentRequest[]
+ wearableRequests WearableRequest[]
+ id String @id @default(uuid())
+ name String
+ users User[]
+ children Child[]
+ devices Device[]
+ beacons Beacon[]
+ activityPolicy ActivityPolicy?
+ activitySummaries ActivitySummary[]
+ activityIntervals ActivityInterval[]
+ activityDays ActivityDaily[]
+}
+model User {
+ authVersion Int @default(0)
+ authSessions AuthSession[]
+ registrationDecisions RegistrationDecision[] @relation("RegistrationDecisionReviewer")
+ profile UserProfile?
+ approvedRegistration RegistrationApplication? @relation("ApprovedAccount")
+ reviewedRegistrations RegistrationApplication[] @relation("RegistrationReviewer")
+ requestedEnrollments EnrollmentRequest[] @relation("EnrollmentOwner")
+ reviewedEnrollments EnrollmentRequest[] @relation("EnrollmentReviewer")
+ requestedWearables WearableRequest[] @relation("WearableOwner")
+ reviewedWearables WearableRequest[] @relation("WearableReviewer")
+ id String @id @default(uuid())
+ username String @unique
+ passwordHash String
+ role Role
+ active Boolean @default(true)
+ centerId String
+ center Center @relation(fields:[centerId], references:[id])
+ guardians Guardian[]
+ confirmations Confirmation[]
+ audits AuditLog[]
+ registeredBeacons Beacon[] @relation("BeaconCreator")
+ updatedBeacons Beacon[] @relation("BeaconEditor")
+}
+// WP02-A ADMIN-only foundation. Mobile session/refresh models are not enabled.
+model AuthSession {
+ id String @id @default(uuid())
+ userId String
+ user User @relation(fields:[userId], references:[id], onDelete:Restrict, onUpdate:Restrict)
+ centerId String @unique
+ center Center @relation(fields:[centerId], references:[id], onDelete:Restrict, onUpdate:Restrict)
+ clientKind String @default("ADMIN_WEB")
+ roleAtLogin Role @default(ADMIN)
+ authVersion Int
+ credentialHash String @unique @db.Char(64)
+ csrfHash String @db.Char(64)
+ createdAt DateTime @default(now()) @db.Timestamptz(3)
+ absoluteExpiresAt DateTime @db.Timestamptz(3)
+ lastActivityAt DateTime @db.Timestamptz(3)
+ idleExpiresAt DateTime @db.Timestamptz(3)
+ revokedAt DateTime? @db.Timestamptz(3)
+ revokeReason String?
+ lastInteractionId String?
+ revision Int @default(0)
+ @@index([userId,revokedAt])
+ @@index([absoluteExpiresAt])
+ @@index([idleExpiresAt])
+ @@index([centerId])
+}
+model Child {
+ dateOfBirth DateTime? @db.Date
+ groupName String?
+ enrollmentRequests EnrollmentRequest[]
+ wearableRequests WearableRequest[]
+ id String @id @default(uuid())
+ name String
+ centerId String
+ center Center @relation(fields:[centerId], references:[id])
+ guardians Guardian[]
+ assignments Assignment[]
+ events DeviceEvent[]
+ attendance Attendance[]
+ activitySummaries ActivitySummary[]
+ activityIntervals ActivityInterval[]
+ activityDays ActivityDaily[]
+}
+model Guardian {
+ userId String
+ childId String
+ user User @relation(fields:[userId], references:[id])
+ child Child @relation(fields:[childId], references:[id])
+ @@id([userId,childId])
+}
+model Device {
+ geofenceStates GeofenceState[]
+ claimCodes DeviceClaimCode[]
+ id String @id @default(uuid())
+ hardwareId String @unique
+ tokenHash String
+ active Boolean @default(true)
+ centerId String
+ center Center @relation(fields:[centerId], references:[id])
+ lastSeen DateTime? @db.Timestamptz(3)
+ assignments Assignment[]
+ events DeviceEvent[]
+ activityBoots ActivityBoot[]
+ activitySummaries ActivitySummary[]
+}
+model Assignment {
+ id String @id @default(uuid())
+ deviceId String
+ childId String
+ device Device @relation(fields:[deviceId], references:[id])
+ child Child @relation(fields:[childId], references:[id])
+ startedAt DateTime @default(now()) @db.Timestamptz(3)
+ endedAt DateTime? @db.Timestamptz(3)
+ @@index([deviceId,endedAt])
+}
+model Beacon {
+ id String @id @default(uuid())
+ hardwareId String @unique
+ centerId String
+ kind String @default("GATE")
+ serviceUuid String? @unique
+ name String @default("")
+ location String @default("")
+ description String @default("")
+ active Boolean @default(true)
+ entryRssi Float @default(-63)
+ exitRssi Float @default(-69)
+ attendanceRssi Float? @default(-55)
+ createdAt DateTime @default(now()) @db.Timestamptz(3)
+ updatedAt DateTime @default(now()) @updatedAt @db.Timestamptz(3)
+ createdById String?
+ updatedById String?
+ createdBy User? @relation("BeaconCreator", fields:[createdById], references:[id])
+ updatedBy User? @relation("BeaconEditor", fields:[updatedById], references:[id])
+ center Center @relation(fields:[centerId], references:[id])
+ events DeviceEvent[]
+ @@index([centerId,active])
+}
+model DeviceEvent {
+ geofenceReading GeofenceReading?
+ id String @id @default(uuid())
+ eventId String @unique
+ eventType String
+ deviceId String
+ childId String?
+ beaconId String?
+ device Device @relation(fields:[deviceId], references:[id])
+ child Child? @relation(fields:[childId], references:[id])
+ beacon Beacon? @relation(fields:[beaconId], references:[id])
+ receivedAt DateTime @default(now()) @db.Timestamptz(3)
+ deviceUptimeMs BigInt
+ observedAt DateTime? @db.Timestamptz(3)
+ payload Json
+ observations Observation[]
+ alerts Alert[]
+ activitySummary ActivitySummary?
+ @@index([deviceId,receivedAt])
+ @@index([deviceId,eventType,receivedAt])
+ @@index([deviceId,beaconId,eventType,observedAt])
+ @@index([beaconId,eventType,observedAt])
+}
+model Attendance {
+ id String @id @default(uuid())
+ childId String
+ child Child @relation(fields:[childId], references:[id])
+ day String
+ status AttendanceStatus @default(NOT_CHECKED_IN)
+ gatePassAuthorized Boolean @default(false)
+ observations Observation[]
+ confirmations Confirmation[]
+ activitySessions ActivityAttendanceSession[]
+ @@unique([childId,day])
+}
+model Observation {
+ id String @id @default(uuid())
+ attendanceId String
+ eventId String @unique
+ attendance Attendance @relation(fields:[attendanceId], references:[id])
+ event DeviceEvent @relation(fields:[eventId], references:[id])
+}
+model Confirmation {
+ id String @id @default(uuid())
+ attendanceId String @unique
+ userId String
+ attendance Attendance @relation(fields:[attendanceId], references:[id])
+ user User @relation(fields:[userId], references:[id])
+ confirmedAt DateTime @default(now()) @db.Timestamptz(3)
+}
+model Alert {
+ id String @id @default(uuid())
+ eventId String
+ event DeviceEvent @relation(fields:[eventId], references:[id])
+ kind String
+ activityDedupKey String? @unique
+ details Json?
+ createdAt DateTime @default(now()) @db.Timestamptz(3)
+}
+model AuditLog {
+ id String @id @default(uuid())
+ userId String
+ user User @relation(fields:[userId], references:[id])
+ action String
+ resourceId String
+ createdAt DateTime @default(now()) @db.Timestamptz(3)
+}
+
+model ActivityPolicy {
+ centerId String @id
+ center Center @relation(fields:[centerId],references:[id])
+ settings Json
+ updatedAt DateTime @default(now()) @updatedAt @db.Timestamptz(3)
+}
+model ActivityAttendanceSession {
+ id String @id @default(uuid())
+ attendanceId String
+ attendance Attendance @relation(fields:[attendanceId],references:[id])
+ startedAt DateTime @db.Timestamptz(3)
+ endedAt DateTime? @db.Timestamptz(3)
+ lastObservedAt DateTime? @db.Timestamptz(3)
+ summaries ActivitySummary[]
+ @@unique([attendanceId,startedAt])
+ @@index([attendanceId,endedAt])
+}
+model ActivityBoot {
+ id String @id @default(uuid())
+ deviceId String
+ device Device @relation(fields:[deviceId],references:[id])
+ sessionId String
+ anchorUptimeMs BigInt
+ anchorAt DateTime @db.Timestamptz(3)
+ createdAt DateTime @default(now()) @db.Timestamptz(3)
+ @@unique([deviceId,sessionId])
+}
+model ActivitySummary {
+ id String @id @default(uuid())
+ eventId String @unique
+ event DeviceEvent @relation(fields:[eventId],references:[id])
+ childId String
+ child Child @relation(fields:[childId],references:[id])
+ deviceId String
+ device Device @relation(fields:[deviceId],references:[id])
+ centerId String
+ center Center @relation(fields:[centerId],references:[id])
+ attendanceSessionId String?
+ attendanceSession ActivityAttendanceSession? @relation(fields:[attendanceSessionId],references:[id])
+ sessionId String
+ sequence Int
+ measurementVersion String
+ timezone String
+ day String
+ startAt DateTime @db.Timestamptz(3)
+ endAt DateTime @db.Timestamptz(3)
+ movementIntensity Float?
+ validSampleCount Int
+ expectedSampleCount Int
+ validDurationSeconds Float
+ sensorStatus String
+ eligible Boolean
+ createdAt DateTime @default(now()) @db.Timestamptz(3)
+ @@unique([deviceId,sessionId,sequence])
+ @@index([childId,startAt])
+ @@index([centerId,day])
+ @@index([deviceId,endAt])
+}
+model ActivityInterval {
+ childId String
+ child Child @relation(fields:[childId],references:[id])
+ centerId String
+ center Center @relation(fields:[centerId],references:[id])
+ day String
+ startMinute Int
+ timezone String
+ measurementVersion String
+ utcStart DateTime @db.Timestamptz(3)
+ clockAmbiguous Boolean @default(false)
+ movementIntegral Float @default(0)
+ validSeconds Float @default(0)
+ observedSeconds Float @default(0)
+ createdAt DateTime @default(now()) @db.Timestamptz(3)
+ updatedAt DateTime @default(now()) @updatedAt @db.Timestamptz(3)
+ @@id([childId,day,startMinute,timezone,measurementVersion])
+ @@index([centerId,day])
+}
+model ActivityDaily {
+ childId String
+ child Child @relation(fields:[childId],references:[id])
+ centerId String
+ center Center @relation(fields:[centerId],references:[id])
+ day String
+ timezone String
+ measurementVersion String
+ movementIntegral Float @default(0)
+ validSeconds Float @default(0)
+ observedSeconds Float @default(0)
+ createdAt DateTime @default(now()) @db.Timestamptz(3)
+ updatedAt DateTime @default(now()) @updatedAt @db.Timestamptz(3)
+ @@id([childId,day,timezone,measurementVersion])
+ @@index([centerId,day])
+}
+
+
+enum ReviewStatus {
+ PENDING
+ APPROVED
+ REJECTED
+}
+model UserProfile {
+ userId String @id
+ user User @relation(fields:[userId],references:[id])
+ fullName String
+ email String @unique
+ phone String
+ emergencyContacts Json @default("[]")
+ photo PrivatePhoto?
+ updatedAt DateTime @default(now()) @updatedAt @db.Timestamptz(3)
+}
+model CenterInvitation {
+ id String @id @default(uuid())
+ centerId String
+ center Center @relation(fields:[centerId],references:[id])
+ codeHash String @unique
+ expiresAt DateTime @db.Timestamptz(3)
+ createdAt DateTime @default(now()) @db.Timestamptz(3)
+}
+model RegistrationApplication {
+ id String @id @default(uuid())
+ receiptHash String @unique
+ payloadHash String
+ username String @unique
+ email String @unique
+ fullName String
+ phone String
+ passwordHash String?
+ role Role
+ centerId String
+ center Center @relation(fields:[centerId],references:[id])
+ status ReviewStatus @default(PENDING)
+ termsVersion String
+ createdAt DateTime @default(now()) @db.Timestamptz(3)
+ updatedAt DateTime @default(now()) @updatedAt @db.Timestamptz(3)
+ reviewedAt DateTime? @db.Timestamptz(3)
+ reviewerId String?
+ reviewer User? @relation("RegistrationReviewer",fields:[reviewerId],references:[id])
+ reason String?
+ userId String? @unique
+ user User? @relation("ApprovedAccount",fields:[userId],references:[id])
+ children EnrollmentRequest[]
+ photo PrivatePhoto?
+ decisions RegistrationDecision[]
+ @@index([centerId,status,createdAt])
+}
+model RegistrationDecision {
+ id String @id @default(uuid())
+ applicationId String
+ application RegistrationApplication @relation(fields:[applicationId],references:[id])
+ status ReviewStatus
+ reviewerId String
+ reviewer User @relation("RegistrationDecisionReviewer",fields:[reviewerId],references:[id])
+ reason String?
+ createdAt DateTime @default(now()) @db.Timestamptz(3)
+}
+model EnrollmentRequest {
+ id String @id @default(uuid())
+ applicationId String?
+ application RegistrationApplication? @relation(fields:[applicationId],references:[id])
+ userId String?
+ user User? @relation("EnrollmentOwner",fields:[userId],references:[id])
+ centerId String
+ center Center @relation(fields:[centerId],references:[id])
+ existingChildId String?
+ fullName String?
+ dateOfBirth DateTime? @db.Date
+ groupName String?
+ relationship String
+ childId String?
+ child Child? @relation(fields:[childId],references:[id])
+ status ReviewStatus @default(PENDING)
+ reviewerId String?
+ reviewer User? @relation("EnrollmentReviewer",fields:[reviewerId],references:[id])
+ reviewedAt DateTime? @db.Timestamptz(3)
+ reason String?
+ createdAt DateTime @default(now()) @db.Timestamptz(3)
+ wearable WearableRequest?
+ @@index([centerId,status])
+}
+model DeviceClaimCode {
+ id String @id @default(uuid())
+ deviceId String
+ device Device @relation(fields:[deviceId],references:[id])
+ codeHash String @unique
+ expiresAt DateTime @db.Timestamptz(3)
+ consumedAt DateTime? @db.Timestamptz(3)
+ createdAt DateTime @default(now()) @db.Timestamptz(3)
+}
+model WearableRequest {
+ id String @id @default(uuid())
+ enrollmentId String? @unique
+ enrollment EnrollmentRequest? @relation(fields:[enrollmentId],references:[id])
+ userId String?
+ user User? @relation("WearableOwner",fields:[userId],references:[id])
+ childId String?
+ child Child? @relation(fields:[childId],references:[id])
+ centerId String
+ center Center @relation(fields:[centerId],references:[id])
+ hardwareId String
+ claimHash String
+ status ReviewStatus @default(PENDING)
+ reviewerId String?
+ reviewer User? @relation("WearableReviewer",fields:[reviewerId],references:[id])
+ reviewedAt DateTime? @db.Timestamptz(3)
+ reason String?
+ createdAt DateTime @default(now()) @db.Timestamptz(3)
+ @@index([centerId,status])
+}
+model PrivatePhoto {
+ id String @id @default(uuid())
+ applicationId String? @unique
+ application RegistrationApplication? @relation(fields:[applicationId],references:[id])
+ userId String? @unique
+ profile UserProfile? @relation(fields:[userId],references:[userId])
+ mime String
+ storageKey String @unique
+ size Int
+ createdAt DateTime @default(now()) @db.Timestamptz(3)
+}

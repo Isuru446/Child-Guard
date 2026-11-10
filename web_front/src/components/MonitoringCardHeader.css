@@ -1,0 +1,30 @@
+/* Shared native disclosure card, based on the RFID Attendance Readers design.
+   Scoped selectors take precedence over the older Admin details rules. */
+.monitoring-card.monitoring-card,
+.app-main-content[data-admin-page] details.monitoring-card {
+ margin:20px 0 0; padding:0; min-width:0;
+ border:1px solid var(--color-border,#dce5ef); border-radius:12px;
+ background:var(--color-card,#fff); color:var(--color-text,#1e2a44); box-shadow:none;
+}
+.monitoring-card.monitoring-card > .monitoring-card__summary {
+ display:flex; align-items:center; gap:12px; padding:18px 20px; margin:0;
+ cursor:pointer; list-style:none; border-radius:inherit; color:var(--color-text,#1e2a44);
+}
+.monitoring-card.monitoring-card[open] > .monitoring-card__summary { margin:0; }
+.monitoring-card > .monitoring-card__summary::-webkit-details-marker { display:none; }
+.monitoring-card > .monitoring-card__summary:hover { background:#f8fafc; }
+.monitoring-card > .monitoring-card__summary:focus-visible { outline:2px solid var(--color-primary,#2878c3); outline-offset:3px; }
+.monitoring-card__icon { display:flex; align-items:center; justify-content:center; flex:0 0 40px; height:40px; border-radius:10px; background:var(--color-primary-soft,#edf5fd); color:var(--color-primary,#2878c3); }
+.monitoring-card__heading { min-width:0; flex:1; }
+.monitoring-card__title { display:flex; flex-wrap:wrap; align-items:center; gap:8px; font-size:15px; line-height:1.5; font-weight:600; overflow-wrap:anywhere; }
+.monitoring-card__subtitle { display:block; margin-top:3px; font-size:12px; font-weight:400; line-height:1.6; color:var(--color-muted,#64748b); overflow-wrap:anywhere; }
+.monitoring-card__count { display:inline-flex; min-width:24px; justify-content:center; padding:1px 7px; border-radius:20px; font-size:11px; background:var(--color-primary-soft,#edf5fd); color:var(--color-primary-dark,#245487); }
+.monitoring-card__chevron { flex-shrink:0; color:var(--color-muted,#64748b); }
+.monitoring-card[open] > .monitoring-card__summary .monitoring-card__chevron { transform:rotate(180deg); }
+.monitoring-card__body { min-width:0; padding:20px; border-top:1px solid var(--color-border,#dce5ef); }
+.monitoring-card__body > .dv-telemetry-grid { margin-top:0; }
+@media(max-width:600px) {
+ .monitoring-card.monitoring-card > .monitoring-card__summary { padding:16px; gap:10px; }
+ .monitoring-card__icon { flex-basis:34px; height:34px; }
+ .monitoring-card__body { padding:16px; }
+}

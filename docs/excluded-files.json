@@ -1,0 +1,950 @@
+[
+  {
+    "path": ".baseline-stage-a62383c160764d18831c867468d43ffe.status.txt",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": ".gitignore",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "ABSENCE_FEATURE_IMPLEMENTATION.md",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "ACTIVITY_HISTORY_21_DAY_IMPLEMENTATION.md",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "ACTIVITY_HISTORY_WEB_RUNTIME_FIX.md",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "ADMIN_UI_CONTENT_GUIDE.md",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "ATTENDANCE_OVERVIEW_AUDIT_AND_FIX.md",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "BUS_TRANSPORT_IMPLEMENTATION.md",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "CHILDGUARD_AUTHENTICATION_ACCEPTANCE_REPORT.md",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "childguard_backup.dump",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "CHILDGUARD_COMPLETE_PROJECT_SUMMARY.md",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "CHILDGUARD_FLUTTER_COMPLETE_AUDIT.md",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "CHILDGUARD_FLUTTER_FEATURE_MATRIX.md",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "CHILDGUARD_FLUTTER_V2_BACKLOG.md",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "CHILDGUARD_FLUTTER_WEB_ADMIN_COMPATIBILITY.md",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "CHILDGUARD_GATE_AND_WORKFLOW_VERIFICATION.md",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "CHILDGUARD_MOBILE_FEATURE_AUDIT.md",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "CHILDGUARD_MOBILE_INTEGRATION_REPORT.md",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "CHILDGUARD_NON_IOT_FEATURE_AUDIT.md",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "CHILDGUARD_REGISTRATION_AND_APPROVAL_REPORT.md",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "CHILDGUARD_SUPERVISOR_DEMO_GUIDE.md",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "CHILDGUARD_SUPERVISOR_FEATURE_INVENTORY.md",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "CHILDGUARD_SUPERVISOR_READINESS_REPORT.md",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "CHILDGUARD_WEARABLE_ASSIGNMENT_REPORT.md",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "CHILDGUARD_WEB_ADMIN_COMPLETE_AUDIT.md",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "CHILDGUARD_WEB_ADMIN_FEATURE_MATRIX.md",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "CHILDGUARD_WEB_ADMIN_V2_BACKLOG.md",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "CHILDGUARD_WEB_REALTIME_VERIFICATION.md",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "CHILDGUARD_WINDOWS_STARTUP_GUIDE.md",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "DANGER_ZONE_LATENCY_REPORT.md",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "DANGER_ZONE_LOGIC_REVISION.md",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "DEMO.md",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "DEMO_TEST_PLAN.md",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "DEVICE_PROVISIONING.md",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "FLUTTER_BACKEND_INTEGRATION_REPORT.md",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "FLUTTER_INTEGRATION_COMPLETION.md",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "FLUTTER_NAVIGATION_PROFILE_ATTENDANCE_FIX.md",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "FLUTTER_TEST_REPAIR_REPORT.md",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "INTERACTIVE_WEARABLE_MAP_IMPLEMENTATION.md",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "MOBILE_API_MAPPING.md",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "NON_GATE_DANGER_ENTRY_FIX.md",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "PARENT_DANGER_NOTIFICATIONS_UI_IMPLEMENTATION.md",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "PARENT_HOME_NOTIFICATION_REFINEMENT.md",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "PARENT_HOME_PROFILE_CLEANUP.md",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "PERSONALIZED_ACTIVITY_BASELINE_IMPLEMENTATION.md",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "PICKUP_SOS_IMPLEMENTATION.md",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "REGISTRATION_AVAILABILITY_FIX.md",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "REGISTRATION_CENTER_SELECTION_REPORT.md",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "REGISTRATION_PAYLOAD_FIX.md",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "RFID_CARD_BACKUP_IMPLEMENTATION.md",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "RFID_ENROLLMENT_REFRESH_FIX.md",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "SILENT_BACKGROUND_REFRESH_IMPLEMENTATION.md",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "SOURCE_INSPECTION_SUMMARY.md",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "TAMPER_LOOP_IMPLEMENTATION.md",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "TEACHER_ALERT_ACKNOWLEDGEMENT_IMPLEMENTATION.md",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "TEACHER_HOME_DASHBOARD_IMPLEMENTATION.md",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "test_case_reference.xlsx",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "WEARABLE_ASSIGNMENT_UI_AND_LOGIC_REVIEW.md",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "WEARABLE_CONNECTION_ALERT_IMPLEMENTATION.md",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "WEB_ADMIN_ATTENDANCE_SIMPLIFICATION.md",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "WEB_ADMIN_FINAL_REFINEMENT.md",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "WEB_ADMIN_GPS_LOCATION_IMPLEMENTATION.md",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "WEB_ADMIN_NESTED_MODAL_FIX.md",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "WEB_ADMIN_TABLE_ALIGNMENT_REVIEW.md",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "WEB_ADMIN_UX_REVIEW.md",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "WINDOWS_MIGRATION_REPORT.md",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "App/.flutter-plugins-dependencies",
+    "reason": "Private configuration or machine-specific state; never copied."
+  },
+  {
+    "path": "App/final_project.iml",
+    "reason": "Generated output, private material, unrelated attachment or editor state."
+  },
+  {
+    "path": "App/.vscode/settings.json",
+    "reason": "Generated output, private material, unrelated attachment or editor state."
+  },
+  {
+    "path": "App/android/final_project_android.iml",
+    "reason": "Generated output, private material, unrelated attachment or editor state."
+  },
+  {
+    "path": "App/android/local.properties",
+    "reason": "Private configuration or machine-specific state; never copied."
+  },
+  {
+    "path": "App/android/.kotlin/errors/errors-1792726041950.log",
+    "reason": "Generated output, private material, unrelated attachment or editor state."
+  },
+  {
+    "path": "App/ios/Flutter/flutter_export_environment.sh",
+    "reason": "Private configuration or machine-specific state; never copied."
+  },
+  {
+    "path": "App/ios/Flutter/Generated.xcconfig",
+    "reason": "Private configuration or machine-specific state; never copied."
+  },
+  {
+    "path": "App/ios/Runner/Assets.xcassets/LaunchImage.imageset/README.md",
+    "reason": "Temporary implementation report; useful design extracted into docs. Required test document replaced with curated fingerprints."
+  },
+  {
+    "path": "backend/.env",
+    "reason": "Private configuration or machine-specific state; never copied."
+  },
+  {
+    "path": "backend/ACTIVITY_MONITORING_VERIFICATION.md",
+    "reason": "Temporary implementation report; useful design extracted into docs. Required test document replaced with curated fingerprints."
+  },
+  {
+    "path": "backend/ATTENDANCE_GATE_VERIFICATION.md",
+    "reason": "Temporary implementation report; useful design extracted into docs. Required test document replaced with curated fingerprints."
+  },
+  {
+    "path": "backend/danger-zone-benchmark.json",
+    "reason": "Execution evidence tied to the original machine; not a reproducible fixture."
+  },
+  {
+    "path": "backend/DEV_ATTENDANCE_RESET_VERIFICATION.md",
+    "reason": "Temporary implementation report; useful design extracted into docs. Required test document replaced with curated fingerprints."
+  },
+  {
+    "path": "backend/INTEGRATION_TEST_REPORT.md",
+    "reason": "Temporary implementation report; useful design extracted into docs. Required test document replaced with curated fingerprints."
+  },
+  {
+    "path": "backend/monitoring-benchmark.json",
+    "reason": "Execution evidence tied to the original machine; not a reproducible fixture."
+  },
+  {
+    "path": "backend/MULTI_BEACON_VERIFICATION.md",
+    "reason": "Temporary implementation report; useful design extracted into docs. Required test document replaced with curated fingerprints."
+  },
+  {
+    "path": "backend/PHASE2_VERIFICATION.md",
+    "reason": "Temporary implementation report; useful design extracted into docs. Required test document replaced with curated fingerprints."
+  },
+  {
+    "path": "backend/phase5.private.json",
+    "reason": "Private configuration or machine-specific state; never copied."
+  },
+  {
+    "path": "backend/phase5_validation.private.json",
+    "reason": "Private configuration or machine-specific state; never copied."
+  },
+  {
+    "path": "backend/PICKUP_DEPLOYMENT_READINESS.md",
+    "reason": "Temporary implementation report; useful design extracted into docs. Required test document replaced with curated fingerprints."
+  },
+  {
+    "path": "backend/REGISTRATION_INTEGRATION.md",
+    "reason": "Temporary implementation report; useful design extracted into docs. Required test document replaced with curated fingerprints."
+  },
+  {
+    "path": "backend/supervisor-tests.private.json",
+    "reason": "Private configuration or machine-specific state; never copied."
+  },
+  {
+    "path": "backend/prisma/review/absence/DEPLOYMENT_RUNBOOK.md",
+    "reason": "Temporary implementation report; useful design extracted into docs. Required test document replaced with curated fingerprints."
+  },
+  {
+    "path": "backend/prisma/review/absence/forward-client-manifest.json",
+    "reason": "Execution evidence tied to the original machine; not a reproducible fixture."
+  },
+  {
+    "path": "backend/prisma/review/absence/READINESS_DIAGNOSIS.md",
+    "reason": "Temporary implementation report; useful design extracted into docs. Required test document replaced with curated fingerprints."
+  },
+  {
+    "path": "backend/prisma/review/absence/VALIDATION_DIAGNOSIS.md",
+    "reason": "Temporary implementation report; useful design extracted into docs. Required test document replaced with curated fingerprints."
+  },
+  {
+    "path": "backend/prisma/review/geofence/READINESS.md",
+    "reason": "Temporary implementation report; useful design extracted into docs. Required test document replaced with curated fingerprints."
+  },
+  {
+    "path": "backend/prisma/review/geofence/README.md",
+    "reason": "Temporary implementation report; useful design extracted into docs. Required test document replaced with curated fingerprints."
+  },
+  {
+    "path": "backend/prisma/review/pickup/CLIENT_REVIEW.md",
+    "reason": "Temporary implementation report; useful design extracted into docs. Required test document replaced with curated fingerprints."
+  },
+  {
+    "path": "backend/prisma/review/pickup/DEPLOYMENT_RUNBOOK.md",
+    "reason": "Temporary implementation report; useful design extracted into docs. Required test document replaced with curated fingerprints."
+  },
+  {
+    "path": "backend/prisma/review/pickup/FINAL_PREPARATION.md",
+    "reason": "Temporary implementation report; useful design extracted into docs. Required test document replaced with curated fingerprints."
+  },
+  {
+    "path": "backend/prisma/review/pickup/RECONCILIATION.md",
+    "reason": "Temporary implementation report; useful design extracted into docs. Required test document replaced with curated fingerprints."
+  },
+  {
+    "path": "database_study/build_database_book.py",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "database_study/catalog_evidence.json",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "database_study/ChildGuard_V2_Complete_Database_Explanation.html",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "database_study/ChildGuard_V2_Complete_Database_Explanation.pdf",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "database_study/generation_result.json",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "database_study/inspect_catalog.mjs",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "database_study/render_pdf.ps1",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "database_study/validate_pdf.py",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "database_study/_pdf_tools_install.log",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "database_study/verification/extracted_text.txt",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "database_study/verification/page-001.png",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "database_study/verification/page-002.png",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "database_study/verification/page-005.png",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "database_study/verification/page-010.png",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "database_study/verification/page-039.png",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "database_study/verification/page-049.png",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "database_study/verification/page-051.png",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "database_study/verification/page-054.png",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "database_study/verification/page-071.png",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "database_study/verification/page-072.png",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "database_study/verification/page-083.png",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "database_study/verification/page-084.png",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "database_study/verification/page-085.png",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "database_study/verification/page-119.png",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "database_study/verification/page-121.png",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "database_study/verification/page-122.png",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "database_study/verification/render_result.json",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "database_study/verification/text_and_structure_result.json",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "firmware/ACTIVITY_RUNTIME_REPAIR.md",
+    "reason": "Temporary implementation report; useful design extracted into docs. Required test document replaced with curated fingerprints."
+  },
+  {
+    "path": "firmware/FINAL_INTEGRATION.md",
+    "reason": "Temporary implementation report; useful design extracted into docs. Required test document replaced with curated fingerprints."
+  },
+  {
+    "path": "firmware/ChildGuard_Bus_Beacon/analyze course.pdf",
+    "reason": "Generated output, private material, unrelated attachment or editor state."
+  },
+  {
+    "path": "firmware/ChildGuard_RFID_Reader/secrets.h",
+    "reason": "Private configuration or machine-specific state; never copied."
+  },
+  {
+    "path": "firmware/ChildGuard_Wearable_Integrated/secrets.h",
+    "reason": "Private configuration or machine-specific state; never copied."
+  },
+  {
+    "path": "reference_ui/before_backend/web_front/eslint.config.js",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "reference_ui/before_backend/web_front/index.html",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "reference_ui/before_backend/web_front/package-lock.json",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "reference_ui/before_backend/web_front/package.json",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "reference_ui/before_backend/web_front/README.md",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "reference_ui/before_backend/web_front/vite.config.js",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "reference_ui/before_backend/web_front/public/favicon.svg",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "reference_ui/before_backend/web_front/public/icons.svg",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "reference_ui/before_backend/web_front/src/App.css",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "reference_ui/before_backend/web_front/src/App.jsx",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "reference_ui/before_backend/web_front/src/main.jsx",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "reference_ui/before_backend/web_front/src/assets/hero.png",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "reference_ui/before_backend/web_front/src/assets/icon.png",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "reference_ui/before_backend/web_front/src/assets/logo.png",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "reference_ui/before_backend/web_front/src/assets/react.svg",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "reference_ui/before_backend/web_front/src/assets/vite.svg",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "reference_ui/before_backend/web_front/src/components/ActionButton.css",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "reference_ui/before_backend/web_front/src/components/ActionButton.jsx",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "reference_ui/before_backend/web_front/src/components/AdminSidebar.css",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "reference_ui/before_backend/web_front/src/components/AdminSidebar.jsx",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "reference_ui/before_backend/web_front/src/components/DataTable.css",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "reference_ui/before_backend/web_front/src/components/DataTable.jsx",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "reference_ui/before_backend/web_front/src/components/FilterOption.css",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "reference_ui/before_backend/web_front/src/components/FilterOption.jsx",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "reference_ui/before_backend/web_front/src/components/Footer.css",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "reference_ui/before_backend/web_front/src/components/Footer.jsx",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "reference_ui/before_backend/web_front/src/components/LocationMap.css",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "reference_ui/before_backend/web_front/src/components/LocationMap.jsx",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "reference_ui/before_backend/web_front/src/components/SearchBar.css",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "reference_ui/before_backend/web_front/src/components/SearchBar.jsx",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "reference_ui/before_backend/web_front/src/components/StatCard.css",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "reference_ui/before_backend/web_front/src/components/StatCard.jsx",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "reference_ui/before_backend/web_front/src/components/Topbar.css",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "reference_ui/before_backend/web_front/src/components/Topbar.jsx",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "reference_ui/before_backend/web_front/src/data/attendanceMockData.js",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "reference_ui/before_backend/web_front/src/data/mockData",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "reference_ui/before_backend/web_front/src/pages/AdminLogin.jsx",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "reference_ui/before_backend/web_front/src/pages/Alerts.jsx",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "reference_ui/before_backend/web_front/src/pages/AttendanceOverview.jsx",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "reference_ui/before_backend/web_front/src/pages/Beacons.jsx",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "reference_ui/before_backend/web_front/src/pages/Children.jsx",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "reference_ui/before_backend/web_front/src/pages/Dashboard.jsx",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "reference_ui/before_backend/web_front/src/pages/Devices.jsx",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "reference_ui/before_backend/web_front/src/pages/Geofence.jsx",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "reference_ui/before_backend/web_front/src/pages/Pickup.jsx",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "reference_ui/before_backend/web_front/src/pages/RegistrationApproval.jsx",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "reference_ui/before_backend/web_front/src/pages/Teacher.jsx",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "reference_ui/before_backend/web_front/src/pages/Transport.jsx",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "reference_ui/before_backend/web_front/src/pages/Welcome.jsx",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "reference_ui/before_backend/web_front/src/style/AdminLogin.css",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "reference_ui/before_backend/web_front/src/style/Alerts.css",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "reference_ui/before_backend/web_front/src/style/AttendanceOverview.css",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "reference_ui/before_backend/web_front/src/style/Beacons.css",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "reference_ui/before_backend/web_front/src/style/Children.css",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "reference_ui/before_backend/web_front/src/style/Dashboard.css",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "reference_ui/before_backend/web_front/src/style/Device.css",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "reference_ui/before_backend/web_front/src/style/Geofence.css",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "reference_ui/before_backend/web_front/src/style/global.css",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "reference_ui/before_backend/web_front/src/style/Pickup.css",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "reference_ui/before_backend/web_front/src/style/RegistrationApproval.css",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "reference_ui/before_backend/web_front/src/style/Teacher.css",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "reference_ui/before_backend/web_front/src/style/Transport.css",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "reference_ui/before_backend/web_front/src/style/Welcome.css",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "test_documents/ChildGuard_V2_Detailed_Test_Cases_Easy_English.xlsx",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "test_documents/ChildGuard_V2_Detailed_Test_Case_Review.md",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "test_documents/ChildGuard_V2_Simple_Test_Cases.xlsx",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "test_documents/ChildGuard_V2_Test_Case_Review.md",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "test_documents/detailed_workbook_samples.json",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "test_documents/detailed_workbook_validation.json",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "test_documents/generate_detailed_test_cases.py",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "test_documents/generate_test_cases.py",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "test_documents/workbook_validation.json",
+    "reason": "Historical reports, workbook exports, database study or duplicate reference UI; engineering findings summarized in docs."
+  },
+  {
+    "path": "V2_Planning/01_CHILDGUARD_V2_FINAL_REQUIREMENTS.md",
+    "reason": "Temporary implementation report; useful design extracted into docs. Required test document replaced with curated fingerprints."
+  },
+  {
+    "path": "V2_Planning/02_CHILDGUARD_V2_BACKEND_API_CONTRACT.md",
+    "reason": "Temporary implementation report; useful design extracted into docs. Required test document replaced with curated fingerprints."
+  },
+  {
+    "path": "V2_Planning/03_CHILDGUARD_V2_DATABASE_DESIGN.md",
+    "reason": "Temporary implementation report; useful design extracted into docs. Required test document replaced with curated fingerprints."
+  },
+  {
+    "path": "V2_Planning/04_CHILDGUARD_V2_FEATURE_TRACEABILITY.md",
+    "reason": "Temporary implementation report; useful design extracted into docs. Required test document replaced with curated fingerprints."
+  },
+  {
+    "path": "V2_Planning/05_CHILDGUARD_V2_DEVELOPMENT_ROADMAP.md",
+    "reason": "Temporary implementation report; useful design extracted into docs. Required test document replaced with curated fingerprints."
+  },
+  {
+    "path": "V2_Planning/06_CHILDGUARD_V2_TECHNICAL_DECISIONS_AND_RISKS.md",
+    "reason": "Temporary implementation report; useful design extracted into docs. Required test document replaced with curated fingerprints."
+  },
+  {
+    "path": "V2_Planning/WP00B_DATABASE_GUARD_IMPLEMENTATION.md",
+    "reason": "Temporary implementation report; useful design extracted into docs. Required test document replaced with curated fingerprints."
+  },
+  {
+    "path": "V2_Planning/WP00D_ADMISSION_FAILURE_DIAGNOSIS.md",
+    "reason": "Temporary implementation report; useful design extracted into docs. Required test document replaced with curated fingerprints."
+  },
+  {
+    "path": "V2_Planning/WP00D_PRISMA_PREFLIGHT.md",
+    "reason": "Temporary implementation report; useful design extracted into docs. Required test document replaced with curated fingerprints."
+  },
+  {
+    "path": "V2_Planning/WP00E_MIGRATION_READINESS.md",
+    "reason": "Temporary implementation report; useful design extracted into docs. Required test document replaced with curated fingerprints."
+  },
+  {
+    "path": "V2_Planning/WP00G1_POWERSHELL_TEST_DIAGNOSIS.md",
+    "reason": "Temporary implementation report; useful design extracted into docs. Required test document replaced with curated fingerprints."
+  },
+  {
+    "path": "V2_Planning/WP00G_BASELINE_DEPLOYMENT_REVIEW.md",
+    "reason": "Temporary implementation report; useful design extracted into docs. Required test document replaced with curated fingerprints."
+  },
+  {
+    "path": "V2_Planning/WP00H1_FINAL_COMPATIBILITY_AUDIT.md",
+    "reason": "Temporary implementation report; useful design extracted into docs. Required test document replaced with curated fingerprints."
+  },
+  {
+    "path": "V2_Planning/WP00H2_BACKUP_APPROVAL_GATE.md",
+    "reason": "Temporary implementation report; useful design extracted into docs. Required test document replaced with curated fingerprints."
+  },
+  {
+    "path": "V2_Planning/WP00H3_LOCAL_DEVELOPMENT_APPROVAL.md",
+    "reason": "Temporary implementation report; useful design extracted into docs. Required test document replaced with curated fingerprints."
+  },
+  {
+    "path": "V2_Planning/WP00_V2_ENVIRONMENT_READINESS.md",
+    "reason": "Temporary implementation report; useful design extracted into docs. Required test document replaced with curated fingerprints."
+  },
+  {
+    "path": "V2_Planning/WP02A_ADMIN_SESSION_FOUNDATION.md",
+    "reason": "Temporary implementation report; useful design extracted into docs. Required test document replaced with curated fingerprints."
+  },
+  {
+    "path": "V2_Planning/WP02B_ADMIN_SESSION_DEPLOYMENT_READINESS.md",
+    "reason": "Temporary implementation report; useful design extracted into docs. Required test document replaced with curated fingerprints."
+  },
+  {
+    "path": "web_front/INTEGRATION_PLAN.md",
+    "reason": "Temporary implementation report; useful design extracted into docs. Required test document replaced with curated fingerprints."
+  },
+  {
+    "path": "web_front/monitoring-render-benchmark.json",
+    "reason": "Execution evidence tied to the original machine; not a reproducible fixture."
+  },
+  {
+    "path": "web_front/ORIGINAL_UI_RESTORATION.md",
+    "reason": "Temporary implementation report; useful design extracted into docs. Required test document replaced with curated fingerprints."
+  },
+  {
+    "path": "web_front/WEB_FUNCTIONAL_ACCEPTANCE.md",
+    "reason": "Temporary implementation report; useful design extracted into docs. Required test document replaced with curated fingerprints."
+  },
+  {
+    "path": "web_front/WEB_PICKUP_INTEGRATION.md",
+    "reason": "Temporary implementation report; useful design extracted into docs. Required test document replaced with curated fingerprints."
+  },
+  {
+    "path": "web_front/WEB_UI_REFINEMENT.md",
+    "reason": "Temporary implementation report; useful design extracted into docs. Required test document replaced with curated fingerprints."
+  },
+  {
+    "path": "web_front/src/assets/hero.png",
+    "reason": "Unused template artwork or sprite; no references in current source, tests, scripts or entry HTML."
+  },
+  {
+    "path": "web_front/src/assets/icon.png",
+    "reason": "Unused template artwork or sprite; no references in current source, tests, scripts or entry HTML."
+  },
+  {
+    "path": "web_front/src/assets/react.svg",
+    "reason": "Unused template artwork or sprite; no references in current source, tests, scripts or entry HTML."
+  },
+  {
+    "path": "web_front/src/assets/vite.svg",
+    "reason": "Unused template artwork or sprite; no references in current source, tests, scripts or entry HTML."
+  },
+  {
+    "path": "web_front/public/icons.svg",
+    "reason": "Unused template artwork or sprite; no references in current source, tests, scripts or entry HTML."
+  },
+  {
+    "path": "web_front/scripts/reference-preview.mjs",
+    "reason": "Unused builder for the excluded duplicate reference UI."
+  },
+  {
+    "path": "App/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java",
+    "reason": "Regenerated by Flutter tooling before platform build; ignored by the retained platform .gitignore."
+  },
+  {
+    "path": "App/ios/Runner/GeneratedPluginRegistrant.h",
+    "reason": "Regenerated by Flutter tooling before platform build; ignored by the retained platform .gitignore."
+  },
+  {
+    "path": "App/ios/Runner/GeneratedPluginRegistrant.m",
+    "reason": "Regenerated by Flutter tooling before platform build; ignored by the retained platform .gitignore."
+  }
+]

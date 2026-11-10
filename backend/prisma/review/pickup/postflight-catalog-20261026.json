@@ -1,0 +1,775 @@
+﻿{
+  "summary": {
+    "catalogPassed": true,
+    "tables": 3,
+    "nonNotNullConstraints": 22,
+    "notNullConstraints": 33,
+    "indexes": 9,
+    "definitionsAndPrivilegesMatchReviewedSql": true
+  },
+  "observedAt": "2026-10-26T08:04:19.691Z",
+  "database": "childguard_v2",
+  "host": "127.0.0.1",
+  "port": 5432,
+  "tables": [
+    {
+      "relname": "AuthorizedPickupPerson",
+      "owner": "childguard_v2_migrator",
+      "read": true,
+      "insert": true,
+      "update": true,
+      "excess": false
+    },
+    {
+      "relname": "PickupPhoto",
+      "owner": "childguard_v2_migrator",
+      "read": true,
+      "insert": true,
+      "update": false,
+      "excess": false
+    },
+    {
+      "relname": "PickupRequest",
+      "owner": "childguard_v2_migrator",
+      "read": true,
+      "insert": true,
+      "update": true,
+      "excess": false
+    }
+  ],
+  "constraints": [
+    {
+      "relname": "AuthorizedPickupPerson",
+      "conname": "AuthorizedPickupPerson_active_not_null",
+      "type": "n",
+      "convalidated": true,
+      "condeferrable": false,
+      "definition": "NOT NULL active"
+    },
+    {
+      "relname": "AuthorizedPickupPerson",
+      "conname": "AuthorizedPickupPerson_address_not_null",
+      "type": "n",
+      "convalidated": true,
+      "condeferrable": false,
+      "definition": "NOT NULL address"
+    },
+    {
+      "relname": "AuthorizedPickupPerson",
+      "conname": "AuthorizedPickupPerson_centerId_fkey",
+      "type": "f",
+      "convalidated": true,
+      "condeferrable": false,
+      "definition": "FOREIGN KEY (\"centerId\") REFERENCES \"Center\"(id) ON UPDATE CASCADE ON DELETE RESTRICT"
+    },
+    {
+      "relname": "AuthorizedPickupPerson",
+      "conname": "AuthorizedPickupPerson_centerId_not_null",
+      "type": "n",
+      "convalidated": true,
+      "condeferrable": false,
+      "definition": "NOT NULL \"centerId\""
+    },
+    {
+      "relname": "AuthorizedPickupPerson",
+      "conname": "AuthorizedPickupPerson_childId_fkey",
+      "type": "f",
+      "convalidated": true,
+      "condeferrable": false,
+      "definition": "FOREIGN KEY (\"childId\") REFERENCES \"Child\"(id) ON UPDATE CASCADE ON DELETE RESTRICT"
+    },
+    {
+      "relname": "AuthorizedPickupPerson",
+      "conname": "AuthorizedPickupPerson_childId_not_null",
+      "type": "n",
+      "convalidated": true,
+      "condeferrable": false,
+      "definition": "NOT NULL \"childId\""
+    },
+    {
+      "relname": "AuthorizedPickupPerson",
+      "conname": "AuthorizedPickupPerson_createdAt_not_null",
+      "type": "n",
+      "convalidated": true,
+      "condeferrable": false,
+      "definition": "NOT NULL \"createdAt\""
+    },
+    {
+      "relname": "AuthorizedPickupPerson",
+      "conname": "AuthorizedPickupPerson_createdById_fkey",
+      "type": "f",
+      "convalidated": true,
+      "condeferrable": false,
+      "definition": "FOREIGN KEY (\"createdById\") REFERENCES \"User\"(id) ON UPDATE CASCADE ON DELETE RESTRICT"
+    },
+    {
+      "relname": "AuthorizedPickupPerson",
+      "conname": "AuthorizedPickupPerson_createdById_not_null",
+      "type": "n",
+      "convalidated": true,
+      "condeferrable": false,
+      "definition": "NOT NULL \"createdById\""
+    },
+    {
+      "relname": "AuthorizedPickupPerson",
+      "conname": "AuthorizedPickupPerson_fullName_not_null",
+      "type": "n",
+      "convalidated": true,
+      "condeferrable": false,
+      "definition": "NOT NULL \"fullName\""
+    },
+    {
+      "relname": "AuthorizedPickupPerson",
+      "conname": "AuthorizedPickupPerson_id_not_null",
+      "type": "n",
+      "convalidated": true,
+      "condeferrable": false,
+      "definition": "NOT NULL id"
+    },
+    {
+      "relname": "AuthorizedPickupPerson",
+      "conname": "AuthorizedPickupPerson_phone_not_null",
+      "type": "n",
+      "convalidated": true,
+      "condeferrable": false,
+      "definition": "NOT NULL phone"
+    },
+    {
+      "relname": "AuthorizedPickupPerson",
+      "conname": "AuthorizedPickupPerson_photoId_fkey",
+      "type": "f",
+      "convalidated": true,
+      "condeferrable": false,
+      "definition": "FOREIGN KEY (\"photoId\") REFERENCES \"PickupPhoto\"(id) ON UPDATE CASCADE ON DELETE RESTRICT"
+    },
+    {
+      "relname": "AuthorizedPickupPerson",
+      "conname": "AuthorizedPickupPerson_photoId_not_null",
+      "type": "n",
+      "convalidated": true,
+      "condeferrable": false,
+      "definition": "NOT NULL \"photoId\""
+    },
+    {
+      "relname": "AuthorizedPickupPerson",
+      "conname": "AuthorizedPickupPerson_pkey",
+      "type": "p",
+      "convalidated": true,
+      "condeferrable": false,
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "relname": "AuthorizedPickupPerson",
+      "conname": "AuthorizedPickupPerson_updatedAt_not_null",
+      "type": "n",
+      "convalidated": true,
+      "condeferrable": false,
+      "definition": "NOT NULL \"updatedAt\""
+    },
+    {
+      "relname": "PickupPhoto",
+      "conname": "PickupPhoto_bytes_not_null",
+      "type": "n",
+      "convalidated": true,
+      "condeferrable": false,
+      "definition": "NOT NULL bytes"
+    },
+    {
+      "relname": "PickupPhoto",
+      "conname": "PickupPhoto_centerId_fkey",
+      "type": "f",
+      "convalidated": true,
+      "condeferrable": false,
+      "definition": "FOREIGN KEY (\"centerId\") REFERENCES \"Center\"(id) ON UPDATE CASCADE ON DELETE RESTRICT"
+    },
+    {
+      "relname": "PickupPhoto",
+      "conname": "PickupPhoto_centerId_not_null",
+      "type": "n",
+      "convalidated": true,
+      "condeferrable": false,
+      "definition": "NOT NULL \"centerId\""
+    },
+    {
+      "relname": "PickupPhoto",
+      "conname": "PickupPhoto_childId_fkey",
+      "type": "f",
+      "convalidated": true,
+      "condeferrable": false,
+      "definition": "FOREIGN KEY (\"childId\") REFERENCES \"Child\"(id) ON UPDATE CASCADE ON DELETE RESTRICT"
+    },
+    {
+      "relname": "PickupPhoto",
+      "conname": "PickupPhoto_childId_not_null",
+      "type": "n",
+      "convalidated": true,
+      "condeferrable": false,
+      "definition": "NOT NULL \"childId\""
+    },
+    {
+      "relname": "PickupPhoto",
+      "conname": "PickupPhoto_createdAt_not_null",
+      "type": "n",
+      "convalidated": true,
+      "condeferrable": false,
+      "definition": "NOT NULL \"createdAt\""
+    },
+    {
+      "relname": "PickupPhoto",
+      "conname": "PickupPhoto_id_not_null",
+      "type": "n",
+      "convalidated": true,
+      "condeferrable": false,
+      "definition": "NOT NULL id"
+    },
+    {
+      "relname": "PickupPhoto",
+      "conname": "PickupPhoto_mime_not_null",
+      "type": "n",
+      "convalidated": true,
+      "condeferrable": false,
+      "definition": "NOT NULL mime"
+    },
+    {
+      "relname": "PickupPhoto",
+      "conname": "PickupPhoto_pkey",
+      "type": "p",
+      "convalidated": true,
+      "condeferrable": false,
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "relname": "PickupPhoto",
+      "conname": "PickupPhoto_size",
+      "type": "c",
+      "convalidated": true,
+      "condeferrable": false,
+      "definition": "CHECK (octet_length(bytes) >= 24 AND octet_length(bytes) <= 2097152)"
+    },
+    {
+      "relname": "PickupPhoto",
+      "conname": "PickupPhoto_uploadedById_fkey",
+      "type": "f",
+      "convalidated": true,
+      "condeferrable": false,
+      "definition": "FOREIGN KEY (\"uploadedById\") REFERENCES \"User\"(id) ON UPDATE CASCADE ON DELETE RESTRICT"
+    },
+    {
+      "relname": "PickupPhoto",
+      "conname": "PickupPhoto_uploadedById_not_null",
+      "type": "n",
+      "convalidated": true,
+      "condeferrable": false,
+      "definition": "NOT NULL \"uploadedById\""
+    },
+    {
+      "relname": "PickupRequest",
+      "conname": "PickupRequest_attempts",
+      "type": "c",
+      "convalidated": true,
+      "condeferrable": false,
+      "definition": "CHECK (attempts >= 0 AND attempts <= 5 AND \"codeIssues\" >= 1 AND \"codeIssues\" <= 3)"
+    },
+    {
+      "relname": "PickupRequest",
+      "conname": "PickupRequest_attempts_not_null",
+      "type": "n",
+      "convalidated": true,
+      "condeferrable": false,
+      "definition": "NOT NULL attempts"
+    },
+    {
+      "relname": "PickupRequest",
+      "conname": "PickupRequest_centerId_fkey",
+      "type": "f",
+      "convalidated": true,
+      "condeferrable": false,
+      "definition": "FOREIGN KEY (\"centerId\") REFERENCES \"Center\"(id) ON UPDATE CASCADE ON DELETE RESTRICT"
+    },
+    {
+      "relname": "PickupRequest",
+      "conname": "PickupRequest_centerId_not_null",
+      "type": "n",
+      "convalidated": true,
+      "condeferrable": false,
+      "definition": "NOT NULL \"centerId\""
+    },
+    {
+      "relname": "PickupRequest",
+      "conname": "PickupRequest_childId_fkey",
+      "type": "f",
+      "convalidated": true,
+      "condeferrable": false,
+      "definition": "FOREIGN KEY (\"childId\") REFERENCES \"Child\"(id) ON UPDATE CASCADE ON DELETE RESTRICT"
+    },
+    {
+      "relname": "PickupRequest",
+      "conname": "PickupRequest_childId_not_null",
+      "type": "n",
+      "convalidated": true,
+      "condeferrable": false,
+      "definition": "NOT NULL \"childId\""
+    },
+    {
+      "relname": "PickupRequest",
+      "conname": "PickupRequest_codeIssues_not_null",
+      "type": "n",
+      "convalidated": true,
+      "condeferrable": false,
+      "definition": "NOT NULL \"codeIssues\""
+    },
+    {
+      "relname": "PickupRequest",
+      "conname": "PickupRequest_completion",
+      "type": "c",
+      "convalidated": true,
+      "condeferrable": false,
+      "definition": "CHECK (status <> 'COMPLETED'::text OR \"completedAt\" IS NOT NULL AND \"reviewedById\" IS NOT NULL AND \"verifiedById\" IS NOT NULL AND \"verifiedById\" = \"reviewedById\")"
+    },
+    {
+      "relname": "PickupRequest",
+      "conname": "PickupRequest_createdAt_not_null",
+      "type": "n",
+      "convalidated": true,
+      "condeferrable": false,
+      "definition": "NOT NULL \"createdAt\""
+    },
+    {
+      "relname": "PickupRequest",
+      "conname": "PickupRequest_day_not_null",
+      "type": "n",
+      "convalidated": true,
+      "condeferrable": false,
+      "definition": "NOT NULL day"
+    },
+    {
+      "relname": "PickupRequest",
+      "conname": "PickupRequest_expiresAt_not_null",
+      "type": "n",
+      "convalidated": true,
+      "condeferrable": false,
+      "definition": "NOT NULL \"expiresAt\""
+    },
+    {
+      "relname": "PickupRequest",
+      "conname": "PickupRequest_id_not_null",
+      "type": "n",
+      "convalidated": true,
+      "condeferrable": false,
+      "definition": "NOT NULL id"
+    },
+    {
+      "relname": "PickupRequest",
+      "conname": "PickupRequest_personId_fkey",
+      "type": "f",
+      "convalidated": true,
+      "condeferrable": false,
+      "definition": "FOREIGN KEY (\"personId\") REFERENCES \"AuthorizedPickupPerson\"(id) ON UPDATE CASCADE ON DELETE RESTRICT"
+    },
+    {
+      "relname": "PickupRequest",
+      "conname": "PickupRequest_personId_not_null",
+      "type": "n",
+      "convalidated": true,
+      "condeferrable": false,
+      "definition": "NOT NULL \"personId\""
+    },
+    {
+      "relname": "PickupRequest",
+      "conname": "PickupRequest_photoId_fkey",
+      "type": "f",
+      "convalidated": true,
+      "condeferrable": false,
+      "definition": "FOREIGN KEY (\"photoId\") REFERENCES \"PickupPhoto\"(id) ON UPDATE CASCADE ON DELETE RESTRICT"
+    },
+    {
+      "relname": "PickupRequest",
+      "conname": "PickupRequest_photoId_not_null",
+      "type": "n",
+      "convalidated": true,
+      "condeferrable": false,
+      "definition": "NOT NULL \"photoId\""
+    },
+    {
+      "relname": "PickupRequest",
+      "conname": "PickupRequest_pkey",
+      "type": "p",
+      "convalidated": true,
+      "condeferrable": false,
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "relname": "PickupRequest",
+      "conname": "PickupRequest_requestedById_fkey",
+      "type": "f",
+      "convalidated": true,
+      "condeferrable": false,
+      "definition": "FOREIGN KEY (\"requestedById\") REFERENCES \"User\"(id) ON UPDATE CASCADE ON DELETE RESTRICT"
+    },
+    {
+      "relname": "PickupRequest",
+      "conname": "PickupRequest_requestedById_not_null",
+      "type": "n",
+      "convalidated": true,
+      "condeferrable": false,
+      "definition": "NOT NULL \"requestedById\""
+    },
+    {
+      "relname": "PickupRequest",
+      "conname": "PickupRequest_reviewedById_fkey",
+      "type": "f",
+      "convalidated": true,
+      "condeferrable": false,
+      "definition": "FOREIGN KEY (\"reviewedById\") REFERENCES \"User\"(id) ON UPDATE CASCADE ON DELETE RESTRICT"
+    },
+    {
+      "relname": "PickupRequest",
+      "conname": "PickupRequest_snapshot_not_null",
+      "type": "n",
+      "convalidated": true,
+      "condeferrable": false,
+      "definition": "NOT NULL snapshot"
+    },
+    {
+      "relname": "PickupRequest",
+      "conname": "PickupRequest_state",
+      "type": "c",
+      "convalidated": true,
+      "condeferrable": false,
+      "definition": "CHECK (status = ANY (ARRAY['PENDING'::text, 'COMPLETED'::text, 'CANCELLED'::text, 'EXPIRED'::text, 'REJECTED'::text]))"
+    },
+    {
+      "relname": "PickupRequest",
+      "conname": "PickupRequest_status_not_null",
+      "type": "n",
+      "convalidated": true,
+      "condeferrable": false,
+      "definition": "NOT NULL status"
+    },
+    {
+      "relname": "PickupRequest",
+      "conname": "PickupRequest_verifiedById_fkey",
+      "type": "f",
+      "convalidated": true,
+      "condeferrable": false,
+      "definition": "FOREIGN KEY (\"verifiedById\") REFERENCES \"User\"(id) ON UPDATE CASCADE ON DELETE RESTRICT"
+    },
+    {
+      "relname": "PickupRequest",
+      "conname": "PickupRequest_window",
+      "type": "c",
+      "convalidated": true,
+      "condeferrable": false,
+      "definition": "CHECK (\"windowEnd\" > \"windowStart\" AND \"expiresAt\" <= \"windowEnd\")"
+    },
+    {
+      "relname": "PickupRequest",
+      "conname": "PickupRequest_windowEnd_not_null",
+      "type": "n",
+      "convalidated": true,
+      "condeferrable": false,
+      "definition": "NOT NULL \"windowEnd\""
+    },
+    {
+      "relname": "PickupRequest",
+      "conname": "PickupRequest_windowStart_not_null",
+      "type": "n",
+      "convalidated": true,
+      "condeferrable": false,
+      "definition": "NOT NULL \"windowStart\""
+    }
+  ],
+  "indexes": [
+    {
+      "relname": "AuthorizedPickupPerson",
+      "name": "AuthorizedPickupPerson_childId_active_idx",
+      "indisvalid": true,
+      "indisready": true,
+      "definition": "CREATE INDEX \"AuthorizedPickupPerson_childId_active_idx\" ON public.\"AuthorizedPickupPerson\" USING btree (\"childId\", active)"
+    },
+    {
+      "relname": "AuthorizedPickupPerson",
+      "name": "AuthorizedPickupPerson_pkey",
+      "indisvalid": true,
+      "indisready": true,
+      "definition": "CREATE UNIQUE INDEX \"AuthorizedPickupPerson_pkey\" ON public.\"AuthorizedPickupPerson\" USING btree (id)"
+    },
+    {
+      "relname": "PickupPhoto",
+      "name": "PickupPhoto_childId_idx",
+      "indisvalid": true,
+      "indisready": true,
+      "definition": "CREATE INDEX \"PickupPhoto_childId_idx\" ON public.\"PickupPhoto\" USING btree (\"childId\")"
+    },
+    {
+      "relname": "PickupPhoto",
+      "name": "PickupPhoto_pkey",
+      "indisvalid": true,
+      "indisready": true,
+      "definition": "CREATE UNIQUE INDEX \"PickupPhoto_pkey\" ON public.\"PickupPhoto\" USING btree (id)"
+    },
+    {
+      "relname": "PickupRequest",
+      "name": "PickupRequest_centerId_createdAt_idx",
+      "indisvalid": true,
+      "indisready": true,
+      "definition": "CREATE INDEX \"PickupRequest_centerId_createdAt_idx\" ON public.\"PickupRequest\" USING btree (\"centerId\", \"createdAt\")"
+    },
+    {
+      "relname": "PickupRequest",
+      "name": "PickupRequest_childId_day_idx",
+      "indisvalid": true,
+      "indisready": true,
+      "definition": "CREATE INDEX \"PickupRequest_childId_day_idx\" ON public.\"PickupRequest\" USING btree (\"childId\", day)"
+    },
+    {
+      "relname": "PickupRequest",
+      "name": "PickupRequest_one_completion",
+      "indisvalid": true,
+      "indisready": true,
+      "definition": "CREATE UNIQUE INDEX \"PickupRequest_one_completion\" ON public.\"PickupRequest\" USING btree (\"childId\", day) WHERE (status = 'COMPLETED'::text)"
+    },
+    {
+      "relname": "PickupRequest",
+      "name": "PickupRequest_one_pending",
+      "indisvalid": true,
+      "indisready": true,
+      "definition": "CREATE UNIQUE INDEX \"PickupRequest_one_pending\" ON public.\"PickupRequest\" USING btree (\"childId\", day) WHERE (status = 'PENDING'::text)"
+    },
+    {
+      "relname": "PickupRequest",
+      "name": "PickupRequest_pkey",
+      "indisvalid": true,
+      "indisready": true,
+      "definition": "CREATE UNIQUE INDEX \"PickupRequest_pkey\" ON public.\"PickupRequest\" USING btree (id)"
+    }
+  ],
+  "grants": [
+    {
+      "relname": "AuthorizedPickupPerson",
+      "grantee_oid": "24740",
+      "grantee": "childguard_v2_app",
+      "privilege_type": "INSERT",
+      "is_grantable": false
+    },
+    {
+      "relname": "AuthorizedPickupPerson",
+      "grantee_oid": "24740",
+      "grantee": "childguard_v2_app",
+      "privilege_type": "SELECT",
+      "is_grantable": false
+    },
+    {
+      "relname": "AuthorizedPickupPerson",
+      "grantee_oid": "24740",
+      "grantee": "childguard_v2_app",
+      "privilege_type": "UPDATE",
+      "is_grantable": false
+    },
+    {
+      "relname": "AuthorizedPickupPerson",
+      "grantee_oid": "24742",
+      "grantee": "childguard_v2_migrator",
+      "privilege_type": "DELETE",
+      "is_grantable": false
+    },
+    {
+      "relname": "AuthorizedPickupPerson",
+      "grantee_oid": "24742",
+      "grantee": "childguard_v2_migrator",
+      "privilege_type": "INSERT",
+      "is_grantable": false
+    },
+    {
+      "relname": "AuthorizedPickupPerson",
+      "grantee_oid": "24742",
+      "grantee": "childguard_v2_migrator",
+      "privilege_type": "MAINTAIN",
+      "is_grantable": false
+    },
+    {
+      "relname": "AuthorizedPickupPerson",
+      "grantee_oid": "24742",
+      "grantee": "childguard_v2_migrator",
+      "privilege_type": "REFERENCES",
+      "is_grantable": false
+    },
+    {
+      "relname": "AuthorizedPickupPerson",
+      "grantee_oid": "24742",
+      "grantee": "childguard_v2_migrator",
+      "privilege_type": "SELECT",
+      "is_grantable": false
+    },
+    {
+      "relname": "AuthorizedPickupPerson",
+      "grantee_oid": "24742",
+      "grantee": "childguard_v2_migrator",
+      "privilege_type": "TRIGGER",
+      "is_grantable": false
+    },
+    {
+      "relname": "AuthorizedPickupPerson",
+      "grantee_oid": "24742",
+      "grantee": "childguard_v2_migrator",
+      "privilege_type": "TRUNCATE",
+      "is_grantable": false
+    },
+    {
+      "relname": "AuthorizedPickupPerson",
+      "grantee_oid": "24742",
+      "grantee": "childguard_v2_migrator",
+      "privilege_type": "UPDATE",
+      "is_grantable": false
+    },
+    {
+      "relname": "PickupPhoto",
+      "grantee_oid": "24740",
+      "grantee": "childguard_v2_app",
+      "privilege_type": "INSERT",
+      "is_grantable": false
+    },
+    {
+      "relname": "PickupPhoto",
+      "grantee_oid": "24740",
+      "grantee": "childguard_v2_app",
+      "privilege_type": "SELECT",
+      "is_grantable": false
+    },
+    {
+      "relname": "PickupPhoto",
+      "grantee_oid": "24742",
+      "grantee": "childguard_v2_migrator",
+      "privilege_type": "DELETE",
+      "is_grantable": false
+    },
+    {
+      "relname": "PickupPhoto",
+      "grantee_oid": "24742",
+      "grantee": "childguard_v2_migrator",
+      "privilege_type": "INSERT",
+      "is_grantable": false
+    },
+    {
+      "relname": "PickupPhoto",
+      "grantee_oid": "24742",
+      "grantee": "childguard_v2_migrator",
+      "privilege_type": "MAINTAIN",
+      "is_grantable": false
+    },
+    {
+      "relname": "PickupPhoto",
+      "grantee_oid": "24742",
+      "grantee": "childguard_v2_migrator",
+      "privilege_type": "REFERENCES",
+      "is_grantable": false
+    },
+    {
+      "relname": "PickupPhoto",
+      "grantee_oid": "24742",
+      "grantee": "childguard_v2_migrator",
+      "privilege_type": "SELECT",
+      "is_grantable": false
+    },
+    {
+      "relname": "PickupPhoto",
+      "grantee_oid": "24742",
+      "grantee": "childguard_v2_migrator",
+      "privilege_type": "TRIGGER",
+      "is_grantable": false
+    },
+    {
+      "relname": "PickupPhoto",
+      "grantee_oid": "24742",
+      "grantee": "childguard_v2_migrator",
+      "privilege_type": "TRUNCATE",
+      "is_grantable": false
+    },
+    {
+      "relname": "PickupPhoto",
+      "grantee_oid": "24742",
+      "grantee": "childguard_v2_migrator",
+      "privilege_type": "UPDATE",
+      "is_grantable": false
+    },
+    {
+      "relname": "PickupRequest",
+      "grantee_oid": "24740",
+      "grantee": "childguard_v2_app",
+      "privilege_type": "INSERT",
+      "is_grantable": false
+    },
+    {
+      "relname": "PickupRequest",
+      "grantee_oid": "24740",
+      "grantee": "childguard_v2_app",
+      "privilege_type": "SELECT",
+      "is_grantable": false
+    },
+    {
+      "relname": "PickupRequest",
+      "grantee_oid": "24740",
+      "grantee": "childguard_v2_app",
+      "privilege_type": "UPDATE",
+      "is_grantable": false
+    },
+    {
+      "relname": "PickupRequest",
+      "grantee_oid": "24742",
+      "grantee": "childguard_v2_migrator",
+      "privilege_type": "DELETE",
+      "is_grantable": false
+    },
+    {
+      "relname": "PickupRequest",
+      "grantee_oid": "24742",
+      "grantee": "childguard_v2_migrator",
+      "privilege_type": "INSERT",
+      "is_grantable": false
+    },
+    {
+      "relname": "PickupRequest",
+      "grantee_oid": "24742",
+      "grantee": "childguard_v2_migrator",
+      "privilege_type": "MAINTAIN",
+      "is_grantable": false
+    },
+    {
+      "relname": "PickupRequest",
+      "grantee_oid": "24742",
+      "grantee": "childguard_v2_migrator",
+      "privilege_type": "REFERENCES",
+      "is_grantable": false
+    },
+    {
+      "relname": "PickupRequest",
+      "grantee_oid": "24742",
+      "grantee": "childguard_v2_migrator",
+      "privilege_type": "SELECT",
+      "is_grantable": false
+    },
+    {
+      "relname": "PickupRequest",
+      "grantee_oid": "24742",
+      "grantee": "childguard_v2_migrator",
+      "privilege_type": "TRIGGER",
+      "is_grantable": false
+    },
+    {
+      "relname": "PickupRequest",
+      "grantee_oid": "24742",
+      "grantee": "childguard_v2_migrator",
+      "privilege_type": "TRUNCATE",
+      "is_grantable": false
+    },
+    {
+      "relname": "PickupRequest",
+      "grantee_oid": "24742",
+      "grantee": "childguard_v2_migrator",
+      "privilege_type": "UPDATE",
+      "is_grantable": false
+    }
+  ],
+  "columnGrants": [],
+  "ledgerReadable": false
+}

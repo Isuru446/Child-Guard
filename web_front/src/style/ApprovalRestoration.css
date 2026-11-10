@@ -1,0 +1,10 @@
+.registration-content > h1 { margin:0 0 20px; font-size:24px; font-weight:600; }
+.registration-content > .registration-stats { grid-template-columns:repeat(4,minmax(0,1fr)); }
+.registration-review-section { margin-top:22px; }
+.registration-review-section h2 { margin:0 0 18px; font-size:16px; font-weight:600; }
+.registration-content > .registration-tools > label { flex:1 1 140px; }
+.registration-content .registration-modal > label { display:grid; gap:7px; margin:16px 0; font-size:12px; color:#475569; }
+.registration-content .registration-modal :is(input,textarea) { width:100%; padding:10px 12px; border:1px solid #dbe6f2; border-radius:8px; font:inherit; }
+.registration-content .registration-modal textarea { min-height:90px; }
+@media(max-width:1100px) { .registration-content > .registration-stats { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media(max-width:600px) { .registration-content > .registration-stats { grid-template-columns:minmax(0,1fr); } }

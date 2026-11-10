@@ -1,0 +1,5 @@
+private-media/
+.registration-media-*/
+*.private.json
+.env
+.env.test

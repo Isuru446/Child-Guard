@@ -1,0 +1,43 @@
+/* V2 adapters for the original team UI. Original page CSS remains authoritative. */
+.cg-admin-content { min-width:0; }
+.cg-page-heading,.cg-panel-heading { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; }
+.cg-page-heading h1 { margin:0; font-size:24px; font-weight:600; color:var(--color-text); }
+.cg-page-heading p,.cg-panel-heading p { color:#64748b; font-size:12px; line-height:1.8; margin:6px 0 0; }
+.cg-page-heading { margin-bottom:20px; }
+.cg-panel-heading { margin-bottom:18px; }
+.cg-panel-heading h2 { font-size:16px; margin:0; }
+.cg-panel { padding:20px; border:1px solid #dbe6f2; border-radius:12px; background:white; box-shadow:var(--shadow-card); min-width:0; }
+.cg-page-actions,.cg-pagination { display:flex; align-items:center; flex-wrap:wrap; gap:10px; }
+.cg-pagination { justify-content:flex-end; margin-top:18px; }
+.cg-form-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; }
+.cg-form-grid > :is(p,fieldset,dl,ul,h3,.registration-modal__actions) { grid-column:1/-1; }
+.cg-status { display:inline-flex; padding:5px 9px; border-radius:6px; background:#d6e5f7; color:#2f5f95; font-size:11px; font-weight:600; }
+.cg-status--success { background:#e2f5ec; color:#237a52; }
+.cg-status--warning { background:#fff2d7; color:#925f12; }
+.cg-status--muted { background:#f1f5f9; color:#64748b; }
+.cg-status--danger { background:#fdeae7; color:#b9382c; }
+.cg-cell-title { font-weight:600; color:#1e2a44; }
+.cg-cell-note { display:block; color:#64748b; font-size:11px; }
+.cg-table-scroll { min-width:0; max-width:100%; overflow-x:auto; }
+.cg-table-scroll table { border-collapse:collapse; min-width:650px; width:100%; font-size:12px; }
+.cg-table-scroll :is(th,td) { text-align:left; padding:12px 16px; border-bottom:1px solid #e8eef5; }
+.cg-demo-notice { padding:12px 16px; border:1px solid #f1d8a6; border-radius:8px; background:#fff7e6; color:#81530d; font-size:12px; line-height:1.8; }
+/* Integrated forms use labels instead of the original page-specific form-group wrappers. */
+.cg-admin-content :is(.registration-tools,.cg-form-grid,.cm-toolbar,.restored-filterbar,.activity-settings) label { display:grid; gap:7px; min-width:0; font-size:12px; color:#475569; }
+.cg-admin-content :is(.registration-tools,.cg-form-grid,.cm-toolbar,.restored-filterbar,.activity-settings) :is(input:where(:not([type=checkbox]):not([type=radio])),select,textarea) { min-height:40px; width:100%; min-width:0; padding:9px 12px; border:1px solid #dbe6f2; border-radius:8px; color:#1e2a44; background:#fff; font:inherit; }
+.cg-admin-content :is(input,select,textarea):focus-visible { outline:2px solid #3f7fc1; outline-offset:2px; }
+.cg-admin-content :is(input,select,textarea):disabled { background:#f1f5f9; color:#64748b; cursor:not-allowed; }
+.cg-admin-content label:has(>input[type=checkbox]) { display:flex; align-items:center; flex-wrap:wrap; gap:9px; }
+.cg-admin-content input[type=checkbox] { accent-color:#3f7fc1; }
+.cg-admin-content fieldset { min-width:0; border:1px solid #dbe6f2; border-radius:10px; padding:16px; }
+.cg-admin-content [role=dialog] { overflow-wrap:anywhere; }
+.cg-admin-content [role=dialog] dl { display:grid; grid-template-columns:140px minmax(0,1fr); gap:10px 16px; font-size:12px; line-height:1.7; }
+.cg-admin-content [role=dialog] dl > div { display:contents; }
+.cg-admin-content [role=dialog] dt { color:#64748b; }
+.cg-admin-content [role=dialog] dd { margin:0; min-width:0; }
+.cg-admin-content [role=dialog] :is(p,li) { font-size:12px; line-height:1.8; }
+.cg-admin-content [role=dialog] h3 { font-size:16px; font-weight:600; }
+.cg-admin-content [role=dialog] form > label { display:grid; gap:7px; margin-bottom:14px; }
+.cg-admin-content :is([role=alert],.registration-error) { padding:12px 16px; border-radius:8px; background:#fdeae7; color:#b9382c; font-size:12px; }
+@media(max-width:768px) { .cg-form-grid { grid-template-columns:minmax(0,1fr); } .cg-page-heading h1 { font-size:22px; } .cg-admin-content [role=dialog] dl { grid-template-columns:minmax(0,1fr); gap:4px; } .cg-admin-content [role=dialog] dd { margin-bottom:8px; } }
+@media(prefers-reduced-motion:reduce) { .app-main-content[data-admin-page=management] * { animation:none!important; transition:none!important; scroll-behavior:auto!important; } }
